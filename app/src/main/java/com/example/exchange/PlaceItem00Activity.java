@@ -2,6 +2,7 @@ package com.example.exchange;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -31,6 +32,15 @@ public class PlaceItem00Activity extends AppCompatActivity {
         ImageSlider imageSlider = findViewById(R.id.image_slider);
         imageSlider.setImageList(imageList);
 
+        CheckBox xscb = findViewById(R.id.xscb);
+        CheckBox largecb = findViewById(R.id.largecb);
+        CheckBox xxxlcb = findViewById(R.id.xxxlcb);
+        CheckBox smallcb = findViewById(R.id.smallcb);
+        CheckBox xlcb = findViewById(R.id.xlcb);
+        CheckBox mediumcb = findViewById(R.id.mediumcb);
+        CheckBox xxlcb = findViewById(R.id.xxlcb);
+
+
         findViewById(R.id.backbtn).setOnClickListener(view -> {
             Intent intent = new Intent(PlaceItem00Activity.this, UserHomePageActivity.class);
             startActivity(intent);
@@ -46,6 +56,76 @@ public class PlaceItem00Activity extends AppCompatActivity {
             Intent intent = new Intent(PlaceItem00Activity.this, UserTrackOrdersActivity.class);
             startActivity(intent);
             Toast.makeText(getApplicationContext(),"Successful Placed Order", Toast.LENGTH_LONG).show();
+        });
+        xscb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                largecb.setChecked(false);
+                xxxlcb.setChecked(false);
+                smallcb.setChecked(false);
+                xlcb.setChecked(false);
+                mediumcb.setChecked(false);
+                xxlcb.setChecked(false);
+            }
+        });
+        largecb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                xscb.setChecked(false);
+                xxxlcb.setChecked(false);
+                smallcb.setChecked(false);
+                xlcb.setChecked(false);
+                mediumcb.setChecked(false);
+                xxlcb.setChecked(false);
+            }
+        });
+        xxxlcb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                xscb.setChecked(false);
+                largecb.setChecked(false);
+                smallcb.setChecked(false);
+                xlcb.setChecked(false);
+                mediumcb.setChecked(false);
+                xxlcb.setChecked(false);
+            }
+        });
+        smallcb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                xscb.setChecked(false);
+                largecb.setChecked(false);
+                xxxlcb.setChecked(false);
+                xlcb.setChecked(false);
+                mediumcb.setChecked(false);
+                xxlcb.setChecked(false);
+            }
+        });
+        xlcb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                xscb.setChecked(false);
+                largecb.setChecked(false);
+                xxxlcb.setChecked(false);
+                smallcb.setChecked(false);
+                mediumcb.setChecked(false);
+                xxlcb.setChecked(false);
+            }
+        });
+        mediumcb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                xscb.setChecked(false);
+                largecb.setChecked(false);
+                xxxlcb.setChecked(false);
+                smallcb.setChecked(false);
+                xlcb.setChecked(false);
+                xxlcb.setChecked(false);
+            }
+        });
+        xxlcb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                xscb.setChecked(false);
+                largecb.setChecked(false);
+                xxxlcb.setChecked(false);
+                smallcb.setChecked(false);
+                xlcb.setChecked(false);
+                mediumcb.setChecked(false);
+            }
         });
     }
 }
