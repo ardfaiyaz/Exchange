@@ -16,7 +16,7 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.user_profile);
 
         // Initialize TextViews
-        usernameText = findViewById(R.id.username);
+        usernameText = findViewById(R.id.userprofilename);
         useremailText = findViewById(R.id.useremail);
         userstudentidText = findViewById(R.id.userstudentid);
 
