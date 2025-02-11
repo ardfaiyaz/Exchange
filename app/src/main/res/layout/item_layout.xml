@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+
+    android:layout_marginBottom="15dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="19dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="#FFFFFF">
+
+        <!-- Product Image -->
+
+        <!-- Product Name -->
+
+        <ImageView
+            android:id="@+id/productImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/id_it"
+            android:contentDescription="Product Image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.204" />
+
+        <TextView
+            android:fontFamily="@font/montserrat_bold"
+            android:id="@+id/productName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Computer Society ID Lace"
+            android:textColor="#14155D"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintStart_toEndOf="@id/productImage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Product Description -->
+        <TextView
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/productDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="12dp"
+            android:text="2023 Version"
+            android:textColor="#808080"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/productImage"
+            app:layout_constraintTop_toBottomOf="@id/productName"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Product Price -->
+
+        <!-- Quantity Controls -->
+        <TextView
+            android:id="@+id/productPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="₱ 80"
+            android:textColor="#14155D"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/productImage"
+            app:layout_constraintTop_toBottomOf="@id/productDescription" />
+
+        <LinearLayout
+            android:id="@+id/quantityLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/productDescription">
+
+            <!-- Decrease Button -->
+            <Button
+                android:id="@+id/decreaseQuantity"
+                android:layout_width="40dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_height="35dp"
+                android:backgroundTint="#14155D"
+                android:text="-"
+                android:fontFamily="@font/montserrat_bold"
+                android:padding="5px"
+                android:textColor="#FFFFFF" />
+
+            <!-- Quantity Text -->
+            <TextView
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_gravity="center"
+                android:id="@+id/quantityText"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="#14155D"
+                android:textSize="14sp" />
+
+            <!-- Increase Button -->
+            <Button
+                android:id="@+id/increaseQuantity"
+                android:layout_width="40dp"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_gravity="center"
+                android:layout_height="35dp"
+                android:backgroundTint="#14155D"
+                android:text="+"
+                android:padding="5px"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+        <!-- Remove Button -->
+        <Button
+            android:fontFamily="@font/montserrat_bold"
+            android:id="@+id/removeButton"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:backgroundTint="#FFC107"
+            android:text="Undo"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/quantityLayout" />
+
+        <!-- Checkbox -->
+        <CheckBox
+            android:id="@+id/selectCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
