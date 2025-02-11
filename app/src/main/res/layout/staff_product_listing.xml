@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/productlistingbg">
+
+    <LinearLayout
+        android:id="@+id/backbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="309dp"
+
+        android:orientation="vertical" >
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/accountwhitebg"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:layout_marginTop="430dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/montserrat"
+            android:padding="3dp"
+            android:text="Product Name:"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/firstname2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:background="@android:drawable/edit_text"
+            android:fontFamily="@font/montserrat"
+            android:hint="Enter Here"
+            android:padding="12dp"
+            android:textSize="11dp" />
+
+        <TextView
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/textView21"
+            android:textSize="14sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Decription:"
+            android:layout_marginTop="10dp"
+            android:padding="3dp"
+            android:layout_marginStart="35dp"/>
+
+        <EditText
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:id="@+id/firstname"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@android:drawable/edit_text"
+            android:fontFamily="@font/montserrat"
+            android:hint="Enter Here"
+            android:gravity="top"
+            android:textSize="11dp"
+            android:padding="12dp" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat"
+            android:padding="3dp"
+            android:text="Price:"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/firstname3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="200dp"
+            android:background="@android:drawable/edit_text"
+            android:fontFamily="@font/montserrat"
+            android:hint="P 00.00"
+            android:padding="12dp"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="right"
+            android:padding="3dp"
+            android:text="Stock"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/firstname4"
+            android:layout_width="45dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_gravity="right"
+            android:layout_marginEnd="35dp"
+            android:background="@android:drawable/edit_text"
+            android:fontFamily="@font/montserrat"
+            android:hint="0"
+            android:padding="12dp"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/uploadbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="49dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="835dp"
+        android:layout_marginEnd="19dp"
+        android:orientation="vertical"></LinearLayout>
+
+
+</RelativeLayout>

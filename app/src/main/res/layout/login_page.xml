@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/createaccbg"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_marginHorizontal="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/testtext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="LOGIN"
+                android:textColor="@color/white"
+                android:textSize="39sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/editTextText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:gravity="top"
+                android:layout_weight="1"
+                android:padding="8dp"
+                android:text="Show off your NU pride with the coolest National University T-shirt designs and Merch! Snag yours at the Bulldogs Exchange, located on the 4th floor of NU Dasmariñas. Open every Monday to Friday from 8:30 AM to 4:00 PM."
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@drawable/createaccinputbg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="40dp"
+                        android:orientation="vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp">
+
+                        <EditText
+                            android:id="@+id/usernameinput"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/buttonminus"
+                            android:drawableLeft="@drawable/usernameicon1"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:hint="Username"
+                            android:paddingLeft="27dp"
+                            android:textSize="19sp" />
+
+                        <EditText
+                            android:id="@+id/passwordinput"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/buttonminus"
+                            android:drawableLeft="@drawable/passwordicon01"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:hint="Password"
+                            android:inputType="textPassword"
+                            android:paddingLeft="27dp"
+                            android:textSize="19sp" />
+
+                        <Button
+                            android:id="@+id/loginbtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:backgroundTint="#e4ca23"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:text="Login"
+                            android:textColor="@android:color/white" />
+
+                        <View
+                            android:id="@+id/view"
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="50dp"
+                            android:layout_marginTop="60dp"
+                            android:background="#000000" />
+
+                        <Button
+                            android:id="@+id/createaccbtn"
+                            android:layout_width="305dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="25dp"
+                            android:backgroundTint="#ef6b48"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:text="Create Account" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

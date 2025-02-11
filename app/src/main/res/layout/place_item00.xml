@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#e6e7e8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="900dp"
+        android:background="#e6e7e8"
+        android:orientation="vertical">
+
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/image_slider"
+            android:layout_width="match_parent"
+            android:layout_height="455dp"
+            app:iss_auto_cycle="true"
+            app:iss_delay="1000"
+            app:iss_period="1000"
+            app:iss_text_align="CENTER"
+            tools:ignore="MissingClass" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/itemvalue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:fontFamily="@font/montserrat"
+                        android:paddingTop="20dp"
+                        android:text="₱560"
+                        android:textColor="#ff7301"
+                        android:textSize="29dp" />
+
+                    <TextView
+                        android:id="@+id/itemname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:fontFamily="@font/montserrat"
+                        android:paddingTop="2dp"
+                        android:text="College Traditional Blouse Female XS-XL"
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/itemvalue2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="5dp"
+                        android:text="Select Variation"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="25dp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/xscb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat"
+                            android:text="XS" />
+
+                        <CheckBox
+                            android:id="@+id/largecb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat"
+                            android:text="Large" />
+
+                        <CheckBox
+                            android:id="@+id/xxxlcb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat"
+                            android:text="XXXL" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="188dp"
+                        android:layout_height="53dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="25dp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/smallcb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat"
+                            android:text="Small" />
+
+                        <CheckBox
+                            android:id="@+id/xlcb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat"
+                            android:text="XL" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="251dp"
+                        android:layout_height="53dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="25dp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/mediumcb"
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat"
+                            android:text="Medium" />
+
+                        <CheckBox
+                            android:id="@+id/xxlcb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat"
+                            android:text="XXL" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+
+                            android:id="@+id/textView15"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:gravity="center"
+                            android:text="Quantity" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/montserrat"
+                            android:text="max quantity"
+                            android:gravity="center"
+                            android:textColor="#ff7301"
+                            android:textSize="9sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/placeorderlayout"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:background="#14155d"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/addtocar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#14155d"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/addtocarttxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Add to Cart"
+                android:textColor="@color/white"
+                android:textSize="17dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/placeorderbtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:layout_weight="1"
+            android:background="#e4ca23"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/placeordertxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Place Order"
+                android:textColor="@color/white"
+                android:textSize="17dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/backbtn"
+        android:layout_width="101dp"
+        android:layout_height="62dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="291dp"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="104dp"
+            android:layout_height="72dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="BACK"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+</RelativeLayout>
