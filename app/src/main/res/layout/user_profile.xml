@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/accprof">
+    android:background="#1c256c">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,89 +14,109 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/profileinfos"
             android:layout_width="match_parent"
-            android:layout_height="215dp"
-            android:orientation="horizontal">
+            android:layout_height="230dp"
+            android:background="@drawable/profileinfobg"
+            android:orientation="vertical">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imageView"
-                android:layout_width="129dp"
-                android:layout_height="125dp"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="33dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/elmao"
-                app:shapeAppearanceOverlay="@style/roundedimageview" />
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="40dp"
+                app:srcCompat="@drawable/profilepagelogo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
-                android:layout_gravity="bottom"
-                android:layout_marginEnd="20dp"
-                android:orientation="vertical"
-                android:paddingLeft="20dp">
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView3"
+                <LinearLayout
+                    android:layout_width="255dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imageView13"
+                        android:layout_width="95dp"
+                        android:layout_height="95dp"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/elmao"
+                        app:shapeAppearanceOverlay="@style/roundedimageview" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Welcome back,"
-                    android:textColor="#000000" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="10dp"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="Flight Reacts"
-                    android:textColor="#000000"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Welcome back,"
+                        android:textColor="#000000" />
 
-                <TextView
-                    android:id="@+id/useremail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="flreact@students.nu-dasma.edu.ph"
-                    android:textSize="10sp" />
+                    <TextView
+                        android:id="@+id/userprofilename"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="Flight Reacts"
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/userstudentid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="3dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="2023-180923"
-                    android:textSize="10sp" />
+                    <TextView
+                        android:id="@+id/useremail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
+                        android:text="flreact@students.nu-dasma.edu.ph"
+                        android:textSize="10sp" />
 
+                    <TextView
+                        android:id="@+id/userstudentid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:fontFamily="@font/montserrat"
+                        android:text="2023-180923"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="45dp">
+            android:layout_marginTop="15dp">
 
             <LinearLayout
+                android:layout_marginHorizontal="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="40dp">
+                android:orientation="vertical">
 
                 <TextView
+                    android:padding="15dp"
                     android:id="@+id/textView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="3dp"
                     android:fontFamily="@font/montserrat_bold"
-                    android:paddingHorizontal="35dp"
-                    android:paddingVertical="10dp"
                     android:text="Orders"
+                    android:textAlignment="viewStart"
                     android:textColor="#FDFDFD"
-                    android:textSize="60px"
+                    android:textSize="22dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -109,8 +129,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="125dp"
                         android:layout_gravity="center"
-                        android:layout_marginHorizontal="35dp"
-                        android:layout_marginBottom="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/orderswhitebg"
                         android:orientation="vertical">
@@ -123,11 +141,10 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginTop="10dp"
                         android:id="@+id/userorderhistory"
                         android:layout_width="match_parent"
                         android:layout_height="125dp"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="35dp"
                         android:layout_weight="1"
                         android:background="@drawable/orderswhitebg"
                         android:orientation="vertical">
@@ -141,31 +158,29 @@
                 </LinearLayout>
 
                 <TextView
+                    android:padding="15dp"
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="3dp"
                     android:fontFamily="@font/montserrat_bold"
-                    android:paddingHorizontal="35dp"
-                    android:paddingVertical="10dp"
                     android:text="Account"
+                    android:textAlignment="viewStart"
                     android:textColor="#FDFDFD"
-                    android:textSize="60px"
+                    android:textSize="22dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginHorizontal="25dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:layout_marginEnd="6dp"
                         android:id="@+id/userdeleteacc"
                         android:layout_width="match_parent"
                         android:layout_height="170dp"
-                        android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/accountwhitebg"
                         android:orientation="vertical">
@@ -178,10 +193,10 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginStart="6dp"
                         android:id="@+id/userlogout"
                         android:layout_width="match_parent"
                         android:layout_height="170dp"
-                        android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/accountwhitebg"
                         android:orientation="vertical">
