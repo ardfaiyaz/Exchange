@@ -34,6 +34,7 @@
         </com.denzcoskun.imageslider.ImageSlider>
 
         <ScrollView
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -46,7 +47,6 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:layout_marginBottom="2dp"
                     android:layout_weight="1"
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -73,6 +73,13 @@
                         android:text="College Traditional Blouse Female"
                         android:textSize="16dp" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_weight="1"
+                    android:background="#e6e7e8"
+                    android:orientation="vertical"></LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -183,6 +190,13 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_weight="1"
+                    android:background="#e6e7e8"
+                    android:orientation="vertical"></LinearLayout>
+
             </LinearLayout>
         </ScrollView>
 
@@ -193,6 +207,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:background="#e6e7e8"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:orientation="vertical"></LinearLayout>
 
         <LinearLayout
             android:background="@color/white"
