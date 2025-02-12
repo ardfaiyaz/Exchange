@@ -51,7 +51,16 @@
             <LinearLayout
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/productImageView"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/staffpic" />
+
+            </LinearLayout>
 
             <LinearLayout
 
@@ -59,15 +68,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:padding="15dp"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:textColor="@color/white"
-                    android:id="@+id/textView21"
-
+                <Button
+                    android:id="@+id/selectImageBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="+ Add Image" />
+                    android:text="Select Image" />
+
             </LinearLayout>
         </LinearLayout>
 
