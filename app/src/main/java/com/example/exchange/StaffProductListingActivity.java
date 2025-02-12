@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import io.github.muddz.styleabletoast.StyleableToast;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -75,7 +76,7 @@ public class StaffProductListingActivity extends AppCompatActivity {
             if (!ProductName.isEmpty() && !ProdPrice.isEmpty() && !ProdStock.isEmpty() && selectedVarId != null && selectedImageUri != null) {
                 uploadProduct(ProductName, ProdPrice, ProdStock);
             } else {
-                Toast.makeText(getApplicationContext(), "Please fill all the fields", Toast.LENGTH_LONG).show();
+                StyleableToast.makeText(StaffProductListingActivity.this, "Please fill in all fields.", R.style.accinputerror).show();
             }
         });
 
@@ -115,9 +116,8 @@ public class StaffProductListingActivity extends AppCompatActivity {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String selectedVarName = variants.get(position);
                     selectedVarId = variantMap.get(selectedVarName); // Get the corresponding var_id
-                    Toast.makeText(getApplicationContext(), "Selected: " + selectedVarName + " (ID: " + selectedVarId + ")", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(StaffProductListingActivity.this, selectedVarName + " (" + selectedVarId + ")", R.style.placedordertoast).show();
                 }
-
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                     selectedVarId = null;
@@ -144,10 +144,10 @@ public class StaffProductListingActivity extends AppCompatActivity {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
                     imageViewProduct.setImageBitmap(bitmap);
-                    Toast.makeText(this, "Image selected successfully", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(StaffProductListingActivity.this, "Image selected successfully", R.style.placedordertoast).show();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(StaffProductListingActivity.this, "Failed to load image", R.style.accinputerror).show();
                 }
             }
         }
@@ -178,7 +178,7 @@ public class StaffProductListingActivity extends AppCompatActivity {
                 Response response = client.newCall(request).execute();
                 runOnUiThread(() -> {
                     try {
-                        Toast.makeText(getApplicationContext(), "Server Response: " + response.body().string(), Toast.LENGTH_LONG).show();
+                        StyleableToast.makeText(StaffProductListingActivity.this, "Server Response: " + response.body().string(), R.style.accinputerror).show();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
