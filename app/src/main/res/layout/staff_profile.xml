@@ -151,25 +151,9 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/staffreserveationbtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="6dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/orderswhitebg"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:srcCompat="@drawable/reservation_staffdashboard" />
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:id="@+id/stafftrackorderbtn"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="6dp"
                         android:layout_weight="1"
                         android:background="@drawable/orderswhitebg"
                         android:orientation="vertical">
