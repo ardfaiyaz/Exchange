@@ -11,41 +11,71 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginTop="150dp"
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/firstitem"
-            android:background="@drawable/accountwhitebg"
-            android:layout_gravity="center"
-            android:layout_width="365dp"
-            android:layout_height="150dp"
-            android:layout_marginBottom="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:background="@drawable/profileinfobg"
             android:orientation="vertical">
 
-            <TextView
-                android:fontFamily="@font/montserrat_bold"
-                android:id="@+id/textView12"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="FIRST ITEM" />
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+
+                    android:id="@+id/backbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/montserrat"
+                        android:gravity="bottom"
+                        android:text="BACK" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:src="@drawable/trackorderstxt" />
+            </LinearLayout>
         </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/stafftrackordersrview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/backbtn"
-        android:layout_width="82dp"
-        android:layout_height="80dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="310dp"
-
-        android:orientation="vertical" />
 
     <LinearLayout
         android:id="@+id/bottomnav"
