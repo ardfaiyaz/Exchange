@@ -21,8 +21,13 @@ public class StaffNotificationsActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        findViewById(R.id.staffnotifbtn).setOnClickListener(view -> {
+            Intent intent = new Intent(StaffNotificationsActivity.this, StaffNotificationsActivity.class);
+            startActivity(intent);
+        });
+
         findViewById(R.id.staffhomebtn).setOnClickListener(view -> {
-            Intent intent = new Intent(StaffNotificationsActivity.this, UserHomePageActivity.class);
+            Intent intent = new Intent(StaffNotificationsActivity.this, StaffHomePageActivity.class);
             startActivity(intent);
         });
     }

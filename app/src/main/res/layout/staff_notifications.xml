@@ -90,7 +90,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/usercartbtn"
+            android:id="@+id/staffnotifbtn"
             android:layout_width="137dp"
             android:layout_height="match_parent"
             android:background="@drawable/bottomnavbg_active"

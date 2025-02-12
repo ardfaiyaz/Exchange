@@ -78,7 +78,7 @@ public class StaffProductListingActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.selectImageBtn).setOnClickListener(v -> {
+        findViewById(R.id.selectImageBtn).setOnClickListener(view -> {
             openGalleryForImage();
         });
     }

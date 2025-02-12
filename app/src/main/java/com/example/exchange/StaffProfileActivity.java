@@ -57,6 +57,11 @@ public class StaffProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(StaffProfileActivity.this, StaffHomePageActivity.class);
             startActivity(intent);
         });
+
+        findViewById(R.id.staffhomebtn).setOnClickListener(view -> {
+            Intent intent = new Intent(StaffProfileActivity.this, StaffProfileActivity.class);
+            startActivity(intent);
+        });
     }
 
     @SuppressLint("SetTextI18n")
