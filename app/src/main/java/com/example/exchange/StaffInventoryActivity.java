@@ -34,7 +34,12 @@ public class StaffInventoryActivity extends AppCompatActivity {
 
         invAdapter = new INV_Adapter(inventoryList);
         recyclerView.setAdapter(invAdapter);
-        
+
+        findViewById(R.id.backbtn).setOnClickListener(view -> {
+            Intent intent = new Intent(StaffInventoryActivity.this, StaffProfileActivity.class);
+            startActivity(intent);
+        });
+
 
 
     }

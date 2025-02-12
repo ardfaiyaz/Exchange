@@ -15,13 +15,18 @@ public class StaffTrackOrdersActivity extends AppCompatActivity {
         setContentView(R.layout.staff_track_orders);
 
         // Correctly initializing and setting the OnClickListener inside onCreate
-        findViewById(R.id.usercartbtn).setOnClickListener(view -> {
+        findViewById(R.id.staffprofilebtn).setOnClickListener(view -> {
+            Intent intent = new Intent(StaffTrackOrdersActivity.this, StaffProfileActivity.class);
+            startActivity(intent);
+        });
+
+        findViewById(R.id.staffnotifbtn).setOnClickListener(view -> {
             Intent intent = new Intent(StaffTrackOrdersActivity.this, StaffNotificationsActivity.class);
             startActivity(intent);
         });
 
-        findViewById(R.id.backbtn).setOnClickListener(view -> {
-            Intent intent = new Intent(StaffTrackOrdersActivity.this, StaffProfileActivity.class);
+        findViewById(R.id.staffhomebtn).setOnClickListener(view -> {
+            Intent intent = new Intent(StaffTrackOrdersActivity.this, StaffHomePageActivity.class);
             startActivity(intent);
         });
 

@@ -41,6 +41,11 @@ public class StaffHomePageActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        findViewById(R.id.staffhomebtn).setOnClickListener(view -> {
+            Intent intent = new Intent(StaffHomePageActivity.this, StaffHomePageActivity.class);
+            startActivity(intent);
+        });
+
 
     }
 }
