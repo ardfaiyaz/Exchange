@@ -15,7 +15,7 @@ import okhttp3.Response;
 public class CreateAccountActivity extends AppCompatActivity {
 
     EditText etFirstName, etLastName, etUserID, etEmail, etPassword;
-    String userRole = "Developer";
+    String userRole; // Default role
 
     OkHttpClient client = new OkHttpClient();
 
@@ -44,6 +44,16 @@ public class CreateAccountActivity extends AppCompatActivity {
 
             // Extract username from email
             String username = Email.contains("@") ? Email.split("@")[0].toLowerCase() : "";
+
+            // Determine user role based on the first two digits of UserID
+            if (UserID.length() >= 2) {
+                String firstTwoDigits = UserID.substring(0, 2);
+                if (firstTwoDigits.equals("20")) {
+                    userRole = "Student";
+                } else if (firstTwoDigits.equals("21")) {
+                    userRole = "Developer";
+                }
+            }
 
             // Validation checks
             if (FirstName.isEmpty() || LastName.isEmpty() || Email.isEmpty() || UserID.isEmpty() || Password.isEmpty()) {
