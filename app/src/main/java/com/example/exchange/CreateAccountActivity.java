@@ -45,14 +45,20 @@ public class CreateAccountActivity extends AppCompatActivity {
             // Extract username from email
             String username = Email.contains("@") ? Email.split("@")[0].toLowerCase() : "";
 
-            // Determine user role based on the first two digits of UserID
-            if (UserID.length() >= 2) {
-                String firstTwoDigits = UserID.substring(0, 2);
-                if (firstTwoDigits.equals("20")) {
-                    userRole = "Student";
-                } else if (firstTwoDigits.equals("21")) {
-                    userRole = "Developer";
-                }
+            // Validate UserID and determine user role
+            if (UserID.length() < 2) {
+                StyleableToast.makeText(CreateAccountActivity.this, "Invalid Student ID", R.style.accinputerror).show();
+                return; // Stop the process
+            }
+
+            String firstTwoDigits = UserID.substring(0, 2);
+            if (firstTwoDigits.equals("20")) {
+                userRole = "Student";
+            } else if (firstTwoDigits.equals("21")) {
+                userRole = "Developer";
+            } else {
+                StyleableToast.makeText(CreateAccountActivity.this, "Invalid Student ID", R.style.accinputerror).show();
+                return; // Stop the process
             }
 
             // Validation checks
