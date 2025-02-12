@@ -59,7 +59,7 @@ public class StaffProfileActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.staffhomebtn).setOnClickListener(view -> {
-            Intent intent = new Intent(StaffProfileActivity.this, UserHomePageActivity.class);
+            Intent intent = new Intent(StaffProfileActivity.this, StaffHomePageActivity.class);
             startActivity(intent);
         });
     }
