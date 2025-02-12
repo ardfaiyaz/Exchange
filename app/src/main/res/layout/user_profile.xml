@@ -238,6 +238,20 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/usernotifbtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bottomnavbg"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/notificationbtn_unactive" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/usercartbtn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
