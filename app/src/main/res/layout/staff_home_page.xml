@@ -37,12 +37,12 @@
                 app:srcCompat="@drawable/homepagapplogo" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_gravity="right"
                 android:id="@+id/staffhomepagerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:paddingHorizontal="16dp"
                 android:paddingVertical="10dp"
+                android:paddingHorizontal="45dp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
