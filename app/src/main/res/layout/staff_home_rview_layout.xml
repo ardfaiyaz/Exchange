@@ -9,6 +9,7 @@
     app:cardElevation="19dp">
 
     <LinearLayout
+        android:gravity="center"
         android:layout_gravity="center"
         android:padding="10dp"
         android:layout_width="match_parent"
