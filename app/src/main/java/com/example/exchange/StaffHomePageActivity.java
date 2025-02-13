@@ -36,25 +36,30 @@ public class StaffHomePageActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.staffhomepagerview);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        List<String> itemList = new ArrayList<>();
-        for (int i = 1; i <= 6; i++) {
-            itemList.add("Item " + i);
-        }
+        // Create Product List (Replacing Strings with Product Objects)
+        List<Product> productList = new ArrayList<>();
+        productList.add(new Product("Product 1", 199.99, R.drawable.lbj1));
+        productList.add(new Product("Product 2", 299.99, R.drawable.lbj1));
+        productList.add(new Product("Product 3", 399.99, R.drawable.lbj2));
+        productList.add(new Product("Product 4", 499.99, R.drawable.lbj2));
+        productList.add(new Product("Product 5", 599.99, R.drawable.lbj3));
+        productList.add(new Product("Product 6", 699.99, R.drawable.lbj3));
 
-        StaffHomePageAdapter adapter = new StaffHomePageAdapter(itemList);
+        // Pass the Product List to the Adapter
+        StaffHomePageAdapter adapter = new StaffHomePageAdapter(this, productList);
         recyclerView.setAdapter(adapter);
 
         // Button Listeners
-        findViewById(R.id.staffprofilebtn).setOnClickListener(view -> {
-            startActivity(new Intent(StaffHomePageActivity.this, StaffProfileActivity.class));
-        });
+        findViewById(R.id.staffprofilebtn).setOnClickListener(view ->
+                startActivity(new Intent(StaffHomePageActivity.this, StaffProfileActivity.class))
+        );
 
-        findViewById(R.id.staffnotifbtn).setOnClickListener(view -> {
-            startActivity(new Intent(StaffHomePageActivity.this, StaffNotificationsActivity.class));
-        });
+        findViewById(R.id.staffnotifbtn).setOnClickListener(view ->
+                startActivity(new Intent(StaffHomePageActivity.this, StaffNotificationsActivity.class))
+        );
 
-        findViewById(R.id.staffhomebtn).setOnClickListener(view -> {
-            startActivity(new Intent(StaffHomePageActivity.this, StaffHomePageActivity.class));
-        });
+        findViewById(R.id.staffhomebtn).setOnClickListener(view ->
+                startActivity(new Intent(StaffHomePageActivity.this, StaffHomePageActivity.class))
+        );
     }
 }
