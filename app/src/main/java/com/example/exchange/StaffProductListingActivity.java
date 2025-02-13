@@ -3,6 +3,7 @@ package com.example.exchange;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -54,7 +55,6 @@ public class StaffProductListingActivity extends AppCompatActivity {
         etProdStock = findViewById(R.id.productstockid);
         spinnerVar = findViewById(R.id.variationspinner);
         imageViewProduct = findViewById(R.id.productImageView);
-
 
         requestStoragePermission(); // 🔹 Request permissions here
 
@@ -167,7 +167,8 @@ public class StaffProductListingActivity extends AppCompatActivity {
                         .addFormDataPart("prod_price", prodPrice)
                         .addFormDataPart("prod_stock", prodStock)
                         .addFormDataPart("var_id", selectedVarId)
-                        .addFormDataPart("prod_image", "product_image.jpg", RequestBody.create(MediaType.parse("image/jpeg"), byteArray))
+                        .addFormDataPart("prod_image", "product_image.jpg",
+                                RequestBody.create(MediaType.parse("image/jpeg"), byteArray))
                         .build();
 
                 Request request = new Request.Builder()
@@ -176,16 +177,29 @@ public class StaffProductListingActivity extends AppCompatActivity {
                         .build();
 
                 Response response = client.newCall(request).execute();
+                String responseString = response.body().string();
+
                 runOnUiThread(() -> {
-                    try {
-                        StyleableToast.makeText(StaffProductListingActivity.this, "Server Response: " + response.body().string(), R.style.accinputerror).show();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    if (responseString.contains("\"status\":\"success\"")) {
+                        StyleableToast.makeText(StaffProductListingActivity.this, "Upload successful!", R.style.placedordertoast).show();
+
+                        etProductName.setText("");
+                        etProdPrice.setText("");
+                        etProdStock.setText("");
+
+                        imageViewProduct.setImageDrawable(Drawable.createFromPath("pldefaultpic"));
+                    } else {
+                        StyleableToast.makeText(StaffProductListingActivity.this, "Upload failed: " + responseString, R.style.accinputerror).show();
                     }
                 });
+
             } catch (Exception e) {
                 e.printStackTrace();
+                runOnUiThread(() ->
+                        StyleableToast.makeText(StaffProductListingActivity.this, "Error: " + e.getMessage(), R.style.accinputerror).show()
+                );
             }
         }).start();
     }
+
 }
