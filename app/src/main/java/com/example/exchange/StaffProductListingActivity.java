@@ -1,11 +1,12 @@
 package com.example.exchange;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,22 +15,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import android.Manifest;
+import android.os.Build;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import okhttp3.FormBody;
+import io.github.muddz.styleabletoast.StyleableToast;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -59,7 +56,12 @@ public class StaffProductListingActivity extends AppCompatActivity {
         spinnerVar = findViewById(R.id.variationspinner);
         imageViewProduct = findViewById(R.id.productImageView);
 
+        requestStoragePermission(); // 🔹 Request permissions here
+
         loadProductVariants();
+
+        findViewById(R.id.selectImageBtn).setOnClickListener(v -> openGalleryForImage());
+
 
         findViewById(R.id.backbtn).setOnClickListener(view -> {
             Intent intent = new Intent(StaffProductListingActivity.this, StaffProfileActivity.class);
@@ -74,66 +76,56 @@ public class StaffProductListingActivity extends AppCompatActivity {
             if (!ProductName.isEmpty() && !ProdPrice.isEmpty() && !ProdStock.isEmpty() && selectedVarId != null && selectedImageUri != null) {
                 uploadProduct(ProductName, ProdPrice, ProdStock);
             } else {
-                Toast.makeText(getApplicationContext(), "Please fill all the fields", Toast.LENGTH_LONG).show();
+                StyleableToast.makeText(StaffProductListingActivity.this, "Please fill in all fields.", R.style.accinputerror).show();
             }
         });
 
-        findViewById(R.id.selectImageBtn).setOnClickListener(v -> {
-            openGalleryForImage();
-        });
+        findViewById(R.id.selectImageBtn).setOnClickListener(v -> openGalleryForImage());
     }
+
+    private void requestStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13+
+            if (checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES}, 101);
+            }
+        } else { // For Android 12 and below
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 101);
+            }
+        }
+    }
+
 
     private void loadProductVariants() {
-        new Thread(() -> {
-            try {
-                URL url = new URL("http://10.0.2.2/Exchange/get_product_var.php");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
+        // Manually define variants
+        HashMap<String, String> variantMap = new HashMap<>();
+        variantMap.put("Small", "S");
+        variantMap.put("Medium", "M");
+        variantMap.put("Large", "L");
 
-                InputStream inputStream = connection.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        ArrayList<String> variants = new ArrayList<>(variantMap.keySet());
 
-                StringBuilder result = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
+        // Set up adapter for spinner
+        runOnUiThread(() -> {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, variants);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerVar.setAdapter(adapter);
+
+            spinnerVar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String selectedVarName = variants.get(position);
+                    selectedVarId = variantMap.get(selectedVarName); // Get the corresponding var_id
+                    StyleableToast.makeText(StaffProductListingActivity.this, selectedVarName + " (" + selectedVarId + ")", R.style.placedordertoast).show();
                 }
-
-                JSONArray jsonArray = new JSONArray(result.toString());
-                ArrayList<String> variants = new ArrayList<>();
-                HashMap<String, String> variantMap = new HashMap<>();
-
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject obj = jsonArray.getJSONObject(i);
-                    String varName = obj.getString("var_name");
-                    String varId = obj.getString("var_id");
-
-                    variants.add(varName);
-                    variantMap.put(varName, varId);
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    selectedVarId = null;
                 }
-
-                runOnUiThread(() -> {
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, variants);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinnerVar.setAdapter(adapter);
-
-                    spinnerVar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            String selectedVarName = variants.get(position);
-                            selectedVarId = variantMap.get(selectedVarName);
-                        }
-
-                        public void onNothingSelected(AdapterView<?> parent) {
-                            selectedVarId = null;
-                        }
-                    });
-                });
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
+            });
+        });
     }
+
 
     private void openGalleryForImage() {
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -141,12 +133,23 @@ public class StaffProductListingActivity extends AppCompatActivity {
         startActivityForResult(intent, 100);
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.getData();
-            imageViewProduct.setImageURI(selectedImageUri);
+
+            if (selectedImageUri != null) {
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+                    imageViewProduct.setImageBitmap(bitmap);
+                    StyleableToast.makeText(StaffProductListingActivity.this, "Image selected successfully", R.style.placedordertoast).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    StyleableToast.makeText(StaffProductListingActivity.this, "Failed to load image", R.style.accinputerror).show();
+                }
+            }
         }
     }
 
@@ -164,7 +167,8 @@ public class StaffProductListingActivity extends AppCompatActivity {
                         .addFormDataPart("prod_price", prodPrice)
                         .addFormDataPart("prod_stock", prodStock)
                         .addFormDataPart("var_id", selectedVarId)
-                        .addFormDataPart("prod_image", "product_image.jpg", RequestBody.create(MediaType.parse("image/jpeg"), byteArray))
+                        .addFormDataPart("prod_image", "product_image.jpg",
+                                RequestBody.create(MediaType.parse("image/jpeg"), byteArray))
                         .build();
 
                 Request request = new Request.Builder()
@@ -173,17 +177,29 @@ public class StaffProductListingActivity extends AppCompatActivity {
                         .build();
 
                 Response response = client.newCall(request).execute();
+                String responseString = response.body().string();
 
-                if (response.isSuccessful()) {
-                    runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Product uploaded successfully", Toast.LENGTH_LONG).show());
-                } else {
-                    runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Failed to upload product", Toast.LENGTH_LONG).show());
-                }
+                runOnUiThread(() -> {
+                    if (responseString.contains("\"status\":\"success\"")) {
+                        StyleableToast.makeText(StaffProductListingActivity.this, "Upload successful!", R.style.placedordertoast).show();
+
+                        etProductName.setText("");
+                        etProdPrice.setText("");
+                        etProdStock.setText("");
+
+                        imageViewProduct.setImageDrawable(Drawable.createFromPath("pldefaultpic"));
+                    } else {
+                        StyleableToast.makeText(StaffProductListingActivity.this, "Upload failed: " + responseString, R.style.accinputerror).show();
+                    }
+                });
 
             } catch (Exception e) {
                 e.printStackTrace();
-                runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Error occurred while uploading", Toast.LENGTH_LONG).show());
+                runOnUiThread(() ->
+                        StyleableToast.makeText(StaffProductListingActivity.this, "Error: " + e.getMessage(), R.style.accinputerror).show()
+                );
             }
         }).start();
     }
+
 }
