@@ -20,20 +20,20 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/backbtn"
+                android:layout_gravity="left"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:layout_gravity="left"
+                android:id="@+id/backbtn"
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center"
                     android:id="@+id/textView31"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:gravity="center"
-                    android:text="BACK"
-                    android:textColor="@color/white" />
+                    android:text="BACK" />
             </LinearLayout>
 
             <LinearLayout
@@ -58,8 +58,8 @@
                     android:id="@+id/productImageView"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:background="@drawable/pldefaultpic"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/pldefaultpic" />
 
             </LinearLayout>
 
@@ -70,142 +70,135 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textColor="@color/white"
+                    android:gravity="center"
                     android:id="@+id/textView12"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:gravity="center"
-                    android:text="+ Add Image"
-                    android:textColor="@color/white" />
+                    android:text="+ Add Image" />
             </LinearLayout>
         </LinearLayout>
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:background="@drawable/accountwhitebg"
+                android:orientation="vertical"
+                android:padding="30dp">
 
-                android:orientation="vertical" >
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textView18"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="30dp"
-                    android:background="@drawable/accountwhitebg"
-                    android:orientation="vertical"
-                    android:padding="30dp">
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:padding="3dp"
+                    android:text="Product Name:"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/textView18"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat"
-                        android:padding="3dp"
-                        android:text="Product Name:"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/productnameid"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@android:drawable/edit_text"
-                        android:fontFamily="@font/montserrat"
-                        android:hint="Enter Here"
-                        android:padding="12dp"
-                        android:textSize="11dp" />
-
-                    <TextView
-                        android:id="@+id/textView22"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat"
-                        android:padding="3dp"
-                        android:text="Select Variation:"
-                        android:textSize="14sp" />
-
-                    <Spinner
-                        android:id="@+id/variationspinner"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:padding="15dp"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/textView23"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat"
-                        android:padding="3dp"
-                        android:text="Price:"
-                        android:textSize="13sp" />
-
-                    <EditText
-                        android:id="@+id/productpriceid"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@android:drawable/edit_text"
-                        android:fontFamily="@font/montserrat"
-                        android:hint="P 00.00"
-                        android:inputType="number"
-                        android:padding="12dp"
-                        android:textSize="11dp" />
-
-                    <TextView
-                        android:id="@+id/textView24"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat"
-                        android:gravity="right"
-                        android:inputType="number"
-                        android:padding="3dp"
-                        android:text="Stock"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/productstockid"
-                        android:layout_width="60dp"
-                        android:layout_height="45dp"
-                        android:layout_gravity="right"
-                        android:background="@android:drawable/edit_text"
-                        android:fontFamily="@font/montserrat"
-                        android:gravity="center"
-                        android:hint="0"
-                        android:padding="12dp"
-                        android:textSize="13dp" />
-                </LinearLayout>
-
-                <LinearLayout
+                <EditText
+                    android:id="@+id/productnameid"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/edit_text"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Enter Here"
+                    android:padding="12dp"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:padding="3dp"
+                    android:text="Select Variation:"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/variationspinner"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:padding="3dp"
+                    android:text="Price:"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/productpriceid"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/edit_text"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="P 00.00"
+                    android:inputType="number"
+                    android:padding="12dp"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:gravity="right"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="30dp"
-                    android:paddingVertical="25dp">
+                    android:inputType="number"
+                    android:padding="3dp"
+                    android:text="Stock"
+                    android:textSize="18sp" />
 
-                    <LinearLayout
-                        android:layout_width="130dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/uploadbtnbg"
-                        android:orientation="vertical">
+                <EditText
+                    android:id="@+id/productstockid"
+                    android:layout_width="60dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="right"
+                    android:background="@android:drawable/edit_text"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:hint="0"
+                    android:padding="12dp"
+                    android:textSize="13dp" />
+            </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/uploadbtn"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:fontFamily="@font/montserrat_bold"
-                            android:gravity="center"
-                            android:text="UPLOAD"
-                            android:textColor="@color/black" />
-                    </LinearLayout>
+            <LinearLayout
+                android:paddingHorizontal="30dp"
+                android:gravity="center|right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:background="@drawable/uploadbtnbg"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:gravity="center"
+                        android:id="@+id/uploadbtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="UPLOAD" />
                 </LinearLayout>
             </LinearLayout>
-        </ScrollView>
 
+        </LinearLayout>
     </LinearLayout>
 
 
