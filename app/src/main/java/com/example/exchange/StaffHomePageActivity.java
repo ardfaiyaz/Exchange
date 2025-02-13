@@ -5,12 +5,15 @@ import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StaffHomePageActivity extends AppCompatActivity {
 
@@ -20,32 +23,38 @@ public class StaffHomePageActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.staff_home_page);
 
-        ArrayList<SlideModel> imageList = new ArrayList<>(); // Create image list
-
-        // Add images and titles to the list
+        // Set up Image Slider
+        ArrayList<SlideModel> imageList = new ArrayList<>();
         imageList.add(new SlideModel(R.drawable.lbj1, ScaleTypes.CENTER_CROP));
         imageList.add(new SlideModel(R.drawable.lbj2, ScaleTypes.CENTER_CROP));
         imageList.add(new SlideModel(R.drawable.lbj3, ScaleTypes.CENTER_CROP));
 
-        // Find ImageSlider and set the image list
         ImageSlider imageSlider = findViewById(R.id.image_slider);
         imageSlider.setImageList(imageList);
 
+        // Set up RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.staffhomepagerview);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        List<String> itemList = new ArrayList<>();
+        for (int i = 1; i <= 6; i++) {
+            itemList.add("Item " + i);
+        }
+
+        StaffHomePageAdapter adapter = new StaffHomePageAdapter(itemList);
+        recyclerView.setAdapter(adapter);
+
+        // Button Listeners
         findViewById(R.id.staffprofilebtn).setOnClickListener(view -> {
-            Intent intent = new Intent(StaffHomePageActivity.this, StaffProfileActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(StaffHomePageActivity.this, StaffProfileActivity.class));
         });
 
         findViewById(R.id.staffnotifbtn).setOnClickListener(view -> {
-            Intent intent = new Intent(StaffHomePageActivity.this, StaffNotificationsActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(StaffHomePageActivity.this, StaffNotificationsActivity.class));
         });
 
         findViewById(R.id.staffhomebtn).setOnClickListener(view -> {
-            Intent intent = new Intent(StaffHomePageActivity.this, StaffHomePageActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(StaffHomePageActivity.this, StaffHomePageActivity.class));
         });
-
-
     }
 }
