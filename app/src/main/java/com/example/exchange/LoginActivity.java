@@ -54,6 +54,9 @@ public class LoginActivity extends AppCompatActivity {
             String password = params[1];
             String apiUrl = "http://10.0.2.2/Exchange/login.php"; // Update with actual API URL
 
+            Log.d("LoginTask", "Username sent: " + username);
+            Log.d("LoginTask", "Password sent: " + password);
+
             try {
                 URL url = new URL(apiUrl);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -61,21 +64,28 @@ public class LoginActivity extends AppCompatActivity {
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setDoOutput(true);
 
-                // Send POST data using username
+                // Send POST data using username and password
                 String postData = "username=" + username + "&password=" + password;
                 OutputStream os = conn.getOutputStream();
                 os.write(postData.getBytes());
                 os.flush();
                 os.close();
 
-                // Read response
-                Scanner scanner = new Scanner(conn.getInputStream());
+                // Check response code to determine which stream to use
+                int responseCode = conn.getResponseCode();
+                Scanner scanner;
+                if (responseCode >= HttpURLConnection.HTTP_BAD_REQUEST) {
+                    // Use error stream for error responses
+                    scanner = new Scanner(conn.getErrorStream());
+                } else {
+                    scanner = new Scanner(conn.getInputStream());
+                }
+
                 StringBuilder response = new StringBuilder();
                 while (scanner.hasNext()) {
                     response.append(scanner.nextLine());
                 }
                 scanner.close();
-
                 return response.toString();
             } catch (Exception e) {
                 Log.e("LoginTask", "Error: " + e.getMessage());
@@ -90,6 +100,9 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             try {
+                // Log the response to help debugging
+                Log.d("LoginTask", "Response: " + result);
+
                 JSONObject response = new JSONObject(result);
                 String status = response.getString("status");
 
@@ -98,6 +111,9 @@ public class LoginActivity extends AppCompatActivity {
                     int userId = user.getInt("user_id");
                     String firstName = user.getString("first_name");
                     String lastName = user.getString("last_name");
+                    String userRole = user.getString("user_role"); // FETCH THE ROLE
+
+                    Log.d("user_role", "User role sent: " + userRole);
 
                     // Save user details in SharedPreferences
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
@@ -105,16 +121,26 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putInt("USER_ID", userId);
                     editor.putString("USER_FIRST_NAME", firstName);
                     editor.putString("USER_LAST_NAME", lastName);
+                    editor.putString("USER_ROLE", userRole); // STORE ROLE IN PREFS
                     editor.apply();
 
                     // Show welcome message
                     StyleableToast.makeText(LoginActivity.this, "Welcome, " + firstName + "!", R.style.placedordertoast).show();
 
-                    // Navigate to user homepage
-                    Intent intent = new Intent(LoginActivity.this, StaffProfileActivity.class);
-                    intent.putExtra("user_id", userId);
-                    startActivity(intent);
-                    finish();
+                    // REDIRECT BASED ON ROLE
+                    if (userRole.equalsIgnoreCase("Developer")) {
+                        // If role is Developer, go to StaffProfileActivity
+                        Intent intent = new Intent(LoginActivity.this, StaffProfileActivity.class);
+                        intent.putExtra("user_id", userId);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        // If role is Student (or something else), go to UserHomePageActivity
+                        Intent intent = new Intent(LoginActivity.this, UserHomePageActivity.class);
+                        intent.putExtra("user_id", userId);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     StyleableToast.makeText(LoginActivity.this, "Invalid username or password", R.style.accinputerror).show();
                 }
