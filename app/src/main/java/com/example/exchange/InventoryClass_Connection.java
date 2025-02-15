@@ -61,12 +61,14 @@ public class MainActivity extends AppCompatActivity {
         itemAdapter = new com.example.exchange.item_adapter(itemList);
         recyclerView.setAdapter(itemAdapter);
 
-        // Button to add new product (manually for now)
-        /*Button addButton = findViewById(R.id.add_button);
-        addButton.setOnClickListener(v -> addNewProduct());*/
-    }
+        Button addButton = findViewById(R.id.add_button);
+        addButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, StaffProductListingActivity.class);
+            startActivity(intent);
+        });
 
-    private void addNewProduct() {
+
+        private void addNewProduct() {
         // Add a new item dynamically
         itemList.add(new com.example.exchange.item_product("New ITEM", "₱100.00", "20/50", R.drawable.item_id_lace));
 
