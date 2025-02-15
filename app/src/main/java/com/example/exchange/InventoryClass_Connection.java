@@ -17,8 +17,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private com.example.inventory_exchange_draft_1.item_adapter itemAdapter;
-    private List<com.example.inventory_exchange_draft_1.item_product> itemList;
+    private com.example.exchange.item_adapter itemAdapter;
+    private List<com.example.exchange.item_product> itemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Sample Data
         itemList = new ArrayList<>();
-        itemList.add(new com.example.inventory_exchange_draft_1.item_product("ITEM #1 LACE BSIT", "₱80.00", "92/100", R.drawable.item_id_lace));
-        itemList.add(new com.example.inventory_exchange_draft_1.item_product("ITEM #2 KEYCHAIN", "₱50.00", "50/100", R.drawable.item_id_lace));
-        itemList.add(new com.example.inventory_exchange_draft_1.item_product("ITEM #3 STICKER", "₱20.00", "75/100", R.drawable.item_id_lace));
+        itemList.add(new com.example.exchange.item_product("ITEM #1 LACE BSIT", "₱80.00", "92/100", R.drawable.item_id_lace));
+        itemList.add(new com.example.exchange.item_product("ITEM #2 KEYCHAIN", "₱50.00", "50/100", R.drawable.item_id_lace));
+        itemList.add(new com.example.exchange.item_product("ITEM #3 STICKER", "₱20.00", "75/100", R.drawable.item_id_lace));
 
         // Set adapter
-        itemAdapter = new com.example.inventory_exchange_draft_1.item_adapter(itemList);
+        itemAdapter = new com.example.exchange.item_adapter(itemList);
         recyclerView.setAdapter(itemAdapter);
 
         // Button to add new product (manually for now)
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addNewProduct() {
         // Add a new item dynamically
-        itemList.add(new com.example.inventory_exchange_draft_1.item_product("New ITEM", "₱100.00", "20/50", R.drawable.item_id_lace));
+        itemList.add(new com.example.exchange.item_product("New ITEM", "₱100.00", "20/50", R.drawable.item_id_lace));
 
         // Notify the adapter that data has changed
         itemAdapter.notifyItemInserted(itemList.size() - 1);

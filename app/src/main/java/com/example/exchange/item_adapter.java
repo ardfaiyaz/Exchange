@@ -14,9 +14,9 @@ import java.util.List;
 
 public class item_adapter extends RecyclerView.Adapter<item_adapter.ItemViewHolder> {
 
-    private List<com.example.inventory_exchange_draft_1.item_product> itemList;
+    private List<com.example.exchange.item_product> itemList;
 
-    public item_adapter(List<com.example.inventory_exchange_draft_1.item_product> itemList) {
+    public item_adapter(List<com.example.exchange.item_product> itemList) {
         this.itemList = itemList;
     }
 
@@ -29,7 +29,7 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.ItemViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        com.example.inventory_exchange_draft_1.item_product item = itemList.get(position);
+        com.example.exchange.item_product item = itemList.get(position);
         holder.itemName.setText(item.getName());
         holder.itemPrice.setText(item.getPrice());
         holder.itemStock.setText(item.getStock());
