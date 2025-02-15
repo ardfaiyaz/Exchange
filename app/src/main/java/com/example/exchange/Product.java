@@ -1,14 +1,16 @@
 package com.example.exchange;
 
+import android.graphics.Bitmap;
+
 public class Product {
     private String name;
     private double price;
-    private int imageResId; // Drawable resource ID
+    private Bitmap image;
 
-    public Product(String name, double price, int imageResId) {
+    public Product(String name, double price, Bitmap image) {
         this.name = name;
         this.price = price;
-        this.imageResId = imageResId;
+        this.image = image;
     }
 
     public String getName() {
@@ -19,7 +21,7 @@ public class Product {
         return price;
     }
 
-    public int getImageResId() {
-        return imageResId;
+    public Bitmap getImage() {
+        return image;
     }
 }

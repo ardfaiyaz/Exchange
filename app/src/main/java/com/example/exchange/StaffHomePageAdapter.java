@@ -16,7 +16,7 @@ import java.util.List;
 public class StaffHomePageAdapter extends RecyclerView.Adapter<StaffHomePageAdapter.ViewHolder> {
 
     private final List<Product> productList;
-    private final Context context; // To handle UI interactions
+    private final Context context;
 
     public StaffHomePageAdapter(Context context, List<Product> productList) {
         this.context = context;
@@ -35,9 +35,9 @@ public class StaffHomePageAdapter extends RecyclerView.Adapter<StaffHomePageAdap
         Product product = productList.get(position);
         holder.productName.setText(product.getName());
         holder.price.setText("₱ " + product.getPrice());
-        holder.productImg.setImageResource(product.getImageResId());
+        holder.productImg.setImageBitmap(product.getImage()); // ✅ Set Bitmap instead of resource ID
 
-        // Click Listener for Each Item
+        // Click Listener
         holder.itemView.setOnClickListener(v ->
                 Toast.makeText(context, "Clicked on: " + product.getName(), Toast.LENGTH_SHORT).show()
         );
