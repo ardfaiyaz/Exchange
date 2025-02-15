@@ -1,5 +1,6 @@
 package com.example.exchange;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class inventoryClass_Connection extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private com.example.exchange.item_adapter itemAdapter;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.inventory_page);
 
         // Apply system insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -61,14 +62,16 @@ public class MainActivity extends AppCompatActivity {
         itemAdapter = new com.example.exchange.item_adapter(itemList);
         recyclerView.setAdapter(itemAdapter);
 
-        Button addButton = findViewById(R.id.add_button);
+        // Add button click listener
+        Button addButton = findViewById(R.id.fab_add);
         addButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, StaffProductListingActivity.class);
+            Intent intent = new Intent(inventoryCLass_Connection.this, StaffProductListingActivity.class);
             startActivity(intent);
         });
+    }
 
-
-        private void addNewProduct() {
+    // Method to add a new product
+    private void addNewProduct() {
         // Add a new item dynamically
         itemList.add(new com.example.exchange.item_product("New ITEM", "₱100.00", "20/50", R.drawable.item_id_lace));
 
