@@ -38,7 +38,7 @@ public class UserHomePageActivity extends AppCompatActivity {
         findViewById(R.id.userprofilebtn).setOnClickListener(view -> {
             Intent intent = new Intent(UserHomePageActivity.this, UserProfileActivity.class);
             startActivity(intent);
-        })
+        });
 
     }
 }
