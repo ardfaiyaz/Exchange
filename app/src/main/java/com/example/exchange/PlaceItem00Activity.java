@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 public class PlaceItem00Activity extends AppCompatActivity {
 
+    private CheckBox[] checkBoxes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,75 +59,21 @@ public class PlaceItem00Activity extends AppCompatActivity {
             startActivity(intent);
             Toast.makeText(getApplicationContext(),"Successful Placed Order", Toast.LENGTH_LONG).show();
         });
-        xscb.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                largecb.setChecked(false);
-                xxxlcb.setChecked(false);
-                smallcb.setChecked(false);
-                xlcb.setChecked(false);
-                mediumcb.setChecked(false);
-                xxlcb.setChecked(false);
-            }
-        });
-        largecb.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                xscb.setChecked(false);
-                xxxlcb.setChecked(false);
-                smallcb.setChecked(false);
-                xlcb.setChecked(false);
-                mediumcb.setChecked(false);
-                xxlcb.setChecked(false);
-            }
-        });
-        xxxlcb.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                xscb.setChecked(false);
-                largecb.setChecked(false);
-                smallcb.setChecked(false);
-                xlcb.setChecked(false);
-                mediumcb.setChecked(false);
-                xxlcb.setChecked(false);
-            }
-        });
-        smallcb.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                xscb.setChecked(false);
-                largecb.setChecked(false);
-                xxxlcb.setChecked(false);
-                xlcb.setChecked(false);
-                mediumcb.setChecked(false);
-                xxlcb.setChecked(false);
-            }
-        });
-        xlcb.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                xscb.setChecked(false);
-                largecb.setChecked(false);
-                xxxlcb.setChecked(false);
-                smallcb.setChecked(false);
-                mediumcb.setChecked(false);
-                xxlcb.setChecked(false);
-            }
-        });
-        mediumcb.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                xscb.setChecked(false);
-                largecb.setChecked(false);
-                xxxlcb.setChecked(false);
-                smallcb.setChecked(false);
-                xlcb.setChecked(false);
-                xxlcb.setChecked(false);
-            }
-        });
-        xxlcb.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                xscb.setChecked(false);
-                largecb.setChecked(false);
-                xxxlcb.setChecked(false);
-                smallcb.setChecked(false);
-                xlcb.setChecked(false);
-                mediumcb.setChecked(false);
-            }
-        });
+
+        setupCheckboxListeners(xscb, largecb, xxxlcb, smallcb, xlcb, mediumcb, xxlcb);
+    }
+
+    private void setupCheckboxListeners(CheckBox xscb, CheckBox largecb, CheckBox xxxlcb, CheckBox smallcb, CheckBox xlcb, CheckBox mediumcb, CheckBox xxlcb) {
+        for (CheckBox checkBox : checkBoxes) {
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    for (CheckBox other : checkBoxes) {
+                        if (other != checkBox) {
+                            other.setChecked(false);
+                        }
+                    }
+                }
+            });
+        }
     }
 }
