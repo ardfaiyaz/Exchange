@@ -10,7 +10,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="98dp"
         android:background="#1c256c">
 
@@ -37,106 +37,19 @@
                 android:padding="5dp"
                 app:srcCompat="@drawable/homepagapplogo" />
 
-            <LinearLayout
-                android:id="@+id/firstrow"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/staffhomepagerview"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginBottom="45dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/zerozerp"
-                    android:layout_width="140dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="25dp"
-                    android:background="@color/white"
-                    android:orientation="vertical" />
-
-                <LinearLayout
-                    android:id="@+id/zeroone"
-                    android:layout_width="140dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/secondrow"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="45dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/onezero"
-                    android:layout_width="140dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="25dp"
-                    android:background="@color/white"
-                    android:orientation="vertical"></LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/oneone"
-                    android:layout_width="140dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:orientation="vertical"></LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/thirdrow"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="45dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/zerotwo"
-                    android:layout_width="140dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="25dp"
-                    android:background="@color/white"
-                    android:orientation="vertical"></LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/onetwo"
-                    android:layout_width="140dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:orientation="vertical"></LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/fourthrow"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="45dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/zerofour"
-                    android:layout_width="140dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="25dp"
-                    android:background="@color/white"
-                    android:orientation="vertical"></LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/onefour"
-                    android:layout_width="140dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:orientation="vertical"></LinearLayout>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:paddingEnd="30dp"
+                android:gravity="center_horizontal"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:paddingHorizontal="55dp"
+                android:paddingVertical="10dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2" />
 
             <LinearLayout
                 android:id="@+id/blankrow"

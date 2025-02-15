@@ -13,21 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class StaffHomePageAdapter extends RecyclerView.Adapter<StaffHomePageAdapter.ViewHolder> {
-
+public class UserHomePageAdapter extends RecyclerView.Adapter<UserHomePageAdapter.ViewHolder> {
     private final List<Product> productList;
     private final Context context;
 
-    public StaffHomePageAdapter(Context context, List<Product> productList) {
+    public UserHomePageAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UserHomePageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.staff_home_rview_layout, parent, false);
-        return new ViewHolder(view);
+        return new UserHomePageAdapter.ViewHolder(view);
     }
 
     @Override

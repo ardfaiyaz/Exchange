@@ -65,7 +65,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <EditText
                 android:textSize="8dp"
                 android:id="@+id/pricetag_inventory"
                 android:layout_width="match_parent"
@@ -83,7 +83,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <EditText
                 android:textSize="8dp"
                 android:id="@+id/stocks_inventory"
                 android:layout_width="match_parent"

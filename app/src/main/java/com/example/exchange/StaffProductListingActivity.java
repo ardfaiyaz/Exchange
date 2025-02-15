@@ -99,9 +99,12 @@ public class StaffProductListingActivity extends AppCompatActivity {
     private void loadProductVariants() {
         // Manually define variants
         HashMap<String, String> variantMap = new HashMap<>();
+        variantMap.put("Extra Small", "XS");
         variantMap.put("Small", "S");
         variantMap.put("Medium", "M");
         variantMap.put("Large", "L");
+        variantMap.put("Extra Large", "XL");
+        variantMap.put("Extra Extra Large", "XXL");
 
         ArrayList<String> variants = new ArrayList<>(variantMap.keySet());
 

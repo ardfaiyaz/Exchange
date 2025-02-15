@@ -81,10 +81,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StaffReservationActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".StaffTrackOrdersActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
