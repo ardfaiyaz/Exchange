@@ -38,32 +38,7 @@ public class UserHomePageActivity extends AppCompatActivity {
         findViewById(R.id.userprofilebtn).setOnClickListener(view -> {
             Intent intent = new Intent(UserHomePageActivity.this, UserProfileActivity.class);
             startActivity(intent);
-        });
-
-        findViewById(R.id.zerotwo).setOnClickListener(view -> {
-            Intent intent = new Intent(UserHomePageActivity.this, PlaceItem00Activity.class);
-            startActivity(intent);
-        });
-
-        findViewById(R.id.zeroone).setOnClickListener(view -> {
-            Intent intent = new Intent(UserHomePageActivity.this, PlaceItem00Activity.class);
-            startActivity(intent);
-        });
-
-        findViewById(R.id.zerozerp).setOnClickListener(view -> {
-            Intent intent = new Intent(UserHomePageActivity.this, PlaceItem00Activity.class);
-            startActivity(intent);
-        });
-
-        findViewById(R.id.zerofour).setOnClickListener(view -> {
-            Intent intent = new Intent(UserHomePageActivity.this, PlaceItem00Activity.class);
-            startActivity(intent);
-        });
-
-        findViewById(R.id.onezero).setOnClickListener(view -> {
-            Intent intent = new Intent(UserHomePageActivity.this, PlaceItem00Activity.class);
-            startActivity(intent);
-        });
+        })
 
     }
 }
