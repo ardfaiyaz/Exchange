@@ -192,7 +192,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/trackitembullettop" />
+                            android:background="@drawable/trackitembullettop_unactive" />
 
                     </LinearLayout>
 
@@ -256,7 +256,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/trackitemline" />
+                            android:background="@drawable/trackitemline_unactive" />
 
                     </LinearLayout>
 
@@ -318,7 +318,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/trackitemline" />
+                            android:background="@drawable/trackitemline_unactive" />
 
                     </LinearLayout>
 
@@ -380,7 +380,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/trackitemline" />
+                            android:background="@drawable/trackitemline_unactive" />
 
                     </LinearLayout>
 
@@ -442,7 +442,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/trackitembulletbottom" />
+                            android:background="@drawable/trackitembulletbottom_unactive" />
 
                     </LinearLayout>
 
