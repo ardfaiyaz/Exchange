@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class inventoryClass_Connection extends AppCompatActivity {
+public class InventoryClass_Connection extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private com.example.exchange.item_adapter itemAdapter;
@@ -53,11 +53,11 @@ public class inventoryClass_Connection extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Sample Data
-        itemList = new ArrayList<>();
+      /*  itemList = new ArrayList<>();
         itemList.add(new com.example.exchange.item_product("ITEM #1 LACE BSIT", "₱80.00", "92/100", R.drawable.item_id_lace));
         itemList.add(new com.example.exchange.item_product("ITEM #2 KEYCHAIN", "₱50.00", "50/100", R.drawable.item_id_lace));
         itemList.add(new com.example.exchange.item_product("ITEM #3 STICKER", "₱20.00", "75/100", R.drawable.item_id_lace));
-
+*/
         // Set adapter
         itemAdapter = new com.example.exchange.item_adapter(itemList);
         recyclerView.setAdapter(itemAdapter);
@@ -65,7 +65,7 @@ public class inventoryClass_Connection extends AppCompatActivity {
         // Add button click listener
         Button addButton = findViewById(R.id.fab_add);
         addButton.setOnClickListener(v -> {
-            Intent intent = new Intent(inventoryCLass_Connection.this, StaffProductListingActivity.class);
+            Intent intent = new Intent(InventoryClass_Connection.this, StaffProductListingActivity.class);
             startActivity(intent);
         });
     }
