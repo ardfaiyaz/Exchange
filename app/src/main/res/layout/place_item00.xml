@@ -237,13 +237,14 @@
 
 
                 <EditText
-                    android:id="@+id/productstockid3"
+                    android:id="@+id/quantityedit"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@android:drawable/edit_text"
                     android:fontFamily="@font/montserrat"
                     android:gravity="center"
-
+                    android:inputType="number"
+                    android:hint="0"
                     android:textSize="13dp" />
 
             </LinearLayout>

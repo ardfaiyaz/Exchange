@@ -1,6 +1,8 @@
 package com.example.exchange;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -29,12 +31,23 @@ public class UserYourCartActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.cartrecyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Initialize item list
-        itemList = new ArrayList<>();
-        itemList.add(new Item("Computer Society ID Lace", "2023 Version", "₱80"));
-        itemList.add(new Item("Item 2 Name", "Item 2 Description", "₱100"));
+        // Receive the intent data
+        Intent gettintent = getIntent();
+        String productName = gettintent.getStringExtra("productName");
+        double productPrice = gettintent.getDoubleExtra("productPrice", 0.0);
+        byte[] byteArray = gettintent.getByteArrayExtra("productImage");
 
-        // Set up adapter
+        Bitmap bitmap = null;
+        if (byteArray != null) {
+            bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        }
+
+        // If data is received, add it to the cart list
+        if (productName != null) {
+            itemList.add(new Item(productName, "Size: M", "₱" + productPrice, bitmap));
+        }
+
+        // Set up the adapter with updated itemList
         adapter = new MyAdapter(itemList);
         recyclerView.setAdapter(adapter);
 

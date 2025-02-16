@@ -1,6 +1,8 @@
 package com.example.exchange;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class UserHomePageAdapter extends RecyclerView.Adapter<UserHomePageAdapter.ViewHolder> {
@@ -37,9 +40,22 @@ public class UserHomePageAdapter extends RecyclerView.Adapter<UserHomePageAdapte
         holder.productImg.setImageBitmap(product.getImage()); // ✅ Set Bitmap instead of resource ID
 
         // Click Listener
-        holder.itemView.setOnClickListener(v ->
-                Toast.makeText(context, "Clicked on: " + product.getName(), Toast.LENGTH_SHORT).show()
-        );
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, PlaceItem00Activity.class);
+
+            // Convert Bitmap to ByteArray for passing the image
+            Bitmap bitmap = product.getImage();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            // Passing data via extras
+            intent.putExtra("productImage", byteArray);
+            intent.putExtra("productName", product.getName());
+            intent.putExtra("productPrice", product.getPrice());
+
+            context.startActivity(intent);
+        });
     }
 
     @Override

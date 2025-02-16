@@ -62,7 +62,21 @@ public class PlaceItem00Activity extends AppCompatActivity {
         });
 
         findViewById(R.id.addtocartbtn).setOnClickListener(view -> {
+            // Optionally, get the selected size from the checkboxes:
+            String selectedSize = "";
+            for (CheckBox cb : checkBoxes) {
+                if (cb.isChecked()) {
+                    selectedSize = cb.getText().toString();
+                    break;
+                }
+            }
             Intent intent = new Intent(PlaceItem00Activity.this, UserYourCartActivity.class);
+            // Pass all necessary data:
+            intent.putExtra("productImage", byteArray);
+            intent.putExtra("productName", productName);
+            intent.putExtra("productPrice", productPrice);
+            intent.putExtra("selectedSize", selectedSize);
+
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "Successfully Added", Toast.LENGTH_LONG).show();
         });
