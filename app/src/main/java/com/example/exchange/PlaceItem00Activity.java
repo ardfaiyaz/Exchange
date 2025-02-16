@@ -1,15 +1,16 @@
 package com.example.exchange;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,12 +28,21 @@ public class PlaceItem00Activity extends AppCompatActivity {
     private String productName;
     private double productPrice;
     private byte[] byteArray;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.place_item00);
+
+        // Retrieve user ID from SharedPreferences
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        userId = preferences.getInt("USER_ID", -1);
+        if (userId == -1) {
+            StyleableToast.makeText(this, "Error: User not logged in", R.style.accinputerror).show();
+            finish();
+        }
 
         // Retrieve data from Intent
         byteArray = getIntent().getByteArrayExtra("productImage");
@@ -81,6 +91,7 @@ public class PlaceItem00Activity extends AppCompatActivity {
             intent.putExtra("productName", productName);
             intent.putExtra("productPrice", productPrice);
             intent.putExtra("selectedSize", selectedSize);
+            intent.putExtra("user_id", userId);
             startActivity(intent);
             StyleableToast.makeText(getApplicationContext(), "Successfully Added", R.style.placedordertoast).show();
         });
@@ -141,10 +152,11 @@ public class PlaceItem00Activity extends AppCompatActivity {
                 conn.setDoOutput(true);
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-                String postData = "productName=" + URLEncoder.encode(productName, "UTF-8")
-                        + "&productPrice=" + productPrice
-                        + "&selectedSize=" + URLEncoder.encode(selectedSize, "UTF-8")
-                        + "&quantity=" + quantityInt;
+                String postData = "user_id=" + userId +
+                        "&productName=" + URLEncoder.encode(productName, "UTF-8") +
+                        "&productPrice=" + productPrice +
+                        "&selectedSize=" + URLEncoder.encode(selectedSize, "UTF-8") +
+                        "&quantity=" + quantityInt;
 
                 OutputStream outputStream = conn.getOutputStream();
                 outputStream.write(postData.getBytes());
