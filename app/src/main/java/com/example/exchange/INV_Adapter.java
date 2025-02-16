@@ -49,9 +49,9 @@ public class INV_Adapter extends RecyclerView.Adapter<INV_Adapter.InventoryViewH
         public InventoryViewHolder(@NonNull View itemView) {
             super(itemView);
             checkBox = itemView.findViewById(R.id.checkBox);
-            textViewName = itemView.findViewById(R.id.itemname_inventory);
-            textViewPrice = itemView.findViewById(R.id.pricetag_inventory);
-            textViewStock = itemView.findViewById(R.id.stocks_inventory);
+            textViewName = itemView.findViewById(R.id.itemName);
+            textViewPrice = itemView.findViewById(R.id.itemPrice);
+            textViewStock = itemView.findViewById(R.id.itemStock);
         }
     }
 }

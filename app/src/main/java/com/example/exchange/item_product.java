@@ -29,4 +29,3 @@ public class item_product {
         return imageResource;
     }
 }
-v
