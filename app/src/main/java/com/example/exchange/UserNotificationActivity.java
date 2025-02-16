@@ -27,7 +27,7 @@ import java.util.List;
         private RecyclerView recyclerView;
         private UserNotificationAdapter adapter;
         private List<UserNotificationClass> notificationList;
-        private static final String API_URL = "http://your-server-ip/fetch_notifications.php"; // Replace with your actual PHP API URL
+        private static final String API_URL = "http://10.0.2.2/Exchange/fetch_notifications.php"; // Replace with your actual PHP API URL
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
