@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,10 +14,19 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import io.github.muddz.styleabletoast.StyleableToast;
 
 public class PlaceItem00Activity extends AppCompatActivity {
 
     private CheckBox[] checkBoxes;
+    private String productName;
+    private double productPrice;
+    private byte[] byteArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +35,9 @@ public class PlaceItem00Activity extends AppCompatActivity {
         setContentView(R.layout.place_item00);
 
         // Retrieve data from Intent
-        byte[] byteArray = getIntent().getByteArrayExtra("productImage");
-        String productName = getIntent().getStringExtra("productName");
-        double productPrice = getIntent().getDoubleExtra("productPrice", 0.0);
+        byteArray = getIntent().getByteArrayExtra("productImage");
+        productName = getIntent().getStringExtra("productName");
+        productPrice = getIntent().getDoubleExtra("productPrice", 0.0);
 
         // Convert byte array back to Bitmap
         Bitmap bitmap = null;
@@ -35,9 +46,11 @@ public class PlaceItem00Activity extends AppCompatActivity {
         }
 
         // Set Image, Name, and Price
-        ImageView imageView = findViewById(R.id.itemleimg); // Ensure you have this ImageView in place_item00.xml
+        ImageView imageView = findViewById(R.id.itemleimg);
         TextView nameView = findViewById(R.id.itemnamedes);
         TextView priceView = findViewById(R.id.itempricedesc);
+        EditText quantityEdit = findViewById(R.id.quantityedit);
+        Button placeOrderBtn = findViewById(R.id.placeorderbtn);
 
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
@@ -62,30 +75,17 @@ public class PlaceItem00Activity extends AppCompatActivity {
         });
 
         findViewById(R.id.addtocartbtn).setOnClickListener(view -> {
-            // Optionally, get the selected size from the checkboxes:
-            String selectedSize = "";
-            for (CheckBox cb : checkBoxes) {
-                if (cb.isChecked()) {
-                    selectedSize = cb.getText().toString();
-                    break;
-                }
-            }
+            String selectedSize = getSelectedSize();
             Intent intent = new Intent(PlaceItem00Activity.this, UserYourCartActivity.class);
-            // Pass all necessary data:
             intent.putExtra("productImage", byteArray);
             intent.putExtra("productName", productName);
             intent.putExtra("productPrice", productPrice);
             intent.putExtra("selectedSize", selectedSize);
-
             startActivity(intent);
-            Toast.makeText(getApplicationContext(), "Successfully Added", Toast.LENGTH_LONG).show();
+            StyleableToast.makeText(getApplicationContext(), "Successfully Added", R.style.placedordertoast).show();
         });
 
-        findViewById(R.id.placeorderbtn).setOnClickListener(view -> {
-            Intent intent = new Intent(PlaceItem00Activity.this, UserTrackOrdersActivity.class);
-            startActivity(intent);
-            Toast.makeText(getApplicationContext(), "Order Placed Successfully", Toast.LENGTH_LONG).show();
-        });
+        placeOrderBtn.setOnClickListener(view -> placeOrder(quantityEdit));
 
         setupCheckboxListeners();
     }
@@ -102,5 +102,69 @@ public class PlaceItem00Activity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private String getSelectedSize() {
+        for (CheckBox cb : checkBoxes) {
+            if (cb.isChecked()) {
+                return cb.getText().toString();
+            }
+        }
+        return "";
+    }
+
+    private void placeOrder(EditText quantityEdit) {
+        String selectedSize = getSelectedSize();
+        String quantity = quantityEdit.getText().toString().trim();
+
+        if (selectedSize.isEmpty()) {
+            StyleableToast.makeText(getApplicationContext(), "Please select a size", R.style.accinputerror).show();
+            return;
+        }
+
+        if (quantity.isEmpty()) {
+            StyleableToast.makeText(getApplicationContext(), "Please enter quantity", R.style.accinputerror).show();
+            return;
+        }
+
+        int quantityInt = Integer.parseInt(quantity);
+        if (quantityInt <= 0) {
+            StyleableToast.makeText(getApplicationContext(), "Quantity must be at least 1", R.style.accinputerror).show();
+            return;
+        }
+
+        new Thread(() -> {
+            try {
+                URL url = new URL("http://10.0.2.2/Exchange/place_order.php"); // Update with actual path
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                String postData = "productName=" + URLEncoder.encode(productName, "UTF-8")
+                        + "&productPrice=" + productPrice
+                        + "&selectedSize=" + URLEncoder.encode(selectedSize, "UTF-8")
+                        + "&quantity=" + quantityInt;
+
+                OutputStream outputStream = conn.getOutputStream();
+                outputStream.write(postData.getBytes());
+                outputStream.flush();
+                outputStream.close();
+
+                int responseCode = conn.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    runOnUiThread(() -> {
+                        StyleableToast.makeText(getApplicationContext(), "Order Placed Successfully", R.style.placedordertoast).show();
+                        Intent intent = new Intent(PlaceItem00Activity.this, UserHomePageActivity.class);
+                        startActivity(intent);
+                    });
+                } else {
+                    runOnUiThread(() -> StyleableToast.makeText(getApplicationContext(), "Failed to place order", R.style.accinputerror).show());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> StyleableToast.makeText(getApplicationContext(), "Error: " + e.getMessage(), R.style.accinputerror).show());
+            }
+        }).start();
     }
 }
