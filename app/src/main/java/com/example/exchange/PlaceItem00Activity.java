@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -60,7 +62,8 @@ public class PlaceItem00Activity extends AppCompatActivity {
         TextView nameView = findViewById(R.id.itemnamedes);
         TextView priceView = findViewById(R.id.itempricedesc);
         EditText quantityEdit = findViewById(R.id.quantityedit);
-        Button placeOrderBtn = findViewById(R.id.placeorderbtn);
+        LinearLayout placeOrderBtn = findViewById(R.id.placeorderbtn);
+
 
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
