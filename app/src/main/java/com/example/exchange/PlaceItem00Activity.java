@@ -1,17 +1,17 @@
 package com.example.exchange;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
-import java.util.ArrayList;
 
 public class PlaceItem00Activity extends AppCompatActivity {
 
@@ -23,17 +23,29 @@ public class PlaceItem00Activity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.place_item00);
 
-        ArrayList<SlideModel> imageList = new ArrayList<>(); // Create image list
+        // Retrieve data from Intent
+        byte[] byteArray = getIntent().getByteArrayExtra("productImage");
+        String productName = getIntent().getStringExtra("productName");
+        double productPrice = getIntent().getDoubleExtra("productPrice", 0.0);
 
-        // Add images and titles to the list
-        imageList.add(new SlideModel(R.drawable.lbj1, ScaleTypes.CENTER_CROP));
-        imageList.add(new SlideModel(R.drawable.lbj2, ScaleTypes.CENTER_CROP));
-        imageList.add(new SlideModel(R.drawable.lbj3, ScaleTypes.CENTER_CROP));
+        // Convert byte array back to Bitmap
+        Bitmap bitmap = null;
+        if (byteArray != null) {
+            bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        }
 
-        // Find ImageSlider and set the image list
-        ImageSlider imageSlider = findViewById(R.id.image_slider);
-        imageSlider.setImageList(imageList);
+        // Set Image, Name, and Price
+        ImageView imageView = findViewById(R.id.itemleimg); // Ensure you have this ImageView in place_item00.xml
+        TextView nameView = findViewById(R.id.itemnamedes);
+        TextView priceView = findViewById(R.id.itempricedesc);
 
+        if (bitmap != null) {
+            imageView.setImageBitmap(bitmap);
+        }
+        nameView.setText(productName);
+        priceView.setText("₱ " + productPrice);
+
+        // Checkbox setup
         CheckBox xscb = findViewById(R.id.xscb);
         CheckBox largecb = findViewById(R.id.largecb);
         CheckBox xxxlcb = findViewById(R.id.xxxlcb);
@@ -42,6 +54,7 @@ public class PlaceItem00Activity extends AppCompatActivity {
         CheckBox mediumcb = findViewById(R.id.mediumcb);
         CheckBox xxlcb = findViewById(R.id.xxlcb);
 
+        checkBoxes = new CheckBox[]{xscb, largecb, xxxlcb, smallcb, xlcb, mediumcb, xxlcb};
 
         findViewById(R.id.backbtn).setOnClickListener(view -> {
             Intent intent = new Intent(PlaceItem00Activity.this, UserHomePageActivity.class);
@@ -51,19 +64,19 @@ public class PlaceItem00Activity extends AppCompatActivity {
         findViewById(R.id.addtocar).setOnClickListener(view -> {
             Intent intent = new Intent(PlaceItem00Activity.this, UserYourCartActivity.class);
             startActivity(intent);
-            Toast.makeText(getApplicationContext(),"Successful Added", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Successfully Added", Toast.LENGTH_LONG).show();
         });
 
         findViewById(R.id.placeorderbtn).setOnClickListener(view -> {
             Intent intent = new Intent(PlaceItem00Activity.this, UserTrackOrdersActivity.class);
             startActivity(intent);
-            Toast.makeText(getApplicationContext(),"Successful Placed Order", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Order Placed Successfully", Toast.LENGTH_LONG).show();
         });
 
-        setupCheckboxListeners(xscb, largecb, xxxlcb, smallcb, xlcb, mediumcb, xxlcb);
+        setupCheckboxListeners();
     }
 
-    private void setupCheckboxListeners(CheckBox xscb, CheckBox largecb, CheckBox xxxlcb, CheckBox smallcb, CheckBox xlcb, CheckBox mediumcb, CheckBox xxlcb) {
+    private void setupCheckboxListeners() {
         for (CheckBox checkBox : checkBoxes) {
             checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
