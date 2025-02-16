@@ -11,7 +11,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -21,6 +20,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import io.github.muddz.styleabletoast.StyleableToast;
 
@@ -31,6 +33,7 @@ public class PlaceItem00Activity extends AppCompatActivity {
     private double productPrice;
     private byte[] byteArray;
     private int userId;
+    private int productID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,6 @@ public class PlaceItem00Activity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.place_item00);
 
-        // Retrieve user ID from SharedPreferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         userId = preferences.getInt("USER_ID", -1);
         if (userId == -1) {
@@ -46,24 +48,21 @@ public class PlaceItem00Activity extends AppCompatActivity {
             finish();
         }
 
-        // Retrieve data from Intent
         byteArray = getIntent().getByteArrayExtra("productImage");
         productName = getIntent().getStringExtra("productName");
         productPrice = getIntent().getDoubleExtra("productPrice", 0.0);
+        productID = getIntent().getIntExtra("productID", -1);
 
-        // Convert byte array back to Bitmap
         Bitmap bitmap = null;
         if (byteArray != null) {
             bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         }
 
-        // Set Image, Name, and Price
         ImageView imageView = findViewById(R.id.itemleimg);
         TextView nameView = findViewById(R.id.itemnamedes);
         TextView priceView = findViewById(R.id.itempricedesc);
         EditText quantityEdit = findViewById(R.id.quantityedit);
         LinearLayout placeOrderBtn = findViewById(R.id.placeorderbtn);
-
 
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
@@ -71,7 +70,6 @@ public class PlaceItem00Activity extends AppCompatActivity {
         nameView.setText(productName);
         priceView.setText("₱ " + productPrice);
 
-        // Checkbox setup
         CheckBox xscb = findViewById(R.id.xscb);
         CheckBox largecb = findViewById(R.id.largecb);
         CheckBox xxxlcb = findViewById(R.id.xxxlcb);
@@ -147,19 +145,24 @@ public class PlaceItem00Activity extends AppCompatActivity {
             return;
         }
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String currentDate = sdf.format(new Date());
+
         new Thread(() -> {
             try {
-                URL url = new URL("http://10.0.2.2/Exchange/place_order.php"); // Update with actual path
+                URL url = new URL("http://10.0.2.2/Exchange/place_order.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
                 String postData = "user_id=" + userId +
-                        "&productName=" + URLEncoder.encode(productName, "UTF-8") +
+                        "&productID=" + productID +
                         "&productPrice=" + productPrice +
                         "&selectedSize=" + URLEncoder.encode(selectedSize, "UTF-8") +
-                        "&quantity=" + quantityInt;
+                        "&quantity=" + quantityInt +
+                        "&date_ordered=" + URLEncoder.encode(currentDate, "UTF-8") +
+                        "&date_updated=" + URLEncoder.encode(currentDate, "UTF-8");
 
                 OutputStream outputStream = conn.getOutputStream();
                 outputStream.write(postData.getBytes());
