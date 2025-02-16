@@ -40,7 +40,7 @@ public class PlaceItem00Activity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         userId = preferences.getInt("USER_ID", -1);
         if (userId == -1) {
-            StyleableToast.makeText(this, "Error: User not logged in", R.style.accinputerror).show();
+            StyleableToast.makeText(this, "User not logged in", R.style.accinputerror).show();
             finish();
         }
 
