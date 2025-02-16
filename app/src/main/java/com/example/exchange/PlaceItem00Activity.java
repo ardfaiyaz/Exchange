@@ -61,7 +61,7 @@ public class PlaceItem00Activity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        findViewById(R.id.addtocar).setOnClickListener(view -> {
+        findViewById(R.id.addtocartbtn).setOnClickListener(view -> {
             Intent intent = new Intent(PlaceItem00Activity.this, UserYourCartActivity.class);
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "Successfully Added", Toast.LENGTH_LONG).show();
