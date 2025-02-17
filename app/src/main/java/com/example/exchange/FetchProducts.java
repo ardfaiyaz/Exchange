@@ -15,6 +15,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+// assuming that this java is for homepage listing
 public class FetchProducts extends AsyncTask<Void, Void, List<Product>> {
     private static final String URL_PHP = "http://10.0.2.2/Exchange/homepage_rview_data.php";
     private ProductListener listener;

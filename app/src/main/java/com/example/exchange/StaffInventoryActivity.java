@@ -3,76 +3,90 @@ package com.example.exchange;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
+import android.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
+
 public class StaffInventoryActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private INV_Adapter invAdapter;
-    private List<InventoryClass> inventoryList;
-    private static final String FETCH_PRODUCTS_URL = "http://10.0.2.2/Exchange/fetch_products.php";
+    private InventoryAdapter adapter;
+    private List<InventoryProduct> productList;
+    private SearchView searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.staff_inventory);
+        setContentView(R.layout.staff_inventory_page);
 
-        recyclerView = findViewById(R.id.inID);
+        recyclerView = findViewById(R.id.recyclerView);
+        searchBar = findViewById(R.id.search_bar);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        inventoryList = new ArrayList<>();
-        invAdapter = new INV_Adapter(inventoryList);
-        recyclerView.setAdapter(invAdapter);
+        productList = new ArrayList<>();
+        adapter = new InventoryAdapter(this, productList);
+        recyclerView.setAdapter(adapter);
 
-        fetchProducts();
-
-        findViewById(R.id.backbtn).setOnClickListener(view -> {
-            Intent intent = new Intent(StaffInventoryActivity.this, StaffProfileActivity.class);
-            startActivity(intent);
-        });
+        loadProducts();
     }
 
-    private void fetchProducts() {
+    private void loadProducts() {
+        String url = "http://10.0.2.2/Exchange/get_products.php"; // Ensure URL is correct
+
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, FETCH_PRODUCTS_URL, null,
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
-                        inventoryList.clear();  // Clear old data
-                        for (int i = 0; i < response.length(); i++) {
-                            JSONObject product = response.getJSONObject(i);
-                            String name = product.getString("prod_name");
-                            double price = product.getDouble("prod_price");
-                            int stock = product.getInt("prod_stock");
+                        Log.d("API_RESPONSE", "Raw JSON: " + response.toString()); // Log full response
 
-                            inventoryList.add(new InventoryClass(name, price, stock, false));
+                        boolean success = response.getBoolean("success");
+                        if (success) {
+                            productList.clear();
+                            JSONArray products = response.getJSONArray("products");
+
+                            for (int i = 0; i < products.length(); i++) {
+                                JSONObject obj = products.getJSONObject(i);
+
+                                String name = obj.getString("name");
+                                BigDecimal price = new BigDecimal(obj.getString("price"));
+                                int stock = obj.getInt("stock");
+                                String imageBase64 = obj.optString("prod_image", "");
+                                String varId = obj.optString("var_id", "");
+
+                                productList.add(new InventoryProduct(name, price, stock, imageBase64, varId));
+                            }
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Log.e("API_ERROR", "API returned false for success");
                         }
-                        invAdapter.notifyDataSetChanged(); // Update RecyclerView
                     } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(this, "Error parsing JSON", Toast.LENGTH_SHORT).show();
+                        Log.e("JSONError", "Parsing error: " + e.getMessage());
                     }
                 },
-                error -> {
-                    Log.e("VOLLEY_ERROR", "Failed to fetch: " + error.toString());
-                    Toast.makeText(this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
-                });
+                error -> Log.e("Volley", "Error: " + (error.getMessage() != null ? error.getMessage() : "Unknown error"))
+        );
+
 
         queue.add(request);
+
     }
+
 
 }
