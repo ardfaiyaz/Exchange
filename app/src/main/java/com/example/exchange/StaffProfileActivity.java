@@ -34,7 +34,7 @@ public class StaffProfileActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.staffinventorybtn).setOnClickListener(view -> {
-            Intent intent = new Intent(StaffProfileActivity.this, StaffProductListingActivity.class);
+            Intent intent = new Intent(StaffProfileActivity.this, StaffInventoryActivity.class);
             startActivity(intent);
         });
 
