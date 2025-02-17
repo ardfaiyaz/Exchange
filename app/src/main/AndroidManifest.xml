@@ -37,10 +37,6 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".StaffEditProductActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".UserTrackItemActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
