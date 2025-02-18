@@ -26,8 +26,9 @@ public class StaffInventoryActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private InventoryAdapter adapter;
     private List<InventoryProduct> productList;
+    private List<InventoryProduct> originalProductList; // Stores original data
     private SearchView searchBar;
-    private FloatingActionButton fabAdd; // Declare Floating Action Button
+    private FloatingActionButton fabAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,34 +40,79 @@ public class StaffInventoryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         productList = new ArrayList<>();
+        originalProductList = new ArrayList<>(); // Initialize original list
+
         adapter = new InventoryAdapter(this, productList);
         recyclerView.setAdapter(adapter);
 
-        fabAdd = findViewById(R.id.fab_add); // Initialize FAB
-        fabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StaffInventoryActivity.this, StaffProductListingActivity.class);
-                startActivity(intent);
-            }
+        fabAdd = findViewById(R.id.fab_add);
+        fabAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(StaffInventoryActivity.this, StaffProductListingActivity.class);
+            startActivity(intent);
         });
 
         loadProducts();
+        setupSearchFunctionality(); // Call search setup method
+    }
+
+    // 🔽 Add these methods BELOW onCreate 🔽
+
+    private void setupSearchFunctionality() {
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false; // Not needed, since filtering is done in real time
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
+        searchBar.setOnCloseListener(() -> {
+            resetList();
+            return false;
+        });
+    }
+
+    private void filterList(String query) {
+        List<InventoryProduct> filteredList = new ArrayList<>();
+
+        if (query.isEmpty()) {
+            resetList();
+        } else {
+            for (InventoryProduct product : originalProductList) {
+                if (product.getProductName().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(product);
+                }
+            }
+            productList.clear();
+            productList.addAll(filteredList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void resetList() {
+        productList.clear();
+        productList.addAll(originalProductList);
+        adapter.notifyDataSetChanged();
     }
 
     private void loadProducts() {
-        String url = "http://10.0.2.2/Exchange/get_products.php"; // Ensure URL is correct
+        String url = "http://10.0.2.2/Exchange/get_products.php";
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
-                        Log.d("API_RESPONSE", "Raw JSON: " + response.toString()); // Log full response
-
                         boolean success = response.getBoolean("success");
                         if (success) {
                             productList.clear();
+                            originalProductList.clear(); // Reset backup list
+
                             JSONArray products = response.getJSONArray("products");
 
                             for (int i = 0; i < products.length(); i++) {
@@ -78,11 +124,11 @@ public class StaffInventoryActivity extends AppCompatActivity {
                                 String imageBase64 = obj.optString("prod_image", "");
                                 String varId = obj.optString("var_id", "");
 
-                                productList.add(new InventoryProduct(name, price, stock, imageBase64, varId));
+                                InventoryProduct product = new InventoryProduct(name, price, stock, imageBase64, varId);
+                                productList.add(product);
+                                originalProductList.add(product); // Store in original list
                             }
                             adapter.notifyDataSetChanged();
-                        } else {
-                            Log.e("API_ERROR", "API returned false for success");
                         }
                     } catch (JSONException e) {
                         Log.e("JSONError", "Parsing error: " + e.getMessage());
