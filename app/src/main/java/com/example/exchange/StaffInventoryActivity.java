@@ -3,6 +3,7 @@ package com.example.exchange;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,14 +22,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
-
 public class StaffInventoryActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private InventoryAdapter adapter;
     private List<InventoryProduct> productList;
     private SearchView searchBar;
+    private FloatingActionButton fabAdd; // Declare Floating Action Button
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +41,15 @@ public class StaffInventoryActivity extends AppCompatActivity {
         productList = new ArrayList<>();
         adapter = new InventoryAdapter(this, productList);
         recyclerView.setAdapter(adapter);
+
+        fabAdd = findViewById(R.id.fab_add); // Initialize FAB
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StaffInventoryActivity.this, StaffProductListingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         loadProducts();
     }
@@ -83,10 +91,6 @@ public class StaffInventoryActivity extends AppCompatActivity {
                 error -> Log.e("Volley", "Error: " + (error.getMessage() != null ? error.getMessage() : "Unknown error"))
         );
 
-
         queue.add(request);
-
     }
-
-
 }
