@@ -116,7 +116,8 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:padding="10dp"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="20dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
