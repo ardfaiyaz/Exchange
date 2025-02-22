@@ -20,7 +20,7 @@
         >
 
         <activity
-            android:name=".CreateAccountActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
@@ -28,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".StaffProfileActivity"
             android:exported="false"
@@ -90,6 +91,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".StaffProductListingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreateAccountActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
