@@ -14,7 +14,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash); // Link to your XML layout
 
         // Get VideoView from XML
-        VideoView videoView = findViewById(R.id.videoView);
+        VideoView videoView = findViewById(R.id.splash_activity);
 
         // Set video path from res/raw
         Uri videoUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.splash_activity);
