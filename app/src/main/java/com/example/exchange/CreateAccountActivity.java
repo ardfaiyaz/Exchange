@@ -68,7 +68,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             }
 
             if (!isValidEmail(Email)) { // Validate email domain
-                StyleableToast.makeText(CreateAccountActivity.this, "Invalid email! Must be @students.nu-dasma.edu.ph", R.style.accinputerror).show();
+                StyleableToast.makeText(CreateAccountActivity.this, "Invalid email! Must be \n@students.nu-dasma.edu.ph", R.style.accinputerror).show();
                 return;
             }
 
@@ -117,7 +117,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
                 runOnUiThread(() ->
-                        StyleableToast.makeText(CreateAccountActivity.this, "Network Error: " + e.getMessage(), R.style.accinputerror).show()
+                        StyleableToast.makeText(CreateAccountActivity.this, "Network Error", R.style.accinputerror).show()
                 );
             }
         }).start();
