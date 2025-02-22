@@ -202,7 +202,7 @@
                     <LinearLayout
                         android:id="@+id/staffinventorybtn"
                         android:layout_width="match_parent"
-                        android:layout_height="140dp"
+                        android:layout_height="155dp"
                         android:layout_weight="1"
                         android:layout_marginEnd="6dp"
                         android:background="@drawable/accountwhitebg"
@@ -221,7 +221,7 @@
                         android:layout_weight="1"
                         android:id="@+id/staffplbtn"
                         android:layout_width="match_parent"
-                        android:layout_height="140dp"
+                        android:layout_height="155dp"
                         android:background="@drawable/accountwhitebg"
                         android:orientation="vertical">
 
