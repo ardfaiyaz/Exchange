@@ -79,6 +79,7 @@ public class StaffHomePageActivity extends AppCompatActivity {
                 JSONArray jsonArray = new JSONArray(json.toString());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject obj = jsonArray.getJSONObject(i);
+                    int productId = obj.getInt("productId");
                     String name = obj.getString("prod_name");
                     double price = obj.getDouble("prod_price");
                     String base64Image = obj.getString("prod_image");
@@ -87,7 +88,7 @@ public class StaffHomePageActivity extends AppCompatActivity {
                     byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-                    products.add(new Product(name, price, bitmap));
+                    products.add(new Product(productId, name, price, bitmap));
                 }
             } catch (Exception e) {
                 Log.e("FetchProductsTask", "Error fetching data", e);

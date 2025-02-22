@@ -199,7 +199,7 @@ public class StaffProductListingActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
                 runOnUiThread(() ->
-                        StyleableToast.makeText(StaffProductListingActivity.this, "Error: " + e.getMessage(), R.style.accinputerror).show()
+                        StyleableToast.makeText(StaffProductListingActivity.this, "Error", R.style.accinputerror).show()
                 );
             }
         }).start();

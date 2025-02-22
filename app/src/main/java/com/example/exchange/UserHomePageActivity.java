@@ -91,15 +91,20 @@ public class UserHomePageActivity extends AppCompatActivity {
                 JSONArray jsonArray = new JSONArray(json.toString());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject obj = jsonArray.getJSONObject(i);
+                    int productId = obj.getInt("product_id"); // Ensure key matches PHP, use lowercase if needed
                     String name = obj.getString("prod_name");
                     double price = obj.getDouble("prod_price");
-                    String base64Image = obj.getString("prod_image");
 
-                    // Convert Base64 to Bitmap
-                    byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-                    products.add(new Product(name, price, bitmap));
+                    Bitmap bitmap = null;
+                    // Check if the prod_image exists; if not, set a default bitmap or leave null.
+                    if(obj.has("prod_image")){
+                        String base64Image = obj.getString("prod_image");
+                        if(!base64Image.isEmpty()){
+                            byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                            bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        }
+                    }
+                    products.add(new Product(productId, name, price, bitmap));
                 }
             } catch (Exception e) {
                 Log.e("FetchProductsTask", "Error fetching data", e);
@@ -112,9 +117,14 @@ public class UserHomePageActivity extends AppCompatActivity {
             if (products.isEmpty()) {
                 Toast.makeText(UserHomePageActivity.this, "No products found", Toast.LENGTH_SHORT).show();
             } else {
-                productList.addAll(products);
-                adapter = new UserHomePageAdapter(UserHomePageActivity.this, productList);
-                recyclerView.setAdapter(adapter);
+                productList.clear();  // ✅ Clear old data
+                productList.addAll(products);  // ✅ Add new data
+                if (adapter == null) {
+                    adapter = new UserHomePageAdapter(UserHomePageActivity.this, productList);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    adapter.notifyDataSetChanged();  // ✅ Refresh UI
+                }
             }
         }
     }

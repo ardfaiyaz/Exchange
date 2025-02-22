@@ -9,6 +9,37 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="#1c256c"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/backbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:text="BACK"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
@@ -20,23 +51,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_gravity="left"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:id="@+id/backbtn"
-                android:orientation="vertical">
-
-                <TextView
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:gravity="center"
-                    android:id="@+id/textView31"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="BACK" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -45,6 +59,7 @@
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginBottom="30dp"
                     app:srcCompat="@drawable/productlistingtxt" />
 

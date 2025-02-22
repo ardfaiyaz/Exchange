@@ -56,6 +56,7 @@ public class UserHomePageAdapter extends RecyclerView.Adapter<UserHomePageAdapte
 
             context.startActivity(intent);
         });
+
     }
 
     @Override

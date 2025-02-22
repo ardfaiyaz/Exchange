@@ -3,24 +3,32 @@ package com.example.exchange;
 import android.graphics.Bitmap;
 
 public class Item {
-    private final String name;
-    private final String description;
-    private final String price;
-    private final Bitmap image; // New field for image
+    private String name;
+    private String variation;
+    private String price;
+    private Bitmap image;
+    private int quantity;
+    private boolean isSelected; // Add this field
+    private String productId;
 
-    public Item(String name, String description, String price, Bitmap image) {
+    public Item(String name, String variation, String price, Bitmap image, int quantity) {
         this.name = name;
-        this.description = description;
+        this.variation = variation;
         this.price = price;
         this.image = image;
+        this.quantity = quantity;
+        this.isSelected = false; // Default to false
     }
 
     public String getName() {
         return name;
     }
+    public String getProductId() {
+        return productId;
+    }
 
-    public String getDescription() {
-        return description;
+    public String getVariation() {
+        return variation;
     }
 
     public String getPrice() {
@@ -29,5 +37,21 @@ public class Item {
 
     public Bitmap getImage() {
         return image;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }
