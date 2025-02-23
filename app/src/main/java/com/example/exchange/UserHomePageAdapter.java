@@ -50,6 +50,7 @@ public class UserHomePageAdapter extends RecyclerView.Adapter<UserHomePageAdapte
             byte[] byteArray = stream.toByteArray();
 
             // Passing data via extras
+            intent.putExtra("productID", product.getProductId());
             intent.putExtra("productImage", byteArray);
             intent.putExtra("productName", product.getName());
             intent.putExtra("productPrice", product.getPrice());

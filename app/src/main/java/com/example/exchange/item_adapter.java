@@ -1,5 +1,10 @@
 package com.example.exchange;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +13,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class item_adapter extends RecyclerView.Adapter<item_adapter.ItemViewHolder> {
 
-    private List<com.example.exchange.item_product> itemList;
+    private List<Item> itemList;
+    private final Context context;
 
-    public item_adapter(List<com.example.exchange.item_product> itemList) {
+    public item_adapter(Context context, List<Item> itemList) {
+        this.context = context;
         this.itemList = itemList;
     }
 
@@ -29,11 +44,29 @@ public class item_adapter extends RecyclerView.Adapter<item_adapter.ItemViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        com.example.exchange.item_product item = itemList.get(position);
+        Item item = itemList.get(position);
         holder.itemName.setText(item.getName());
-        holder.itemPrice.setText(item.getPrice());
-        holder.itemStock.setText(item.getStock());
-        holder.itemImage.setImageResource(item.getImageResource());
+        holder.itemPrice.setText("₱ " +item.getPrice());
+        holder.itemImage.setImageBitmap(item.getImage());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, PlaceItem00Activity.class);
+
+            // Convert Bitmap to ByteArray for passing the image
+            Bitmap bitmap = item.getImage();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            // Passing data via extras
+            intent.putExtra("productID", item.getProductId());
+            intent.putExtra("productImage", byteArray);
+            intent.putExtra("productName", item.getName());
+            intent.putExtra("productPrice", item.getPrice());
+
+            context.startActivity(intent);
+        });
+
     }
 
     @Override

@@ -52,7 +52,7 @@
         <!-- Product Description -->
         <TextView
             android:fontFamily="@font/montserrat"
-            android:id="@+id/productDescription"
+            android:id="@+id/productVariation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -78,7 +78,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/productImage"
-            app:layout_constraintTop_toBottomOf="@id/productDescription" />
+            app:layout_constraintTop_toBottomOf="@id/productVariation" />
 
         <LinearLayout
             android:id="@+id/quantityLayout"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/productDescription">
+            app:layout_constraintTop_toBottomOf="@id/productVariation">
 
             <!-- Decrease Button -->
             <Button
@@ -105,7 +105,7 @@
             <TextView
                 android:fontFamily="@font/montserrat_bold"
                 android:layout_gravity="center"
-                android:id="@+id/quantityText"
+                android:id="@+id/quantityedit"
                 android:layout_width="40dp"
                 android:layout_height="32dp"
                 android:gravity="center"

@@ -51,6 +51,7 @@ public class StaffHomePageAdapter extends RecyclerView.Adapter<StaffHomePageAdap
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             byte[] byteArray = stream.toByteArray();
 
+            intent.putExtra("productID", product.getProductId());
             intent.putExtra("productImage", byteArray); // Send image as byte array
             intent.putExtra("productName", product.getName());
             intent.putExtra("productPrice", product.getPrice());

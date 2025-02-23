@@ -1,5 +1,7 @@
 package com.example.exchange;
 
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -28,7 +30,7 @@ public class UserYourCartActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private MyAdapter adapter;
-    private List<Item> itemList;
+    private List<Item> ItemList;
     private int userId; // Retrieved from SharedPreferences
 
     @Override
@@ -39,14 +41,45 @@ public class UserYourCartActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.cartrecyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        SharedPreferences preferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        String userId = preferences.getString("userId", null);
+
+        SharedPreferences preferences = getDefaultSharedPreferences(UserYourCartActivity.this);
+        System.out.println("burat" + preferences.toString());
+        //String userId = preferences.getString("USER_ID", null);
+        int userId = preferences.getInt("USER_ID", -1);
+
+        System.out.println("tanga"+preferences.getString("USER_FIRST_NAME","WALA TANGINA MO"));
 
         // Initialize the itemList
-        itemList = new ArrayList<>();
+        ItemList = new ArrayList<>();
 
         // Instead of relying solely on intent extras, we now fetch persistent cart items
-        fetchCartItems();
+        fetchCartItems(userId);
+
+//        OkHttpClient client = new OkHttpClient();
+//        RequestBody body = new FormBody.Builder()
+//                .add("user_id", userId)
+//                .build();
+//
+//        Request request = new Request.Builder()
+//                .url("http://10.0.2.2/Exchange/get_cart_items.php")
+//                .post(body)
+//                .build();
+
+//        new Thread(() -> {
+//            try (Response response = client.newCall(request).execute()) {
+//                if (response.isSuccessful()) {
+//                    String responseBody = response.body().string();
+//                    Log.d("CartItems", "Response: " + responseBody);
+//                    // Parse JSON and update UI with cart items
+//                    System.out.print("SUCCES");
+//                } else {
+//                    System.out.print("FAIL");
+//                    Log.e("CartError", "Failed to fetch cart: " + response.message());
+//                }
+//            } catch (Exception e) {
+//                Log.e("CartException", "Error fetching cart", e);
+//            }
+//        }).start();
 
         // Set up button click listeners (example)
         findViewById(R.id.userprofilebtn).setOnClickListener(view -> {
@@ -66,10 +99,12 @@ public class UserYourCartActivity extends AppCompatActivity {
         });
     }
 
-    private void fetchCartItems() {
+    private void fetchCartItems(int userId) {
+
         new Thread(() -> {
             try {
                 // Build the URL with the user id
+                System.out.println("PATRICK POGI" + userId);
                 URL url = new URL("http://10.0.2.2/Exchange/get_cart_items.php?user_id=" + userId);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
@@ -82,11 +117,15 @@ public class UserYourCartActivity extends AppCompatActivity {
                     jsonResult.append(scanner.nextLine());
                 }
                 scanner.close();
+                System.out.print("RESULT" + jsonResult);
 
                 JSONObject response = new JSONObject(jsonResult.toString());
                 if (response.getString("status").equals("success")) {
+                    System.out.println("Hello");
                     JSONArray cartArray = response.getJSONArray("cart");
-                    itemList.clear();
+                    ItemList.clear();
+
+
                     for (int i = 0; i < cartArray.length(); i++) {
                         JSONObject obj = cartArray.getJSONObject(i);
                         int productId = obj.getInt("product_id");
@@ -96,11 +135,15 @@ public class UserYourCartActivity extends AppCompatActivity {
                         int quantity = obj.getInt("quantity");
 
                         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.id_it);
-                        adapter.notifyDataSetChanged();
+
+                        ItemList.add(new Item(prodName, "Variation: " + varId, "₱ " + prodPrice, bitmap, quantity));
+                        Log.d("CartItems", "Added item: " + prodName + ", Variation: " + varId + ", Qty: " + quantity);
+
                     }
+                    Log.d("CartItems", "Total items fetched: " + ItemList.size());
                     runOnUiThread(() -> {
                         if (adapter == null) {
-                            adapter = new MyAdapter(itemList);
+                            adapter = new MyAdapter(UserYourCartActivity.this, ItemList);
                             recyclerView.setAdapter(adapter);
                         } else {
                             adapter.notifyDataSetChanged();
@@ -108,8 +151,10 @@ public class UserYourCartActivity extends AppCompatActivity {
                     });
                 } else {
                     runOnUiThread(() -> Toast.makeText(UserYourCartActivity.this, "No cart items found", Toast.LENGTH_SHORT).show());
+                    System.out.println("world");
                 }
             } catch (Exception e) {
+                Log.e("CartFetchError", "Error fetching cart items", e);
                 e.printStackTrace();
                 runOnUiThread(() -> Toast.makeText(UserYourCartActivity.this, "Failed to fetch cart items", Toast.LENGTH_SHORT).show());
             }

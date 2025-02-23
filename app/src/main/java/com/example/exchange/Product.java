@@ -30,5 +30,4 @@ public class Product {
     public Bitmap getImage() {
         return image;
     }
-
 }
