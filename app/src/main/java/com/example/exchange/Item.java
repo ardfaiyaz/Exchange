@@ -9,7 +9,8 @@ public class Item {
     private Bitmap image;
     private int quantity;
     private boolean isSelected; // Add this field
-    private String productId;
+    private int cartId;
+    private int productId;
 
     public Item(String name, String variation, String price, Bitmap image, int quantity) {
         this.name = name;
@@ -20,12 +21,23 @@ public class Item {
         this.isSelected = false; // Default to false
     }
 
+    public Item(int cartId, String name, String variation, String price, Bitmap image, int quantity) {
+        this.cartId = cartId;
+        this.name = name;
+        this.variation = variation;
+        this.price = price;
+        this.image = image;
+        this.quantity = quantity;
+        this.isSelected = false;
+    }
+
     public String getName() {
         return name;
     }
-    public String getProductId() {
-        return productId;
+    public int getCartId() {
+        return cartId;
     }
+    public int getProductId() {return productId;}
 
     public String getVariation() {
         return variation;

@@ -124,7 +124,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/montserrat"
-                                android:text="Small" />
+                                android:text="S" />
 
                             <CheckBox
                                 android:id="@+id/mediumcb"
@@ -132,7 +132,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/montserrat"
-                                android:text="Medium" />
+                                android:text="M" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -147,7 +147,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/montserrat"
-                                android:text="Large" />
+                                android:text="L" />
 
                             <CheckBox
                                 android:id="@+id/xlcb"

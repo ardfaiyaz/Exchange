@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,6 +28,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import io.github.muddz.styleabletoast.StyleableToast;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class UserYourCartActivity extends AppCompatActivity {
 
@@ -47,7 +54,7 @@ public class UserYourCartActivity extends AppCompatActivity {
         //String userId = preferences.getString("USER_ID", null);
         int userId = preferences.getInt("USER_ID", -1);
 
-        System.out.println("tanga"+preferences.getString("USER_FIRST_NAME","WALA TANGINA MO"));
+        System.out.println("tanga" + preferences.getString("USER_FIRST_NAME", "WALA TANGINA MO"));
 
         // Initialize the itemList
         ItemList = new ArrayList<>();
