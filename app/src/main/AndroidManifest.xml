@@ -20,7 +20,7 @@
         >
 
         <activity
-            android:name=".CreateAccountActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
@@ -92,6 +92,11 @@
             android:name=".StaffProductListingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreateAccountActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
 
         <meta-data
             android:name="preloaded_fonts"

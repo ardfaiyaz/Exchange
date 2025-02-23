@@ -45,7 +45,13 @@ public class CreateAccountActivity extends AppCompatActivity {
             // Extract username from email
             String username = Email.contains("@") ? Email.split("@")[0].toLowerCase() : "";
 
-            // Validate UserID and determine user role
+            // Validation checks: Check for empty fields first
+            if (FirstName.isEmpty() || LastName.isEmpty() || Email.isEmpty() || UserID.isEmpty() || Password.isEmpty()) {
+                StyleableToast.makeText(CreateAccountActivity.this, "Please fill in all fields.", R.style.accinputerror).show();
+                return; // Stop the process if any field is empty
+            }
+
+            // Validate UserID and determine user role (only if all fields are filled)
             if (UserID.length() < 2) {
                 StyleableToast.makeText(CreateAccountActivity.this, "Invalid Student ID", R.style.accinputerror).show();
                 return; // Stop the process
@@ -61,14 +67,13 @@ public class CreateAccountActivity extends AppCompatActivity {
                 return; // Stop the process
             }
 
-            // Validation checks
-            if (FirstName.isEmpty() || LastName.isEmpty() || Email.isEmpty() || UserID.isEmpty() || Password.isEmpty()) {
-                StyleableToast.makeText(CreateAccountActivity.this, "Please fill in all fields.", R.style.accinputerror).show();
-            } else if (!isValidEmail(Email)) { // Validate email domain
-                StyleableToast.makeText(CreateAccountActivity.this, "Invalid email! Must be @students.nu-dasma.edu.ph", R.style.accinputerror).show();
-            } else {
-                sendDataToServer(FirstName, LastName, Email, UserID, username, Password, userRole);
+            if (!isValidEmail(Email)) { // Validate email domain
+                StyleableToast.makeText(CreateAccountActivity.this, "Invalid email! Must be \n@students.nu-dasma.edu.ph", R.style.accinputerror).show();
+                return;
             }
+
+            sendDataToServer(FirstName, LastName, Email, UserID, username, Password, userRole);
+
         });
 
         findViewById(R.id.loginbtn).setOnClickListener(view -> {
@@ -112,7 +117,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
                 runOnUiThread(() ->
-                        StyleableToast.makeText(CreateAccountActivity.this, "Network Error: " + e.getMessage(), R.style.accinputerror).show()
+                        StyleableToast.makeText(CreateAccountActivity.this, "Network Error", R.style.accinputerror).show()
                 );
             }
         }).start();

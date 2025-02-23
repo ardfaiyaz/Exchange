@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="190dp"
+            android:layout_height="150dp"
             android:background="@drawable/profileinfobg"
             android:orientation="vertical">
 
@@ -22,25 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical">
-
-                <LinearLayout
-
-                    android:id="@+id/backbtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="15dp">
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/montserrat"
-                        android:gravity="bottom"
-                        android:text="BACK" />
-                </LinearLayout>
-            </LinearLayout>
+                android:orientation="vertical" />
 
             <LinearLayout
 
@@ -48,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:paddingHorizontal="10dp">
 
                 <ImageView
                     android:id="@+id/imageView11"
@@ -128,6 +110,37 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/profilebtn" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/backbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/black"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:id="@+id/textView13"
+                android:textSize="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="BACK" />
         </LinearLayout>
     </LinearLayout>
 
