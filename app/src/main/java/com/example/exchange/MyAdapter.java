@@ -2,6 +2,9 @@ package com.example.exchange;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,11 +18,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.IOException;
 import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private List<Item> productList;
@@ -47,7 +58,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.productPrice.setText(item.getPrice());
         holder.productImage.setImageBitmap(item.getImage());
 
-
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        int userId = preferences.getInt("USER_ID", -1);
+        Log.d("RemoveCartItem", "Retrieved userId: " + userId);
 
         // Listen for changes in the quantity EditText
         holder.quantityEditText.addTextChangedListener(new TextWatcher() {
@@ -93,22 +106,40 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.removeButton.setOnClickListener(v -> {
             int positionToRemove = holder.getAdapterPosition();
             if (positionToRemove != RecyclerView.NO_POSITION) {
-                // Save removed item and position for potential undo
-                Item removedItem = productList.get(positionToRemove);
-                productList.remove(positionToRemove);
-                notifyItemRemoved(positionToRemove);
-                notifyItemRangeChanged(positionToRemove, productList.size());
+                // Reuse 'item' instead of redeclaring:
+                int cartId = item.getCartId();
+                // then proceed with your thread to remove...
 
-                // Show Snackbar with Undo action
-                Snackbar.make(v, removedItem.getName() + " removed", Snackbar.LENGTH_LONG)
-                        .setAction("Undo", undoView -> {
-                            // Reinsert the item and notify adapter
-                            productList.add(positionToRemove, removedItem);
-                            notifyItemInserted(positionToRemove);
-                            notifyItemRangeChanged(positionToRemove, productList.size());
+                new Thread(() -> {
+                    try {
+                        OkHttpClient client = new OkHttpClient();
+                        RequestBody body = new FormBody.Builder()
+                                .add("cart_id", String.valueOf(cartId))
+                                .build();
+                        Log.d("removecartitem", "cart_id: " + cartId);
 
-                            // Optionally update persistent storage to re-add this item
-                        }).show();
+                        Request request = new Request.Builder()
+                                .url("http://10.0.2.2/Exchange/remove_cart_item.php")
+                                .post(body)
+                                .build();
+
+                        Response response = client.newCall(request).execute();
+                        String responseBody = response.body().string();
+                        Log.d("RemoveCartItem", "Server Response: " + responseBody);
+
+                        if (responseBody.contains("\"status\":\"success\"")) {
+                            new Handler(Looper.getMainLooper()).post(() -> {
+                                productList.remove(positionToRemove);
+                                notifyItemRemoved(positionToRemove);
+                                notifyItemRangeChanged(positionToRemove, productList.size());
+                            });
+                        } else {
+                            Log.e("RemoveCartItem", "Failed to remove item from server");
+                        }
+                    } catch (Exception e) {
+                        Log.e("RemoveCartItem", "Error in API request", e);
+                    }
+                }).start();
             }
         });
 

@@ -20,7 +20,7 @@
         >
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".CreateAccountActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
@@ -93,7 +93,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateAccountActivity"
+            android:name=".SplashActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

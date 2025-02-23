@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -113,24 +114,24 @@ public class PlaceItem00Activity extends AppCompatActivity {
             }
 
             // Encode var_id
-            String encodedVarId;
-            try {
-                encodedVarId = URLEncoder.encode(selectedVarId, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-                encodedVarId = selectedVarId;
-            }
+//            String encodedVarId;
+//            try {
+//                encodedVarId = URLEncoder.encode(selectedVarId, "UTF-8");
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//                encodedVarId = selectedVarId;
+//            }
             OkHttpClient client = new OkHttpClient();
 
             RequestBody body = new FormBody.Builder()
                     .add("user_id", String.valueOf(userId))
                     .add("product_id", String.valueOf(productID))
-                    .add("var_id", encodedVarId)
+                    .add("var_id", URLEncoder.encode(selectedVarId, StandardCharsets.UTF_8))//encodedVarId)
                     .add("quantity", String.valueOf(quantity))
                     .build();
 
 
-            Log.d("AddToCartRequest", "UserID: " + userId + ", ProductID: " + productID + ", VarID: " + encodedVarId + ", Quantity: " + quantity);
+            Log.d("AddToCartRequest", "UserID: " + userId + ", ProductID: " + productID + ", VarID: " + selectedVarId + ", Quantity: " + quantity);
 
             Request request = new Request.Builder()
                     .url("http://10.0.2.2/Exchange/add_to_cart.php")
