@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -27,7 +28,12 @@ import java.util.Date;
 import java.util.Locale;
 
 import io.github.muddz.styleabletoast.StyleableToast;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class PlaceItem00Activity extends AppCompatActivity {
 
@@ -55,6 +61,13 @@ public class PlaceItem00Activity extends AppCompatActivity {
         productName = getIntent().getStringExtra("productName");
         productPrice = getIntent().getDoubleExtra("productPrice", 0.0);
         productID = getIntent().getIntExtra("productID", -1);
+        Log.d(String.valueOf(productID), "prodID");
+        Log.d(productName, "prodName");
+        if (productID == -1 || productName == null || productName.isEmpty()) {
+            StyleableToast.makeText(this, "Invalid product data received.", R.style.accinputerror).show();
+            finish();  // Close the activity if data is invalid
+            return;
+        }
 
         Bitmap bitmap = null;
         if (byteArray != null) {
@@ -107,37 +120,45 @@ public class PlaceItem00Activity extends AppCompatActivity {
                 e.printStackTrace();
                 encodedVarId = selectedVarId;
             }
+            OkHttpClient client = new OkHttpClient();
 
-            // Build POST data
-            String postData = "user_id=" + userId +
-                    "&product_id=" + productID +
-                    "&var_id=" + encodedVarId +
-                    "&quantity=" + quantity;
+            RequestBody body = new FormBody.Builder()
+                    .add("user_id", String.valueOf(userId))
+                    .add("product_id", String.valueOf(productID))
+                    .add("var_id", encodedVarId)
+                    .add("quantity", String.valueOf(quantity))
+                    .build();
+
+
+            Log.d("AddToCartRequest", "UserID: " + userId + ", ProductID: " + productID + ", VarID: " + encodedVarId + ", Quantity: " + quantity);
+
+            Request request = new Request.Builder()
+                    .url("http://10.0.2.2/Exchange/add_to_cart.php")
+                    .post(body)
+                    .build();
 
             new Thread(() -> {
-                try {
-                    OkHttpClient client = new OkHttpClient();
-                    okhttp3.RequestBody body = okhttp3.RequestBody.create(
-                            postData,
-                            okhttp3.MediaType.parse("application/x-www-form-urlencoded")
-                    );
-                    okhttp3.Request request = new okhttp3.Request.Builder()
-                            .url("http://10.0.2.2/Exchange/add_to_cart.php")
-                            .post(body)
-                            .build();
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) {
+                        Log.e("AddToCartError", "Unexpected response: " + response);
+                        runOnUiThread(() -> Toast.makeText(PlaceItem00Activity.this, "Failed: " + response.message(), Toast.LENGTH_SHORT).show());
+                    } else {
+                        String responseBody = response.body().string();
+                        Log.d("AddToCartResponse", "Response: " + responseBody);
 
-                    okhttp3.Response response = client.newCall(request).execute();
-                    String responseBody = response.body().string();
-
-                    runOnUiThread(() -> {
-                        StyleableToast.makeText(PlaceItem00Activity.this, "Item added to cart!", Toast.LENGTH_SHORT).show();
-                        // Optionally, navigate to the cart activity:
-                        Intent intent = new Intent(PlaceItem00Activity.this, UserYourCartActivity.class);
-                        startActivity(intent);
-                    });
+                        runOnUiThread(() -> {
+                            if (responseBody.trim().equalsIgnoreCase("success")) {
+                                StyleableToast.makeText(PlaceItem00Activity.this, "Item added to cart!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(PlaceItem00Activity.this, UserYourCartActivity.class);
+                                startActivity(intent);
+                            } else {
+                                StyleableToast.makeText(PlaceItem00Activity.this, "Failed: " + responseBody, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    runOnUiThread(() -> Toast.makeText(PlaceItem00Activity.this, "Failed to add item", Toast.LENGTH_SHORT).show());
+                    Log.e("AddToCartException", "Error: ", e);
+                    runOnUiThread(() -> Toast.makeText(PlaceItem00Activity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                 }
             }).start();
 

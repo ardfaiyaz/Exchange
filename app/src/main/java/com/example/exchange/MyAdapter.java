@@ -1,8 +1,10 @@
 package com.example.exchange;
 
+import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,48 +17,37 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    private final List<Item> itemList;
-
-    public MyAdapter(List<Item> itemList) {
-        this.itemList = itemList;
+    private List<Item> productList;
+    private Context context;
+    public MyAdapter(Context context, List<Item> productList) {
+        this.context = context;
+        this.productList = productList;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_layout, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Item item = itemList.get(position);
-
-        // Bind data to views
-        holder.productName.setText(item.getName());
-        // Use the variation field instead of description
-        holder.productVariation.setText("Variation: " + item.getVariation());
-        holder.productPrice.setText(item.getPrice());
-
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), PlaceItem00Activity.class);
-            intent.putExtra("productID", item.getProductId());  // Ensure this is set
-            intent.putExtra("productName", item.getName());
-            intent.putExtra("productPrice", item.getPrice());
-            intent.putExtra("productImage", item.getImage()); // Assuming you have a method to get image bytes
-            v.getContext().startActivity(intent);
-        });
-
-        // Display image if available
-        if (item.getImage() != null) {
-            holder.productImage.setImageBitmap(item.getImage());
-        }
-
+        Item item = productList.get(position);
+        Log.d("MyAdapter", "Binding item at position " + position + ": " + item.getName());
+        holder.productVariation.setText(item.getVariation());
         // Set quantity in the EditText
         holder.quantityEditText.setText(String.valueOf(item.getQuantity()));
+        holder.productName.setText(item.getName());
+        holder.productPrice.setText(item.getPrice());
+        holder.productImage.setImageBitmap(item.getImage());
+
+
 
         // Listen for changes in the quantity EditText
         holder.quantityEditText.addTextChangedListener(new TextWatcher() {
@@ -102,9 +93,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.removeButton.setOnClickListener(v -> {
             int positionToRemove = holder.getAdapterPosition();
             if (positionToRemove != RecyclerView.NO_POSITION) {
-                itemList.remove(positionToRemove);
+                // Save removed item and position for potential undo
+                Item removedItem = productList.get(positionToRemove);
+                productList.remove(positionToRemove);
                 notifyItemRemoved(positionToRemove);
-                notifyItemRangeChanged(positionToRemove, itemList.size());
+                notifyItemRangeChanged(positionToRemove, productList.size());
+
+                // Show Snackbar with Undo action
+                Snackbar.make(v, removedItem.getName() + " removed", Snackbar.LENGTH_LONG)
+                        .setAction("Undo", undoView -> {
+                            // Reinsert the item and notify adapter
+                            productList.add(positionToRemove, removedItem);
+                            notifyItemInserted(positionToRemove);
+                            notifyItemRangeChanged(positionToRemove, productList.size());
+
+                            // Optionally update persistent storage to re-add this item
+                        }).show();
             }
         });
 
@@ -117,13 +121,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return productList.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
-        TextView productName, productVariation, productPrice;
-        EditText quantityEditText; // Changed from TextView to EditText
+        TextView productName, productVariation, productPrice, quantityEditText;
         Button increaseQuantity, decreaseQuantity, removeButton;
         CheckBox selectCheckbox;
 
@@ -132,7 +135,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
             productImage = itemView.findViewById(R.id.productImage);
             productName = itemView.findViewById(R.id.productName);
-            productVariation = itemView.findViewById(R.id.checkBox); // New ID for variation
+            productVariation = itemView.findViewById(R.id.productVariation); // New ID for variation
             productPrice = itemView.findViewById(R.id.productPrice);
             quantityEditText = itemView.findViewById(R.id.quantityedit); // New ID for EditText
             increaseQuantity = itemView.findViewById(R.id.increaseQuantity);

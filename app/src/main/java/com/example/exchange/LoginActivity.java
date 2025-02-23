@@ -123,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("USER_LAST_NAME", lastName);
                     editor.putString("USER_ROLE", userRole); // STORE ROLE IN PREFS
                     editor.apply();
+                    editor.commit();
 
                     // Show welcome message
                     StyleableToast.makeText(LoginActivity.this, "Welcome, " + firstName + "!", R.style.placedordertoast).show();

@@ -49,6 +49,7 @@ public class FetchProducts extends AsyncTask<Void, Void, List<Product>> {
                 String name = obj.getString("prod_name");
                 double price = obj.getDouble("prod_price");
                 String base64Image = obj.getString("prod_image");
+                int quantity = obj.getInt("quantity");
 
                 // Convert Base64 to Bitmap
                 byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
