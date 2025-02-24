@@ -41,7 +41,6 @@
                 android:id="@+id/staffhomepagerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
                 android:paddingEnd="30dp"
                 android:gravity="center_horizontal"
                 android:nestedScrollingEnabled="false"

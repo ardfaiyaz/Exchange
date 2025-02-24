@@ -85,6 +85,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/montserrat_bold"
                     android:gravity="center|right"
+                    android:textSize="18dp"
                     android:text="₱ 0"
                     android:textColor="#EF6B48" />
             </LinearLayout>
@@ -97,7 +98,7 @@
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:background="@drawable/placebg"
+                    android:background="@drawable/search_bar_img_3"
                     android:id="@+id/placeorderbtn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
