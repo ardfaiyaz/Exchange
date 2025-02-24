@@ -10,9 +10,9 @@ import java.util.List;
 
 public class TrackOrderItemAdapter extends RecyclerView.Adapter<TrackOrderItemAdapter.OrderViewHolder> {
 
-    private List<OrderItem> orderList;
+    private List<TrackOrderItemModel> orderList;
 
-    public TrackOrderItemAdapter(List<OrderItem> orderList) {
+    public TrackOrderItemAdapter(List<TrackOrderItemModel> orderList) {
         this.orderList = orderList;
     }
 
@@ -25,7 +25,7 @@ public class TrackOrderItemAdapter extends RecyclerView.Adapter<TrackOrderItemAd
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        OrderItem order = orderList.get(position);
+        TrackOrderItemModel order = orderList.get(position);
         holder.itemName.setText(order.getName());
         holder.itemVersion.setText(order.getVersion());
         holder.itemOrderId.setText("Order id: #" + order.getOrderId());

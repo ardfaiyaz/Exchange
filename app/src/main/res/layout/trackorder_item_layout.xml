@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="space-between">
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/item_quantity"
