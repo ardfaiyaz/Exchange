@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -28,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import io.github.muddz.styleabletoast.StyleableToast;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -38,7 +37,8 @@ public class UserYourCartActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MyAdapter adapter;
     private List<Item> ItemList;
-    private int userId; // Retrieved from SharedPreferences
+    private int userId;
+    private Button placeOrderBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,53 +48,15 @@ public class UserYourCartActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.cartrecyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         SharedPreferences preferences = getDefaultSharedPreferences(UserYourCartActivity.this);
-        System.out.println("burat" + preferences.toString());
-        //String userId = preferences.getString("USER_ID", null);
         int userId = preferences.getInt("USER_ID", -1);
 
-        System.out.println("tanga" + preferences.getString("USER_FIRST_NAME", "WALA TANGINA MO"));
-
-        // Initialize the itemList
         ItemList = new ArrayList<>();
-
-        // Instead of relying solely on intent extras, we now fetch persistent cart items
         fetchCartItems(userId);
 
-//        OkHttpClient client = new OkHttpClient();
-//        RequestBody body = new FormBody.Builder()
-//                .add("user_id", userId)
-//                .build();
-//
-//        Request request = new Request.Builder()
-//                .url("http://10.0.2.2/Exchange/get_cart_items.php")
-//                .post(body)
-//                .build();
-
-//        new Thread(() -> {
-//            try (Response response = client.newCall(request).execute()) {
-//                if (response.isSuccessful()) {
-//                    String responseBody = response.body().string();
-//                    Log.d("CartItems", "Response: " + responseBody);
-//                    // Parse JSON and update UI with cart items
-//                    System.out.print("SUCCES");
-//                } else {
-//                    System.out.print("FAIL");
-//                    Log.e("CartError", "Failed to fetch cart: " + response.message());
-//                }
-//            } catch (Exception e) {
-//                Log.e("CartException", "Error fetching cart", e);
-//            }
-//        }).start();
-
-        // Set up button click listeners (example)
         findViewById(R.id.userprofilebtn).setOnClickListener(view -> {
             Intent intent = new Intent(UserYourCartActivity.this, UserProfileActivity.class);
             startActivity(intent);
-        });
-        findViewById(R.id.placeorderbtn).setOnClickListener(view -> {
-            StyleableToast.makeText(UserYourCartActivity.this, "Successfully Placed Order", R.style.placedordertoast).show();
         });
         findViewById(R.id.userhomebtn).setOnClickListener(view -> {
             Intent intent = new Intent(UserYourCartActivity.this, UserHomePageActivity.class);
@@ -104,14 +66,13 @@ public class UserYourCartActivity extends AppCompatActivity {
             Intent intent = new Intent(UserYourCartActivity.this, UserProfileActivity.class);
             startActivity(intent);
         });
+
+        findViewById(R.id.placeorderbtn).setOnClickListener(view -> placeOrder(userId));
     }
 
     private void fetchCartItems(int userId) {
-
         new Thread(() -> {
             try {
-                // Build the URL with the user id
-                System.out.println("PATRICK POGI" + userId);
                 URL url = new URL("http://10.0.2.2/Exchange/get_cart_items.php?user_id=" + userId);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
@@ -124,14 +85,11 @@ public class UserYourCartActivity extends AppCompatActivity {
                     jsonResult.append(scanner.nextLine());
                 }
                 scanner.close();
-                System.out.print("RESULT" + jsonResult);
 
                 JSONObject response = new JSONObject(jsonResult.toString());
                 if (response.getString("status").equals("success")) {
-                    System.out.println("Hello");
                     JSONArray cartArray = response.getJSONArray("cart");
                     ItemList.clear();
-
 
                     for (int i = 0; i < cartArray.length(); i++) {
                         JSONObject obj = cartArray.getJSONObject(i);
@@ -142,12 +100,8 @@ public class UserYourCartActivity extends AppCompatActivity {
                         int quantity = obj.getInt("quantity");
 
                         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.id_it);
-
                         ItemList.add(new Item(prodName, "Variation: " + varId, "₱ " + prodPrice, bitmap, quantity));
-                        Log.d("CartItems", "Added item: " + prodName + ", Variation: " + varId + ", Qty: " + quantity);
-
                     }
-                    Log.d("CartItems", "Total items fetched: " + ItemList.size());
                     runOnUiThread(() -> {
                         if (adapter == null) {
                             adapter = new MyAdapter(UserYourCartActivity.this, ItemList);
@@ -158,13 +112,64 @@ public class UserYourCartActivity extends AppCompatActivity {
                     });
                 } else {
                     runOnUiThread(() -> Toast.makeText(UserYourCartActivity.this, "No cart items found", Toast.LENGTH_SHORT).show());
-                    System.out.println("world");
                 }
             } catch (Exception e) {
                 Log.e("CartFetchError", "Error fetching cart items", e);
-                e.printStackTrace();
                 runOnUiThread(() -> Toast.makeText(UserYourCartActivity.this, "Failed to fetch cart items", Toast.LENGTH_SHORT).show());
             }
         }).start();
     }
+
+    private void placeOrder(int userId) {
+        new Thread(() -> {
+            try {
+                JSONArray orderDetailsArray = new JSONArray();
+                double totalPrice = 0; // Initialize total price
+
+                for (Item item : ItemList) {
+                    if (item.isSelected()) {
+                        JSONObject orderDetail = new JSONObject();
+                        orderDetail.put("prod_name", item.getName());
+                        orderDetail.put("variation", item.getVariation().replace("Variation: ", ""));
+                        orderDetail.put("quantity", item.getQuantity());
+                        orderDetail.put("price", item.getPrice().replace("₱ ", ""));
+                        orderDetailsArray.put(orderDetail);
+
+                        // Add price * quantity to totalPrice
+                        totalPrice += Double.parseDouble(item.getPrice().replace("₱ ", "")) * item.getQuantity();
+                    }
+                }
+
+                if (orderDetailsArray.length() == 0) {
+                    runOnUiThread(() -> Toast.makeText(UserYourCartActivity.this, "No items selected", Toast.LENGTH_SHORT).show());
+                    return;
+                }
+
+                JSONObject orderData = new JSONObject();
+                orderData.put("user_id", userId);
+                orderData.put("total_price", totalPrice); // ADD THIS LINE
+                orderData.put("order_details", orderDetailsArray);
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody body = RequestBody.create(orderData.toString(), okhttp3.MediaType.parse("application/json; charset=utf-8"));
+                Request request = new Request.Builder()
+                        .url("http://10.0.2.2/Exchange/place_order.php")
+                        .post(body)
+                        .build();
+                Response response = client.newCall(request).execute();
+
+                String responseBody = response.body().string();
+                JSONObject responseJson = new JSONObject(responseBody);
+                if (responseJson.getString("status").equals("success")) {
+                    runOnUiThread(() -> StyleableToast.makeText(UserYourCartActivity.this, "Successfully Placed Order", R.style.placedordertoast).show());
+                } else {
+                    runOnUiThread(() -> Toast.makeText(UserYourCartActivity.this, "Order failed", Toast.LENGTH_SHORT).show());
+                }
+            } catch (Exception e) {
+                Log.e("OrderError", "Error placing order", e);
+                runOnUiThread(() -> Toast.makeText(UserYourCartActivity.this, "Error placing order", Toast.LENGTH_SHORT).show());
+            }
+        }).start();
+    }
+
 }
