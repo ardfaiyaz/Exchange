@@ -1,13 +1,16 @@
 package com.example.exchange;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class UserProfileActivity extends AppCompatActivity {
-    TextView usernameText, useremailText, userstudentidText;
+    private TextView userFullName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,20 +18,9 @@ public class UserProfileActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.user_profile);
 
-        // Initialize TextViews
-        usernameText = findViewById(R.id.userprofilename);
-        useremailText = findViewById(R.id.useremail);
-        userstudentidText = findViewById(R.id.userstudentid);
+        userFullName = findViewById(R.id.userprofilename);
 
-        // Get data from intent
-        String username = getIntent().getStringExtra("username");
-        String email = getIntent().getStringExtra("email");
-        int userId = getIntent().getIntExtra("user_id", -1);
-
-        // Set data to UI
-        usernameText.setText(username);
-        useremailText.setText(email);
-        userstudentidText.setText(String.valueOf(userId));
+        loadUserName();
 
         // Navigation buttons
         findViewById(R.id.usercartbtn).setOnClickListener(view -> {
@@ -55,5 +47,13 @@ public class UserProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(UserProfileActivity.this, UserOrderHistoryActivity.class);
             startActivity(intent);
         });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void loadUserName() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String firstName = preferences.getString("USER_FIRST_NAME", "");
+        String lastName = preferences.getString("USER_LAST_NAME", "");
+        userFullName.setText(firstName + " " + lastName); // Set full name on the profile
     }
 }

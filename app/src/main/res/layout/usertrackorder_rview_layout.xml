@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="300dp"
+    android:layout_width="320dp"
     android:layout_gravity="center|top"
     android:layout_height="wrap_content"
     app:cardCornerRadius="12dp"
@@ -64,6 +64,7 @@
                         android:textSize="11dp" />
 
                     <TextView
+                        android:padding="3dp"
                         android:id="@+id/productsize"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -73,6 +74,17 @@
                         android:textSize="11dp" />
 
                     <TextView
+                        android:padding="3dp"
+                        android:id="@+id/quantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
+                        android:paddingStart="3dp"
+                        android:text="1x"
+                        android:textSize="11dp" />
+
+                    <TextView
+                        android:padding="3dp"
                         android:fontFamily="@font/montserrat"
                         android:id="@+id/productprice"
                         android:paddingStart="3dp"
@@ -85,25 +97,7 @@
                         android:gravity="bottom|right"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:id="@+id/cancelbtn"
-                            android:background="@drawable/trackcancelbtnbg"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:textSize="10dp"
-                                android:gravity="center"
-                                android:fontFamily="@font/montserrat_bold"
-                                android:id="@+id/textView14"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="Cancel" />
-                        </LinearLayout>
-                    </LinearLayout>
+                        android:orientation="vertical"/>
 
                 </LinearLayout>
             </LinearLayout>
