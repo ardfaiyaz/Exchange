@@ -86,7 +86,7 @@ public class UserHomePageActivity extends AppCompatActivity {
                     json.append(scanner.nextLine());
                 }
                 scanner.close();
-
+// Parse JSON
                 // Parse JSON
                 JSONArray jsonArray = new JSONArray(json.toString());
                 for (int i = 0; i < jsonArray.length(); i++) {
