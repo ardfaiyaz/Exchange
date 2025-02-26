@@ -96,6 +96,7 @@
                             android:textSize="11dp"  />
 
                         <TextView
+                            android:paddingEnd="5dp"
                             android:gravity="right"
                             android:layout_weight="1"
                             android:id="@+id/quantity"
