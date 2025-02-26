@@ -3,26 +3,18 @@ package com.example.exchange;
 import android.graphics.Bitmap;
 
 public class Item {
+    private int cartId;
+    private int productId;
     private String name;
     private String variation;
     private String price;
     private Bitmap image;
     private int quantity;
-    private boolean isSelected; // Add this field
-    private int cartId;
-    private int productId;
+    private boolean isSelected;
 
-    public Item(String name, String variation, String price, Bitmap image, int quantity) {
-        this.name = name;
-        this.variation = variation;
-        this.price = price;
-        this.image = image;
-        this.quantity = quantity;
-        this.isSelected = false; // Default to false
-    }
-
-    public Item(int cartId, String name, String variation, String price, Bitmap image, int quantity) {
+    public Item(int cartId, int productId, String name, String variation, String price, Bitmap image, int quantity) {
         this.cartId = cartId;
+        this.productId = productId;
         this.name = name;
         this.variation = variation;
         this.price = price;
@@ -31,13 +23,17 @@ public class Item {
         this.isSelected = false;
     }
 
-    public String getName() {
-        return name;
-    }
     public int getCartId() {
         return cartId;
     }
-    public int getProductId() {return productId;}
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public String getVariation() {
         return variation;

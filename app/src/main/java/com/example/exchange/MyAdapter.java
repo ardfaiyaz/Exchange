@@ -1,27 +1,22 @@
 package com.example.exchange;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,9 +30,19 @@ import okhttp3.Response;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private List<Item> productList;
     private Context context;
-    public MyAdapter(Context context, List<Item> productList) {
+    private OnItemCheckedChangeListener listener;
+    private int userId;
+
+    public interface OnItemCheckedChangeListener {
+        void onItemCheckedChanged();
+    }
+
+    // ✅ Fixed Constructor
+    public MyAdapter(Context context, List<Item> productList, OnItemCheckedChangeListener listener, int userId) {
         this.context = context;
         this.productList = productList;
+        this.listener = listener;
+        this.userId = userId;
     }
 
     @NonNull
@@ -50,103 +55,36 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Item item = productList.get(position);
-        Log.d("MyAdapter", "Binding item at position " + position + ": " + item.getName());
-        holder.productVariation.setText(item.getVariation());
-        // Set quantity in the EditText
-        holder.quantityEditText.setText(String.valueOf(item.getQuantity()));
         holder.productName.setText(item.getName());
+        holder.productVariation.setText(item.getVariation());
         holder.productPrice.setText(item.getPrice());
+        holder.quantityText.setText(String.valueOf(item.getQuantity()));
         holder.productImage.setImageBitmap(item.getImage());
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        int userId = preferences.getInt("USER_ID", -1);
-        Log.d("RemoveCartItem", "Retrieved userId: " + userId);
-
-        // Listen for changes in the quantity EditText
-        holder.quantityEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Not needed
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Not needed
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                try {
-                    int newQuantity = Integer.parseInt(s.toString());
-                    item.setQuantity(newQuantity);
-                } catch (NumberFormatException e) {
-                    // Default to 1 if parsing fails
-                    item.setQuantity(1);
-                }
-            }
+        holder.selectCheckbox.setChecked(item.isSelected());
+        holder.selectCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            item.setSelected(isChecked);
+            listener.onItemCheckedChanged();
         });
 
-        // Increase quantity button
+        // ✅ Increase Quantity & Update DB
         holder.increaseQuantity.setOnClickListener(v -> {
             int newQuantity = item.getQuantity() + 1;
             item.setQuantity(newQuantity);
-            holder.quantityEditText.setText(String.valueOf(newQuantity));
+            holder.quantityText.setText(String.valueOf(newQuantity));
+            updateCartQuantity(item.getCartId(), newQuantity);
+            if (item.isSelected()) listener.onItemCheckedChanged();
         });
 
-        // Decrease quantity button
+        // ✅ Decrease Quantity & Update DB
         holder.decreaseQuantity.setOnClickListener(v -> {
             if (item.getQuantity() > 1) {
                 int newQuantity = item.getQuantity() - 1;
                 item.setQuantity(newQuantity);
-                holder.quantityEditText.setText(String.valueOf(newQuantity));
+                holder.quantityText.setText(String.valueOf(newQuantity));
+                updateCartQuantity(item.getCartId(), newQuantity);
+                if (item.isSelected()) listener.onItemCheckedChanged();
             }
-        });
-
-        // Remove item
-        holder.removeButton.setOnClickListener(v -> {
-            int positionToRemove = holder.getAdapterPosition();
-            if (positionToRemove != RecyclerView.NO_POSITION) {
-                // Reuse 'item' instead of redeclaring:
-                int cartId = item.getCartId();
-                // then proceed with your thread to remove...
-
-                new Thread(() -> {
-                    try {
-                        OkHttpClient client = new OkHttpClient();
-                        RequestBody body = new FormBody.Builder()
-                                .add("cart_id", String.valueOf(cartId))
-                                .build();
-                        Log.d("removecartitem", "cart_id: " + cartId);
-
-                        Request request = new Request.Builder()
-                                .url("http://10.0.2.2/Exchange/remove_cart_item.php")
-                                .post(body)
-                                .build();
-
-                        Response response = client.newCall(request).execute();
-                        String responseBody = response.body().string();
-                        Log.d("RemoveCartItem", "Server Response: " + responseBody);
-
-                        if (responseBody.contains("\"status\":\"success\"")) {
-                            new Handler(Looper.getMainLooper()).post(() -> {
-                                productList.remove(positionToRemove);
-                                notifyItemRemoved(positionToRemove);
-                                notifyItemRangeChanged(positionToRemove, productList.size());
-                            });
-                        } else {
-                            Log.e("RemoveCartItem", "Failed to remove item from server");
-                        }
-                    } catch (Exception e) {
-                        Log.e("RemoveCartItem", "Error in API request", e);
-                    }
-                }).start();
-            }
-        });
-
-        // Checkbox functionality
-        holder.selectCheckbox.setChecked(item.isSelected());
-        holder.selectCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            item.setSelected(isChecked);
         });
     }
 
@@ -157,22 +95,64 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
-        TextView productName, productVariation, productPrice, quantityEditText;
-        Button increaseQuantity, decreaseQuantity, removeButton;
+        TextView productName, productVariation, productPrice, quantityText;
+        Button increaseQuantity, decreaseQuantity;
         CheckBox selectCheckbox;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
             productImage = itemView.findViewById(R.id.productImage);
             productName = itemView.findViewById(R.id.productName);
-            productVariation = itemView.findViewById(R.id.productVariation); // New ID for variation
+            productVariation = itemView.findViewById(R.id.productVariation);
             productPrice = itemView.findViewById(R.id.productPrice);
-            quantityEditText = itemView.findViewById(R.id.quantityedit); // New ID for EditText
+            quantityText = itemView.findViewById(R.id.quantityedit);
             increaseQuantity = itemView.findViewById(R.id.increaseQuantity);
             decreaseQuantity = itemView.findViewById(R.id.decreaseQuantity);
-            removeButton = itemView.findViewById(R.id.removeButton);
             selectCheckbox = itemView.findViewById(R.id.selectCheckbox);
         }
+    }
+
+    // ✅ Update Cart Quantity in Database
+    private void updateCartQuantity(int cartId, int quantity) {
+        new Thread(() -> {
+            try {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody body = new FormBody.Builder()
+                        .add("cart_id", String.valueOf(cartId))
+                        .add("quantity", String.valueOf(quantity))
+                        .add("user_id", String.valueOf(userId))
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url("http://10.0.2.2/Exchange/update_cart_quantity.php")
+                        .post(body)
+                        .build();
+
+                Response response = client.newCall(request).execute();
+                String responseBody = response.body().string();
+                response.close();
+
+                Log.d("UpdateCart", "Response: " + responseBody); // Debugging
+
+                JSONObject jsonResponse = new JSONObject(responseBody);
+                if (jsonResponse.getString("status").equals("success")) {
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        Toast.makeText(context, "Quantity updated", Toast.LENGTH_SHORT).show();
+                    });
+                } else {
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        Toast.makeText(context, "Update failed: " + jsonResponse.optString("message"), Toast.LENGTH_SHORT).show();
+                    });
+                }
+
+            } catch (IOException e) {
+                Log.e("UpdateCartError", "Error updating cart", e);
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    Toast.makeText(context, "Network error. Try again.", Toast.LENGTH_SHORT).show();
+                });
+            } catch (Exception e) {
+                Log.e("UpdateCartError", "Unexpected error", e);
+            }
+        }).start();
     }
 }

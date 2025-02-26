@@ -98,7 +98,7 @@
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:background="@drawable/search_bar_img_3"
+                    android:background="@drawable/placebg"
                     android:id="@+id/placeorderbtn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
