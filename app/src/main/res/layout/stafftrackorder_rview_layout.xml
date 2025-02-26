@@ -79,14 +79,33 @@
                         android:text="Computer Society ID Lace"
                         android:textSize="11dp" />
 
-                    <TextView
-                        android:id="@+id/quantity"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat"
-                        android:paddingStart="3dp"
-                        android:text="1x"
-                        android:textSize="11dp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+
+                            android:layout_weight="1"
+                            android:id="@+id/textView11"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:paddingStart="3dp"
+                            android:text="Large"
+                            android:textSize="11dp"  />
+
+                        <TextView
+                            android:gravity="right"
+                            android:layout_weight="1"
+                            android:id="@+id/quantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:text="1x"
+                            android:textSize="11dp" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/productprice"
@@ -106,8 +125,8 @@
 
                         <LinearLayout
                             android:id="@+id/notifybtn"
-                            android:layout_width="90dp"
-                            android:layout_height="20dp"
+                            android:layout_width="100dp"
+                            android:layout_height="25dp"
                             android:background="@drawable/trackcancelbtnbg"
                             android:orientation="vertical">
 
@@ -118,7 +137,7 @@
                                 android:fontFamily="@font/montserrat_bold"
                                 android:gravity="center"
                                 android:text="Notify Customer"
-                                android:textSize="8dp" />
+                                android:textSize="10dp" />
                         </LinearLayout>
 
                     </LinearLayout>
