@@ -64,6 +64,7 @@
                         android:textSize="11dp" />
 
                     <TextView
+                        android:padding="3dp"
                         android:id="@+id/productsize"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -73,6 +74,17 @@
                         android:textSize="11dp" />
 
                     <TextView
+                        android:padding="3dp"
+                        android:id="@+id/quantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
+                        android:paddingStart="3dp"
+                        android:text="1x"
+                        android:textSize="11dp" />
+
+                    <TextView
+                        android:padding="3dp"
                         android:fontFamily="@font/montserrat"
                         android:id="@+id/productprice"
                         android:paddingStart="3dp"
