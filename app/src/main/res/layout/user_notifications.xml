@@ -60,21 +60,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:paddingTop="100dp"
-                        android:text="Announcements"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/announcementsrv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

@@ -62,10 +62,16 @@ public class UserHomePageActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        findViewById(R.id.usernotifbtn).setOnClickListener(view -> {
+            Intent intent = new Intent(UserHomePageActivity.this, UserNotificationActivity.class);
+            startActivity(intent);
+        });
+
         findViewById(R.id.userprofilebtn).setOnClickListener(view -> {
             Intent intent = new Intent(UserHomePageActivity.this, UserProfileActivity.class);
             startActivity(intent);
         });
+
     }
     private class FetchProductsTask extends AsyncTask<String, Void, List<Product>> {
         @Override

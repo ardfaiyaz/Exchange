@@ -1,6 +1,8 @@
 package com.example.exchange;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -89,9 +91,10 @@ public class StaffTrackOrderAdapter extends RecyclerView.Adapter<StaffTrackOrder
         // Notify Customer Button Click Listener
         holder.notifyBtn.setOnClickListener(v -> {
             String selectedStatus = order.getOrderStatus();
-            updateOrderStatus(order.getOrderId(), order.getUserId(), selectedStatus);
+            updateOrderStatus(order.getOrderId(), order.getUserId(), selectedStatus, holder.getAdapterPosition());
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -128,7 +131,7 @@ public class StaffTrackOrderAdapter extends RecyclerView.Adapter<StaffTrackOrder
         return 0; // Default to "Pending" if status is not found
     }
 
-    private void updateOrderStatus(String orderId, String userId, String status) {
+    private void updateOrderStatus(String orderId, String userId, String status, int position) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("order_id", orderId);
@@ -146,9 +149,6 @@ public class StaffTrackOrderAdapter extends RecyclerView.Adapter<StaffTrackOrder
             @Override
             public void onFailure(okhttp3.Call call, IOException e) {
                 Log.e("API_ERROR", "Failed to update order: " + e.getMessage());
-                new android.os.Handler(android.os.Looper.getMainLooper()).post(() ->
-                        Toast.makeText(context, "Network error: " + e.getMessage(), Toast.LENGTH_LONG).show()
-                );
             }
 
             @Override
@@ -159,16 +159,25 @@ public class StaffTrackOrderAdapter extends RecyclerView.Adapter<StaffTrackOrder
                 try {
                     JSONObject jsonResponse = new JSONObject(responseString);
                     boolean success = jsonResponse.getBoolean("success");
-                    final String message = jsonResponse.getString("message");
 
-                    new android.os.Handler(android.os.Looper.getMainLooper()).post(() ->
-                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-                    );
+                    if (success) {
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            Toast.makeText(context, "Order updated!", Toast.LENGTH_SHORT).show();
+
+                            // ✅ Remove "Completed" orders from RecyclerView
+                            if ("Completed".equalsIgnoreCase(status)) {
+                                orderList.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, orderList.size());
+                            }
+                        });
+                    }
                 } catch (JSONException e) {
                     Log.e("JSON_ERROR", "Error parsing response: " + e.getMessage() + " | Response: " + responseString);
                 }
             }
         });
     }
+
 
 }
