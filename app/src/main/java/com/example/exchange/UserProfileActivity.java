@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import io.github.muddz.styleabletoast.StyleableToast;
+
 public class UserProfileActivity extends AppCompatActivity {
     private TextView staffFullName, usemail, userid;
     private LinearLayout logoutBtn; // Add reference for logout button
@@ -71,6 +73,8 @@ public class UserProfileActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
         editor.clear();
         editor.apply();
+
+        StyleableToast.makeText(UserProfileActivity.this, "Logged Out Successfully!", R.style.placedordertoast).show();
 
         // Redirect to LoginActivity
         Intent intent = new Intent(UserProfileActivity.this, LoginActivity.class);
