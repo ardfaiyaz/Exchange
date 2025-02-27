@@ -2,6 +2,8 @@ package com.example.exchange;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
+import static com.example.exchange.R.layout.user_your_cart;
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,7 +43,7 @@ public class UserYourCartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.user_your_cart);
+        setContentView(user_your_cart);
 
         recyclerView = findViewById(R.id.cartrecyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

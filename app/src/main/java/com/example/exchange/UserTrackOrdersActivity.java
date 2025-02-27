@@ -17,11 +17,6 @@ public class UserTrackOrdersActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.user_track_orders);
 
-        findViewById(R.id.firstitem).setOnClickListener(view -> {
-            Intent intent = new Intent(UserTrackOrdersActivity.this, UserTrackItemActivity.class);
-            startActivity(intent);
-        });
-
         findViewById(R.id.backbtn).setOnClickListener(view -> {
             Intent intent = new Intent(UserTrackOrdersActivity.this, UserProfileActivity.class);
             startActivity(intent);
