@@ -141,7 +141,6 @@
                 android:fontFamily="@font/montserrat"
                 android:gravity="center|right"
                 android:padding="7dp"
-                android:paddingEnd="20dp"
                 android:text="Order Completed: 12/01/2024"
                 android:textSize="9dp" />
 
