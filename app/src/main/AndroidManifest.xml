@@ -20,7 +20,7 @@
         >
 
         <activity
-            android:name=".CreateAccountActivity"
+            android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
@@ -85,7 +85,7 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".LoginActivity"
+            android:name=".CreateAccountActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
