@@ -28,7 +28,7 @@ public class StaffTrackOrdersActivity extends AppCompatActivity {
     private StaffTrackOrderAdapter adapter;
     private List<StaffTrackOrdersModel> orderList = new ArrayList<>();
     private OkHttpClient client = new OkHttpClient();
-    private static final String API_URL = "http://10.0.2.2/Exchange/fetch_orders.php";  // Replace with your actual URL
+    private static final String API_URL = "http://10.0.2.2/Exchange/fetch_orders.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +39,23 @@ public class StaffTrackOrdersActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.stafftrackordersrview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Fetch Orders from API using OkHttp
+        // Initialize adapter with empty list
+        adapter = new StaffTrackOrderAdapter(this, orderList);
+        recyclerView.setAdapter(adapter);
+
+        // Fetch orders on activity start
         fetchOrders();
 
         // Navigation Listeners
         findViewById(R.id.staffprofilebtn).setOnClickListener(view -> startActivity(new Intent(this, StaffProfileActivity.class)));
         findViewById(R.id.staffnotifbtn).setOnClickListener(view -> startActivity(new Intent(this, StaffNotificationsActivity.class)));
         findViewById(R.id.staffhomebtn).setOnClickListener(view -> startActivity(new Intent(this, StaffHomePageActivity.class)));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchOrders();  // Refresh orders when returning to this activity
     }
 
     private void fetchOrders() {
@@ -67,8 +77,15 @@ public class StaffTrackOrdersActivity extends AppCompatActivity {
                     Log.d("API_RESPONSE", jsonResponse);
 
                     try {
-                        // Parse JSON
                         JSONObject jsonObject = new JSONObject(jsonResponse);
+
+                        if (!jsonObject.getBoolean("success")) {
+                            new Handler(Looper.getMainLooper()).post(() ->
+                                    Toast.makeText(StaffTrackOrdersActivity.this, "No orders found", Toast.LENGTH_SHORT).show()
+                            );
+                            return;
+                        }
+
                         JSONArray ordersArray = jsonObject.getJSONArray("orders");
 
                         // Clear previous data
@@ -87,13 +104,15 @@ public class StaffTrackOrdersActivity extends AppCompatActivity {
                             double price = orderObj.getDouble("price");
                             String orderStatus = orderObj.getString("order_status");
 
-                            orderList.add(new StaffTrackOrdersModel(userId, orderId, productId, productName, productImage, variant, quantity, price, orderStatus));
+                            // ✅ Only add non-"Completed" orders to the list
+                            if (!"Completed".equalsIgnoreCase(orderStatus)) {
+                                orderList.add(new StaffTrackOrdersModel(userId, orderId, productId, productName, productImage, variant, quantity, price, orderStatus));
+                            }
                         }
 
-                        // Update UI on the main thread
+                        // ✅ Update UI on the main thread
                         new Handler(Looper.getMainLooper()).post(() -> {
-                            adapter = new StaffTrackOrderAdapter(StaffTrackOrdersActivity.this, orderList);
-                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged(); // Refresh RecyclerView
                         });
 
                     } catch (JSONException e) {
