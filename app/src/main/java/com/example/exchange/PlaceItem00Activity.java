@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -142,26 +144,34 @@ public class PlaceItem00Activity extends AppCompatActivity {
                 try (Response response = client.newCall(request).execute()) {
                     if (!response.isSuccessful()) {
                         Log.e("AddToCartError", "Unexpected response: " + response);
-                        runOnUiThread(() -> Toast.makeText(PlaceItem00Activity.this, "Failed: " + response.message(), Toast.LENGTH_SHORT).show());
+                        runOnUiThread(() -> StyleableToast.makeText(PlaceItem00Activity.this, "Failed to add to cart!", R.style.accinputerror).show());
                     } else {
                         String responseBody = response.body().string();
                         Log.d("AddToCartResponse", "Response: " + responseBody);
 
-                        runOnUiThread(() -> {
-                            if (responseBody.trim().equalsIgnoreCase("success")) {
-                                StyleableToast.makeText(PlaceItem00Activity.this, "Item added to cart!", Toast.LENGTH_SHORT).show();
+                        // Parse the JSON response
+                        JSONObject jsonResponse = new JSONObject(responseBody);
+                        String status = jsonResponse.getString("status");
+                        String message = jsonResponse.getString("message");
+
+                        if ("success".equals(status)) {
+                            runOnUiThread(() -> {
+                                StyleableToast.makeText(PlaceItem00Activity.this, "Item added to cart!", R.style.placedordertoast).show();
                                 Intent intent = new Intent(PlaceItem00Activity.this, UserYourCartActivity.class);
                                 startActivity(intent);
-                            } else {
-                                StyleableToast.makeText(PlaceItem00Activity.this, "Failed: " + responseBody, Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                            });
+                        } else {
+                            runOnUiThread(() -> {
+                                StyleableToast.makeText(PlaceItem00Activity.this, "Failed: " + message, R.style.accinputerror).show();
+                            });
+                        }
                     }
                 } catch (Exception e) {
                     Log.e("AddToCartException", "Error: ", e);
-                    runOnUiThread(() -> Toast.makeText(PlaceItem00Activity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> Toast.makeText(PlaceItem00Activity.this, "Error: " + e.getMessage(), R.style.accinputerror).show());
                 }
             }).start();
+
 
         });
 

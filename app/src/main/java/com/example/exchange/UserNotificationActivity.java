@@ -2,6 +2,7 @@ package com.example.exchange;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,6 +59,9 @@ public class UserNotificationActivity extends AppCompatActivity {
 
         // Fetch notifications
         fetchNotifications(userId);
+
+        findViewById(R.id.userprofilebtn).setOnClickListener(view -> startActivity(new Intent(this, UserProfileActivity.class)));
+        findViewById(R.id.userhomebtn).setOnClickListener(view -> startActivity(new Intent(this, UserHomePageActivity.class)));
     }
 
     private void fetchNotifications(int userId) {
