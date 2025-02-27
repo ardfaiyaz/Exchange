@@ -103,7 +103,6 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             try {
-                // Log the response to help debugging
                 Log.d("LoginTask", "Response: " + result);
 
                 JSONObject response = new JSONObject(result);
@@ -114,9 +113,11 @@ public class LoginActivity extends AppCompatActivity {
                     int userId = user.getInt("user_id");
                     String firstName = user.getString("first_name");
                     String lastName = user.getString("last_name");
-                    String userRole = user.getString("user_role"); // FETCH THE ROLE
+                    String email = user.getString("email"); // Fetch the email
+                    String userRole = user.getString("user_role");
 
                     Log.d("user_role", "User role sent: " + userRole);
+                    Log.d("user_email", "User email: " + email);
 
                     // Save user details in SharedPreferences
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
@@ -124,27 +125,24 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putInt("USER_ID", userId);
                     editor.putString("USER_FIRST_NAME", firstName);
                     editor.putString("USER_LAST_NAME", lastName);
-                    editor.putString("USER_ROLE", userRole); // STORE ROLE IN PREFS
+                    editor.putString("USER_EMAIL", email); // Store email
+                    editor.putString("USER_ROLE", userRole);
                     editor.apply();
-                    editor.commit();
 
                     // Show welcome message
                     StyleableToast.makeText(LoginActivity.this, "Welcome, " + firstName + "!", R.style.placedordertoast).show();
 
-                    // REDIRECT BASED ON ROLE
+                    // Redirect user based on role
                     if (userRole.equalsIgnoreCase("Developer")) {
-                        // If role is Developer, go to StaffProfileActivity
                         Intent intent = new Intent(LoginActivity.this, StaffProfileActivity.class);
                         intent.putExtra("user_id", userId);
                         startActivity(intent);
-                        finish();
                     } else {
-                        // If role is Student (or something else), go to UserHomePageActivity
                         Intent intent = new Intent(LoginActivity.this, UserHomePageActivity.class);
                         intent.putExtra("user_id", userId);
                         startActivity(intent);
-                        finish();
                     }
+                    finish();
                 } else {
                     StyleableToast.makeText(LoginActivity.this, "Invalid username or password", R.style.accinputerror).show();
                 }
