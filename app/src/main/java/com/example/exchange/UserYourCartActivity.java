@@ -112,7 +112,7 @@ public class UserYourCartActivity extends AppCompatActivity {
                 }
 
                 runOnUiThread(() -> {
-// ✅ Fix `fetchCartItems()` to match new constructor order
+                    // ✅ Fix `fetchCartItems()` to match new constructor order
                     adapter = new MyAdapter(this, ItemList, this::updateTotalPrice, userId);
                     recyclerView.setAdapter(adapter);
                     updateTotalPrice();
