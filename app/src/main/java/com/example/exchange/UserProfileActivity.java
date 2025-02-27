@@ -10,7 +10,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class UserProfileActivity extends AppCompatActivity {
-    private TextView staffFullName;
+    private TextView staffFullName, usemail, userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,9 @@ public class UserProfileActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.user_profile);
 
-        staffFullName = findViewById(R.id.userprofilename); // Ensure this ID exists in staff_profile.xml
+        staffFullName = findViewById(R.id.userprofilename);
+        usemail = findViewById(R.id.useremail);
+        userid = findViewById(R.id.userstudentid);// Ensure this ID exists in staff_profile.xml
 
         // Load staff name from SharedPreferences
         loadStaffName();
@@ -55,6 +57,12 @@ public class UserProfileActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String firstName = preferences.getString("USER_FIRST_NAME", "");
         String lastName = preferences.getString("USER_LAST_NAME", "");
-        staffFullName.setText(firstName + " " + lastName); // Set full name on the profile
+        int userId = preferences.getInt("USER_ID", -1);
+        String eemail = preferences.getString("USER_EMAIL", ""); // Get email
+
+        staffFullName.setText(firstName + " " + lastName); // Set full name
+        usemail.setText(eemail); // Set email
+        userid.setText(String.valueOf(userId)); // Set student ID
     }
+
 }
