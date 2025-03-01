@@ -9,6 +9,22 @@
     android:background="#1c256c">
 
     <LinearLayout
+        android:paddingHorizontal="25dp"
+        android:paddingVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="45dp"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/userorderhistoryrview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/userorderhistory_rview_layout"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/bottomnav"
         android:layout_width="match_parent"
         android:layout_height="46dp"
@@ -111,23 +127,10 @@
             </LinearLayout>
         </LinearLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:paddingHorizontal="25dp"
-                android:paddingVertical="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/stafforderhistoryrview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-        </ScrollView>
+
+
     </LinearLayout>
 
     <LinearLayout

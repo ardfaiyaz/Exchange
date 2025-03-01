@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="350dp"
+    android:layout_gravity="center|top"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="19dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="15dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="12dp"
+        android:background="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/orderid"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center|left"
+                    android:padding="7dp"
+                    android:text="Order ID: 120"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textColor="#ef6b48"
+                    android:id="@+id/orderstatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center|right"
+                    android:padding="7dp"
+                    android:text="Completed"
+                    android:textSize="11dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="220dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/productimg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/item_id_lace" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/productname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:padding="3dp"
+                        android:text="Computer Society ID Lace"
+                        android:textSize="11dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+
+                            android:layout_weight="1"
+                            android:id="@+id/varid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:paddingStart="3dp"
+                            android:text="Large"
+                            android:textSize="11dp"  />
+
+                        <TextView
+                            android:paddingEnd="5dp"
+                            android:gravity="right"
+                            android:layout_weight="1"
+                            android:id="@+id/quantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:text="1x"
+                            android:textSize="11dp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/productprice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
+                        android:gravity="right"
+                        android:padding="5dp"
+                        android:text="Total Amount: P 80"
+                        android:textSize="11dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom|right"
+                        android:orientation="horizontal"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/orderdatecompleted"
+                    android:layout_width="326dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="right"
+                    android:padding="7dp"
+                    android:text="Order Completed: April 25, 2025 12:00 AM"
+                    android:textSize="9dp" />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
