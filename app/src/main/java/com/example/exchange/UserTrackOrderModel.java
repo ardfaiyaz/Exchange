@@ -8,7 +8,7 @@ public class UserTrackOrderModel {
     private String productSize;
     private int quantity;
     private double productPrice;
-    private Bitmap productImage; // Drawable resource ID
+    private Bitmap productImage;
 
     public UserTrackOrderModel(int orderId, String productName, String productSize, int quantity, double productPrice, Bitmap productImage) {
         this.orderId = orderId;
