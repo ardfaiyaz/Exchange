@@ -20,6 +20,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -66,27 +67,45 @@ public class UserNotificationActivity extends AppCompatActivity {
 
     private void fetchNotifications(int userId) {
         // Construct the API URL with the correct userId
-        String apiUrl = "http://10.0.2.2/Exchange/fetch_notification.php?user_id=" + userId; // Correct URL with user_id as a query parameter
+        String apiUrl = "http://10.0.2.2/Exchange/fetch_notification.php?user_id=" + userId;
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, apiUrl, null,
-                new Response.Listener<JSONArray>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, apiUrl, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         notificationList.clear();
                         try {
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject obj = response.getJSONObject(i);
-                                int id = obj.getInt("notification_id");
-                                String message = obj.getString("message");
-                                String date = obj.getString("notif_date");
+                            // Log response to debug
+                            Log.d("ServerResponse", response.toString());
 
-                                notificationList.add(new UserNotificationClass(id, message, date));
+                            // Check if response has "success" and it's true
+                            if (response.has("success") && response.getBoolean("success")) {
+
+                                // Check if response has "notifications"
+                                if (response.has("notifications")) {
+                                    JSONArray notificationsArray = response.getJSONArray("notifications");
+
+                                    for (int i = 0; i < notificationsArray.length(); i++) {
+                                        JSONObject obj = notificationsArray.getJSONObject(i);
+
+                                        int id = obj.has("notification_id") ? obj.getInt("notification_id") : -1;
+                                        String message = obj.has("message") ? obj.getString("message") : "No message";
+                                        String date = obj.has("notif_date") ? obj.getString("notif_date") : "No date";
+
+                                        notificationList.add(new UserNotificationClass(id, message, date));
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                } else {
+                                    Toast.makeText(UserNotificationActivity.this, "No notifications found.", R.style.accinputerror).show();
+                                }
+                            } else {
+                                Toast.makeText(UserNotificationActivity.this, "Invalid server response.", R.style.accinputerror).show();
                             }
-                            adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(UserNotificationActivity.this, "Error parsing data", Toast.LENGTH_SHORT).show();
+                            Log.e("JSONParseError", "Error: " + e.getMessage());
+                            Toast.makeText(UserNotificationActivity.this, "Error parsing data: " + e.getMessage(), R.style.accinputerror).show();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -96,7 +115,6 @@ public class UserNotificationActivity extends AppCompatActivity {
                 Toast.makeText(UserNotificationActivity.this, "Failed to fetch notifications", Toast.LENGTH_SHORT).show();
             }
         });
-
         queue.add(request);
     }
 }
