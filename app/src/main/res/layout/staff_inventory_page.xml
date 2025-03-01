@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:src="@android:drawable/ic_input_add"
+        android:src="@drawable/inventory_addbtn_bg"
         android:tint="@android:color/white"
         app:backgroundTint="#1c256c"
         app:layout_constraintBottom_toBottomOf="parent"

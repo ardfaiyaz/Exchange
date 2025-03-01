@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -71,12 +71,27 @@
             android:textSize="12sp"
             android:inputType="number" />
 
-        <ImageView
-            android:id="@+id/editIcon"
-            android:layout_width="30dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/edit_img" />
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/editIcon"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:src="@drawable/edit_img" />
+
+            <View
+                android:layout_marginTop="10dp"
+                android:background="#EE4B2B"
+                android:layout_weight="1"
+                android:id="@+id/deletebtn"
+                android:layout_width="50dp"
+                android:layout_height="20dp" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <View
