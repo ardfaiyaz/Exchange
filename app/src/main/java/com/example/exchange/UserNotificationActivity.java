@@ -58,7 +58,7 @@ public class UserNotificationActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         // Fetch notifications
-        fetchNotifications(userId);
+        fetchNotifications(userId);//test
 
         findViewById(R.id.userprofilebtn).setOnClickListener(view -> startActivity(new Intent(this, UserProfileActivity.class)));
         findViewById(R.id.userhomebtn).setOnClickListener(view -> startActivity(new Intent(this, UserHomePageActivity.class)));
