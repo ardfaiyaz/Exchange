@@ -42,21 +42,24 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="30dp"
-                    android:paddingVertical="10dp">
+                    android:orientation="vertical">
 
                     <TextView
+                        android:paddingStart="20dp"
                         android:id="@+id/textView8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:padding="5dp"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Order Updates"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="20dp"
                         android:id="@+id/orderupdatesrv"
+                        tools:listitem="@layout/user_notification_item"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
