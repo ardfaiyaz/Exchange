@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -99,6 +100,28 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
                 Toast.makeText(context, "Invalid input for price or stock", Toast.LENGTH_SHORT).show();
             }
         });
+        holder.deletebtn.setOnClickListener(view -> {
+            // Create an AlertDialog to show a warning
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Warning");
+            builder.setMessage("Are you sure you want to delete this product and all its variants? This action cannot be undone.");
+
+            builder.setPositiveButton("Yes", (dialog, which) -> {
+                // User confirmed, proceed with deletion
+                deleteProduct(product);
+            });
+
+            builder.setNegativeButton("No", (dialog, which) -> {
+                // User canceled, do nothing
+                dialog.dismiss();
+            });
+
+            // Show the AlertDialog
+            builder.create().show();
+        });
+
+
+
     }
 
     private void updateProduct(InventoryProduct product) {
@@ -117,18 +140,18 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
                         String message = jsonResponse.getString("message");
 
                         if (success) {
-                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, message, R.style.placedordertoast).show();
                         } else {
-                            Toast.makeText(context, "Update failed: " + message, Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "Update failed: " + message, R.style.accinputerror).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(context, "Invalid server response", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Invalid server response", R.style.accinputerror).show();
                     }
                 },
                 error -> {
                     Log.e("UPDATE_ERROR", "Error: " + error.toString());
-                    Toast.makeText(context, "Failed to connect to server", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Failed to connect to server", R.style.accinputerror).show();
                 }) {
             @Override
             protected Map<String, String> getParams() {
@@ -144,6 +167,51 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(request);
     }
+    private void deleteProduct(InventoryProduct product) {
+        String productName = product.getProductName(); // Get the product name
+
+        String url = "http://10.0.2.2/Exchange/delete_product.php"; // The URL to your PHP file
+
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        String status = jsonResponse.getString("status");
+
+                        if (status.equals("success")) {
+                            String message = jsonResponse.getString("message");
+                            Toast.makeText(context, message, R.style.placedordertoast).show();
+
+                            // Handle UI updates or list removal as needed
+                            productList.remove(product); // Remove the product from the list
+                            notifyDataSetChanged();
+                        } else {
+                            String message = jsonResponse.getString("message");
+                            Toast.makeText(context, "Error: " + message, R.style.accinputerror).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(context, "Failed to parse server response", R.style.accinputerror).show();
+                    }
+                },
+                error -> {
+                    Log.e("DELETE_ERROR", "Error: " + error.toString());
+                    Toast.makeText(context, "Failed to connect to server", R.style.accinputerror).show();
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("prod_name", productName); // Send the prod_name
+                return params;
+            }
+        };
+
+// Add the request to the queue
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(request);
+    }
+
+
 
     @Override
     public int getItemCount() { return productList.size(); }
@@ -153,6 +221,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
         EditText itemPrice, itemStock;
         ImageView itemImage, editIcon;
         CheckBox checkBox;
+        View deletebtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -163,6 +232,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
             editIcon = itemView.findViewById(R.id.editIcon);
             checkBox = itemView.findViewById(R.id.checkBox);
             itemVarId = itemView.findViewById(R.id.itemVarId);
+            deletebtn = itemView.findViewById(R.id.deletebtn);
         }
     }
 }

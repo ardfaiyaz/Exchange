@@ -114,7 +114,7 @@ public class StaffInventoryActivity extends AppCompatActivity {
                         boolean success = response.getBoolean("success");
                         if (success) {
                             productList.clear();
-                            originalProductList.clear(); // Reset backup list
+                            originalProductList.clear();
 
                             JSONArray products = response.getJSONArray("products");
 
@@ -129,7 +129,7 @@ public class StaffInventoryActivity extends AppCompatActivity {
 
                                 InventoryProduct product = new InventoryProduct(name, price, stock, imageBase64, varId);
                                 productList.add(product);
-                                originalProductList.add(product); // Store in original list
+                                originalProductList.add(product);
                             }
                             adapter.notifyDataSetChanged();
                         }
