@@ -45,7 +45,7 @@
                         android:layout_height="95dp"
                         android:layout_gravity="center"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/elmao"
+                        android:src="@drawable/profilepfp"
                         app:shapeAppearanceOverlay="@style/roundedimageview" />
                 </LinearLayout>
 
@@ -126,7 +126,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/montserrat"
                             android:gravity="center"
-                            android:text="₱ 123,567"
+                            android:text="₱ 0"
                             android:textColor="@color/black"
                             android:textSize="20dp" />
                     </LinearLayout>
@@ -246,7 +246,7 @@
                         android:layout_height="110dp"
                         android:layout_marginEnd="6dp"
                         android:layout_weight="1"
-                        android:padding="15dp"
+                        android:padding="12dp"
                         android:background="@drawable/orderswhitebg"
                         android:orientation="vertical">
 
