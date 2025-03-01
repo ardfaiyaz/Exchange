@@ -97,15 +97,15 @@ public class UserNotificationActivity extends AppCompatActivity {
                                     }
                                     adapter.notifyDataSetChanged();
                                 } else {
-                                    Toast.makeText(UserNotificationActivity.this, "No notifications found.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(UserNotificationActivity.this, "No notifications found.", R.style.accinputerror).show();
                                 }
                             } else {
-                                Toast.makeText(UserNotificationActivity.this, "Invalid server response.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserNotificationActivity.this, "Invalid server response.", R.style.accinputerror).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Log.e("JSONParseError", "Error: " + e.getMessage());
-                            Toast.makeText(UserNotificationActivity.this, "Error parsing data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserNotificationActivity.this, "Error parsing data: " + e.getMessage(), R.style.accinputerror).show();
                         }
                     }
                 }, new Response.ErrorListener() {
