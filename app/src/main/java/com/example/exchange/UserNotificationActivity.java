@@ -45,7 +45,7 @@ public class UserNotificationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Get the userId from SharedPreferences
-        SharedPreferences preferences = getDefaultSharedPreferences(this);
+        SharedPreferences preferences = getDefaultSharedPreferences(this);//test
         userId = preferences.getInt("USER_ID", -1); // Default to -1 if not found
 
         if (userId == -1) {
