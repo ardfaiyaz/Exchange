@@ -7,14 +7,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <CheckBox
             android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
         <ImageView
             android:id="@+id/itemImage"
@@ -25,26 +25,24 @@
             android:layout_marginEnd="8dp" />
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <EditText
+                android:fontFamily="@font/montserrat"
                 android:id="@+id/itemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="COMSOC ID LACE"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:layout_marginBottom="2dp"
+                android:textSize="10sp"
                 android:inputType="text" />
 
             <TextView
+                android:paddingStart="4dp"
+                android:fontFamily="@font/montserrat"
                 android:id="@+id/itemVarId"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="XL"
                 android:textSize="12sp"
@@ -52,29 +50,31 @@
         </LinearLayout>
 
         <EditText
+            android:fontFamily="@font/montserrat"
             android:id="@+id/itemPrice"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="₱100.00"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:inputType="numberDecimal" />
 
         <EditText
+            android:fontFamily="@font/montserrat"
             android:id="@+id/itemStock"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="100"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:inputType="number" />
 
         <ImageView
             android:id="@+id/editIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:src="@drawable/edit_img" />
     </LinearLayout>
@@ -82,6 +82,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray" />
 </LinearLayout>
