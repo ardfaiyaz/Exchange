@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/itemImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:scaleType="centerCrop"
             android:src="@drawable/item_id_lace"
             android:layout_marginEnd="8dp" />
@@ -30,13 +30,13 @@
             android:orientation="vertical">
 
             <EditText
-                android:fontFamily="@font/montserrat"
                 android:id="@+id/itemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:inputType="text"
                 android:text="COMSOC ID LACE"
-                android:textSize="10sp"
-                android:inputType="text" />
+                android:textSize="12sp" />
 
             <TextView
                 android:paddingStart="4dp"
