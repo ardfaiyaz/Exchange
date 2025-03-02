@@ -1,108 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    app:cardCornerRadius="6dp"
-    app:cardElevation="4dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
+        android:paddingVertical="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:background="@android:color/white">
 
-        <!-- Row: Quantity & Price -->
         <LinearLayout
-            android:padding="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
+                android:padding="5dp"
+                android:gravity="center|top"
+                android:fontFamily="@font/montserrat"
                 android:id="@+id/item_quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="1x"
-                android:textStyle="bold"
-                android:textSize="14sp"/>
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/item_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="₱ 80"
-                android:textStyle="bold"
-                android:textSize="14sp"/>
-
-            <TextView
+                android:paddingStart="10dp"
+                android:fontFamily="@font/montserrat_bold"
                 android:id="@+id/item_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Item Name"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:paddingStart="10dp"
+                android:fontFamily="@font/montserrat"
                 android:id="@+id/item_version"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="2023 Version"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <TextView
+                android:paddingStart="10dp"
+                android:fontFamily="@font/montserrat"
                 android:id="@+id/item_order_id"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Order id: #00000"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
         </LinearLayout>
-
-        <!-- Item Name -->
-
-        <!-- Version -->
-
-        <!-- Order ID -->
-
-        <View
-            android:background="#14155d"
-            android:id="@+id/view3"
-            android:layout_width="match_parent"
-            android:layout_height="4dp" />
 
         <LinearLayout
-            android:paddingVertical="2dp"
-            android:paddingHorizontal="10dp"
-            android:background="@drawable/graybg"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:orientation="horizontal">
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:gravity="center"
-                android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_bold"
-                android:id="@+id/textView9"
+                android:gravity="center|left"
+                android:id="@+id/item_price"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Sub Total" />
-
-            <TextView
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat_bold"
-                android:id="@+id/subtotal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="P 360" />
+                android:text="₱ 80"
+                android:textSize="12sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
