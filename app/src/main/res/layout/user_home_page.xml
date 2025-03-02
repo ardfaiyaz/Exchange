@@ -39,16 +39,16 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/staffhomepagerview"
+                tools:listitem="@layout/staff_home_rview_layout"
                 android:layout_width="match_parent"
-                android:layout_height="1500dp"
+                android:layout_height="wrap_content"
                 android:paddingEnd="30dp"
-                android:gravity="center_horizontal"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 android:paddingHorizontal="55dp"
                 android:paddingVertical="10dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2" />
+                app:spanCount="2"  />
 
         </LinearLayout>
     </ScrollView>
