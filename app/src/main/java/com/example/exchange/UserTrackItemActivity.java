@@ -1,5 +1,6 @@
 package com.example.exchange;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ public class UserTrackItemActivity extends AppCompatActivity {
     private TrackOrderItemAdapter adapter;
     private List<TrackOrderItemModel> orderList;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +26,7 @@ public class UserTrackItemActivity extends AppCompatActivity {
         setContentView(R.layout.user_track_item);
 
         // Initialize RecyclerView
-        userTrackRecyclerView = findViewById(R.id.usertrackrview);
+        userTrackRecyclerView = findViewById(R.id.usertrackitemrview);
         userTrackRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Load Order Items
