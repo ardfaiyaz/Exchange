@@ -127,7 +127,7 @@ public class StaffProfileActivity extends AppCompatActivity {
                             runOnUiThread(() ->
                                     {
                                         try {
-                                            Toast.makeText(StaffProfileActivity.this, "Error: " + jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(StaffProfileActivity.this, "Error: " + jsonObject.getString("message"), R.style.accinputerror).show();
                                         } catch (JSONException e) {
                                             throw new RuntimeException(e);
                                         }
