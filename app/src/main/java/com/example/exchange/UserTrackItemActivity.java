@@ -34,7 +34,7 @@ public class UserTrackItemActivity extends AppCompatActivity {
     private List<TrackOrderItemModel> orderItemList;
     private View one;
 
-    private static final String FETCH_URL = "http://your-server-ip/exchange/fetch_order_items.php?order_id=";
+    private static final String FETCH_URL = "http://10.0.2.2/exchange/fetch_order_items.php?order_id=";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
