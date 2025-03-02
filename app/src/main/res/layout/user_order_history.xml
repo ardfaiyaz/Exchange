@@ -9,19 +9,59 @@
     android:background="#1c256c">
 
     <LinearLayout
-        android:paddingHorizontal="25dp"
-        android:paddingVertical="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="45dp"
         android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/userorderhistoryrview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/userorderhistory_rview_layout"/>
+            android:layout_height="150dp"
+            android:background="@drawable/profileinfobg"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" />
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp">
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:src="@drawable/orderhistorytxt" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:paddingBottom="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/userorderhistoryrview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    tools:listitem="@layout/userorderhistory_rview_layout" />
+            </LinearLayout>
+        </ScrollView>
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -91,46 +131,6 @@
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/profilebtn" />
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@drawable/profileinfobg"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" />
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingHorizontal="10dp">
-
-                <ImageView
-                    android:id="@+id/imageView11"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingLeft="20dp"
-                    android:src="@drawable/orderhistorytxt" />
-            </LinearLayout>
-        </LinearLayout>
-
-
-
-
-
     </LinearLayout>
 
     <LinearLayout

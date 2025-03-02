@@ -46,13 +46,14 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:paddingBottom="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="15dp">
+                android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="15dp"
+                    tools:listitem="@layout/item_layout"
                     android:id="@+id/cartrecyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
