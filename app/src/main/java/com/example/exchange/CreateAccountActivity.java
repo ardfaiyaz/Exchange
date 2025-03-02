@@ -38,23 +38,19 @@ public class CreateAccountActivity extends AppCompatActivity {
             String UserID = etUserID.getText().toString().trim();
             String Password = etPassword.getText().toString().trim();
 
-            // Ensure first letter of first and last names are capitalized
             FirstName = capitalizeFirstLetter(FirstName);
             LastName = capitalizeFirstLetter(LastName);
 
-            // Extract username from email
             String username = Email.contains("@") ? Email.split("@")[0].toLowerCase() : "";
 
-            // Validation checks: Check for empty fields first
             if (FirstName.isEmpty() || LastName.isEmpty() || Email.isEmpty() || UserID.isEmpty() || Password.isEmpty()) {
                 StyleableToast.makeText(CreateAccountActivity.this, "Please fill in all fields.", R.style.accinputerror).show();
-                return; // Stop the process if any field is empty
+                return;
             }
 
-            // Validate UserID and determine user role (only if all fields are filled)
             if (UserID.length() < 2) {
                 StyleableToast.makeText(CreateAccountActivity.this, "Invalid Student ID", R.style.accinputerror).show();
-                return; // Stop the process
+                return;
             }
 
             String firstTwoDigits = UserID.substring(0, 2);
@@ -64,16 +60,15 @@ public class CreateAccountActivity extends AppCompatActivity {
                 userRole = "Developer";
             } else {
                 StyleableToast.makeText(CreateAccountActivity.this, "Invalid Student ID", R.style.accinputerror).show();
-                return; // Stop the process
+                return;
             }
 
-            if (!isValidEmail(Email)) { // Validate email domain
+            if (!isValidEmail(Email, userRole)) {
                 StyleableToast.makeText(CreateAccountActivity.this, "Invalid email! Must be \n@students.nu-dasma.edu.ph", R.style.accinputerror).show();
                 return;
             }
 
             sendDataToServer(FirstName, LastName, Email, UserID, username, Password, userRole);
-
         });
 
         findViewById(R.id.loginbtn).setOnClickListener(view -> {
@@ -89,7 +84,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 .add("user_id", userID)
                 .add("first_name", firstName)
                 .add("last_name", lastName)
-                .add("username", username)  // Correctly sending the extracted username
+                .add("username", username)
                 .add("email", email)
                 .add("password", password)
                 .add("user_role", userRole)
@@ -123,7 +118,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         }).start();
     }
 
-    // Function to capitalize the first letter of a word
     private String capitalizeFirstLetter(String text) {
         if (text == null || text.isEmpty()) {
             return text;
@@ -131,8 +125,10 @@ public class CreateAccountActivity extends AppCompatActivity {
         return text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
     }
 
-    // Function to validate email domain
-    private boolean isValidEmail(String email) {
-        return email.toLowerCase().endsWith("@students.nu-dasma.edu.ph");
+    private boolean isValidEmail(String email, String userRole) {
+        if (userRole.equals("Student")) {
+            return email.toLowerCase().endsWith("@students.nu-dasma.edu.ph");
+        }
+        return true;
     }
 }
