@@ -12,11 +12,21 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import io.github.muddz.styleabletoast.StyleableToast;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class StaffProfileActivity extends AppCompatActivity {
 
-    private TextView staffFullName;
+    private TextView staffFullName, totalSalesTextView;
     private LinearLayout logoutBtn; // Logout button
 
     @Override
@@ -26,10 +36,14 @@ public class StaffProfileActivity extends AppCompatActivity {
         setContentView(R.layout.staff_profile);
 
         staffFullName = findViewById(R.id.userprofilename); // Ensure this ID exists in staff_profile.xml
+        totalSalesTextView = findViewById(R.id.totalsales); // Make sure this ID exists in your XML
         logoutBtn = findViewById(R.id.logoutbtn); // Initialize logout button
 
         // Load staff name from SharedPreferences
         loadStaffName();
+
+        // Fetch total sales
+        getTotalSales();
 
         // Logout button listener
         logoutBtn.setOnClickListener(view -> logoutUser());
@@ -86,5 +100,53 @@ public class StaffProfileActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear back stack
         startActivity(intent);
         finish();
+    }
+
+    private void getTotalSales() {
+        OkHttpClient client = new OkHttpClient();
+        String url = "http://10.0.2.2/Exchange/get_total_sales.php?action=get_total_sales";
+
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String jsonResponse = response.body().string();
+                    try {
+                        JSONObject jsonObject = new JSONObject(jsonResponse);
+                        if (jsonObject.getBoolean("success")) {
+                            final double totalSales = jsonObject.getDouble("total_sales");
+
+                            // Update UI on the main thread
+                            runOnUiThread(() -> totalSalesTextView.setText("₱" + totalSales));
+                        } else {
+                            runOnUiThread(() ->
+                                    {
+                                        try {
+                                            Toast.makeText(StaffProfileActivity.this, "Error: " + jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                        } catch (JSONException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                            );
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                runOnUiThread(() ->
+                        Toast.makeText(StaffProfileActivity.this, "Failed to fetch total sales!", Toast.LENGTH_SHORT).show()
+                );
+            }
+        });
     }
 }
