@@ -1,11 +1,10 @@
 package com.example.exchange;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +24,7 @@ public class UserTrackOrdersAdapter extends RecyclerView.Adapter<UserTrackOrders
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.usertrackorder_rview_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.user_track_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -33,16 +32,17 @@ public class UserTrackOrdersAdapter extends RecyclerView.Adapter<UserTrackOrders
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         UserTrackOrderModel order = orderList.get(position);
 
-        holder.orderId.setText("Order No. " + order.getOrderId());
-        holder.productName.setText(order.getProductName());
-        holder.variant.setText(order.getProductSize());
-        holder.quantity.setText(order.getQuantity() + "x");
-        holder.productPrice.setText("Total Order Price: P " + order.getProductPrice());
+        holder.itemName.setText(order.getProductName());
+        holder.itemVariant.setText(order.getProductSize());
+        holder.itemOrderId.setText("Order ID: #" + order.getOrderId());
+        holder.itemPrice.setText("₱ " + order.getProductPrice());
 
-        // Set product image if available
-        if (order.getProductImage() != null) {
-            holder.productImage.setImageBitmap(order.getProductImage());
-        }
+        // Pass order_id to UserTrackItemActivity
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, UserTrackItemActivity.class);
+            intent.putExtra("order_id", order.getOrderId());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -51,17 +51,14 @@ public class UserTrackOrdersAdapter extends RecyclerView.Adapter<UserTrackOrders
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView orderId, productName, variant, quantity, productPrice;
-        ImageView productImage;
+        TextView itemName, itemVariant, itemOrderId, itemPrice;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            orderId = itemView.findViewById(R.id.orderid);
-            productName = itemView.findViewById(R.id.productname);
-            variant = itemView.findViewById(R.id.productsize);
-            quantity = itemView.findViewById(R.id.quantity);
-            productPrice = itemView.findViewById(R.id.productprice);
-            productImage = itemView.findViewById(R.id.productimg);
+            itemName = itemView.findViewById(R.id.item_name);
+            itemVariant = itemView.findViewById(R.id.item_version);
+            itemOrderId = itemView.findViewById(R.id.order_id);
+            itemPrice = itemView.findViewById(R.id.item_price);
         }
     }
 }

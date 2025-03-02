@@ -44,6 +44,7 @@
 
                     <!-- Connecting Line -->
                     <View
+                        android:id="@+id/one"
                         android:layout_width="0dp"
                         android:layout_height="4dp"
                         android:layout_weight="1"
@@ -57,6 +58,7 @@
 
                     <!-- Connecting Line -->
                     <View
+                        android:id="@+id/two"
                         android:layout_width="0dp"
                         android:layout_height="4dp"
                         android:layout_weight="1"
@@ -70,6 +72,7 @@
 
                     <!-- Connecting Line -->
                     <View
+                        android:id="@+id/three"
                         android:layout_width="0dp"
                         android:layout_height="4dp"
                         android:layout_weight="1"
@@ -83,6 +86,7 @@
 
                     <!-- Connecting Line -->
                     <View
+                        android:id="@+id/four"
                         android:layout_width="0dp"
                         android:layout_height="4dp"
                         android:layout_weight="1"

@@ -8,46 +8,47 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class TrackOrderItemAdapter extends RecyclerView.Adapter<TrackOrderItemAdapter.OrderViewHolder> {
+public class TrackOrderItemAdapter extends RecyclerView.Adapter<TrackOrderItemAdapter.ViewHolder> {
 
-    private List<TrackOrderItemModel> orderList;
+    private List<TrackOrderItemModel> orderItems;
 
-    public TrackOrderItemAdapter(List<TrackOrderItemModel> orderList) {
-        this.orderList = orderList;
+    public TrackOrderItemAdapter(List<TrackOrderItemModel> orderItems) {
+        this.orderItems = orderItems;
     }
 
     @NonNull
     @Override
-    public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trackorder_item_layout, parent, false);
-        return new OrderViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        TrackOrderItemModel order = orderList.get(position);
-        holder.itemName.setText(order.getName());
-        holder.itemVersion.setText(order.getVersion());
-        holder.itemOrderId.setText("Order id: #" + order.getOrderId());
-        holder.itemQuantity.setText(order.getQuantity() + "x");
-        holder.itemPrice.setText("₱ " + order.getPrice());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        TrackOrderItemModel orderItem = orderItems.get(position);
+
+        holder.orderId.setText("Order ID: " + orderItem.getOrderId());
+        holder.productName.setText(orderItem.getProductName());
+        holder.variantName.setText(orderItem.getVariantName());
+        holder.quantity.setText("Qty: " + orderItem.getQuantity());
+        holder.price.setText("₱" + orderItem.getPrice());
     }
 
     @Override
     public int getItemCount() {
-        return orderList.size();
+        return orderItems.size();
     }
 
-    public static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView itemName, itemVersion, itemOrderId, itemQuantity, itemPrice;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView orderId, productName, variantName, quantity, price;
 
-        public OrderViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemQuantity = itemView.findViewById(R.id.item_quantity);
-            itemName = itemView.findViewById(R.id.item_name);
-            itemVersion = itemView.findViewById(R.id.item_version);
-            itemOrderId = itemView.findViewById(R.id.item_order_id);
-            itemPrice = itemView.findViewById(R.id.item_price);
+            orderId = itemView.findViewById(R.id.order_id);
+            productName = itemView.findViewById(R.id.item_name);
+            variantName = itemView.findViewById(R.id.item_version);
+            quantity = itemView.findViewById(R.id.item_quantity);
+            price = itemView.findViewById(R.id.price);
         }
     }
 }
