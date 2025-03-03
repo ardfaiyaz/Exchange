@@ -6,15 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.exchange.TrackOrderItemAdapter;
-import com.example.exchange.TrackOrderItemModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,14 +37,14 @@ public class UserTrackItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_track_item);
 
-        recyclerView = findViewById(R.id.usertrackitemrview);// Make sure this ID exists in XML
+        recyclerView = findViewById(R.id.usertrackitemrview);
+        one = findViewById(R.id.one); // Replace with actual view ID
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         orderItemList = new ArrayList<>();
         adapter = new TrackOrderItemAdapter(orderItemList);
         recyclerView.setAdapter(adapter);
 
-        // Get order ID from intent
         int orderId = getIntent().getIntExtra("order_id", 0);
 
         if (orderId > 0) {
@@ -77,7 +73,6 @@ public class UserTrackItemActivity extends AppCompatActivity {
 
                 reader.close();
                 return result.toString();
-
             } catch (Exception e) {
                 Log.e("FetchOrderItemsTask", "Error fetching data", e);
                 return null;
@@ -104,14 +99,13 @@ public class UserTrackItemActivity extends AppCompatActivity {
                     String varName = jsonObject.getString("var_name");
                     int quantity = jsonObject.getInt("quantity");
                     double price = jsonObject.getDouble("price_at_purchase");
-                    statusId = jsonObject.getString("status_id");  // Get status_id
+                    statusId = jsonObject.optString("status_id", "");
 
                     orderItemList.add(new TrackOrderItemModel(productId, prodName, varName, quantity, price));
                 }
 
                 adapter.notifyDataSetChanged();
 
-                // Change background color based on status_id
                 if ("COMP".equals(statusId)) {
                     one.setBackgroundColor(Color.parseColor("#FF914D"));
                 } else {

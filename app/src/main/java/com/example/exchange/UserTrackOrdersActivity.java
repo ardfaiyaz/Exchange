@@ -36,7 +36,7 @@ public class UserTrackOrdersActivity extends AppCompatActivity {
     private List<UserTrackOrderModel> orderList = new ArrayList<>();
     private OkHttpClient client = new OkHttpClient();
 
-    private static final String API_URL = "http://10.0.2.2/Exchange/user_fetch_order.php?user_id=";
+    private static final String API_URL = "http://10.0.2.2/exchange/user_fetch_order.php?user_id=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

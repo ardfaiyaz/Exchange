@@ -1,22 +1,22 @@
 package com.example.exchange;
 
 public class TrackOrderItemModel {
-    private int orderId;
+    private int productId;
     private String productName;
     private String variantName;
     private int quantity;
     private double price;
 
-    public TrackOrderItemModel(int orderId, String productName, String variantName, int quantity, double price) {
-        this.orderId = orderId;
+    public TrackOrderItemModel(int productId, String productName, String variantName, int quantity, double price) {
+        this.productId = productId;
         this.productName = productName;
         this.variantName = variantName;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getProductId() {
+        return productId;
     }
 
     public String getProductName() {
