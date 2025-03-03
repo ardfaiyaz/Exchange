@@ -26,7 +26,6 @@ public class UserTrackOrderModel {
     public String getProductName() {
         return productName;
     }
-
     public String getProductSize() {
         return productSize;
     }
