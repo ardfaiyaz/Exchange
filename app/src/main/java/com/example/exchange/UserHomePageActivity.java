@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -33,6 +34,8 @@ public class UserHomePageActivity extends AppCompatActivity {
     private UserHomePageAdapter adapter;
     private RecyclerView recyclerView;
     private List<Product> productList = new ArrayList<>();
+    private List<Product> originalProductList = new ArrayList<>(); // ✅ Store unmodified data
+    private SearchView searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,51 +43,46 @@ public class UserHomePageActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.user_home_page);
 
-        ArrayList<SlideModel> imageList = new ArrayList<>(); // Create image list
+        ArrayList<SlideModel> imageList = new ArrayList<>();
 
-        // Add images and titles to the list
         imageList.add(new SlideModel(R.drawable.lbj1, ScaleTypes.CENTER_CROP));
         imageList.add(new SlideModel(R.drawable.lbj2, ScaleTypes.CENTER_CROP));
         imageList.add(new SlideModel(R.drawable.lbj3, ScaleTypes.CENTER_CROP));
 
-        // Find ImageSlider and set the image list
         ImageSlider imageSlider = findViewById(R.id.image_slider);
         imageSlider.setImageList(imageList);
 
         recyclerView = findViewById(R.id.staffhomepagerview);
+        searchBar = findViewById(R.id.search_bar);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        // Load products from API
-        new UserHomePageActivity.FetchProductsTask().execute("http://10.0.2.2/Exchange/homepage_rview_data.php");
+        adapter = new UserHomePageAdapter(this, productList);
+        recyclerView.setAdapter(adapter);
 
-        findViewById(R.id.usercartbtn).setOnClickListener(view -> {
-            Intent intent = new Intent(UserHomePageActivity.this, UserYourCartActivity.class);
-            startActivity(intent);
-        });
+        new FetchProductsTask().execute("http://10.0.2.2/Exchange/homepage_rview_data.php");
 
-        findViewById(R.id.usernotifbtn).setOnClickListener(view -> {
-            Intent intent = new Intent(UserHomePageActivity.this, UserNotificationActivity.class);
-            startActivity(intent);
-        });
+        findViewById(R.id.usercartbtn).setOnClickListener(view ->
+                startActivity(new Intent(UserHomePageActivity.this, UserYourCartActivity.class)));
 
-        findViewById(R.id.userprofilebtn).setOnClickListener(view -> {
-            Intent intent = new Intent(UserHomePageActivity.this, UserProfileActivity.class);
-            startActivity(intent);
-        });
+        findViewById(R.id.usernotifbtn).setOnClickListener(view ->
+                startActivity(new Intent(UserHomePageActivity.this, UserNotificationActivity.class)));
 
+        findViewById(R.id.userprofilebtn).setOnClickListener(view ->
+                startActivity(new Intent(UserHomePageActivity.this, UserProfileActivity.class)));
+
+        setupSearchFunctionality();
     }
+
     private class FetchProductsTask extends AsyncTask<String, Void, List<Product>> {
         @Override
         protected List<Product> doInBackground(String... urls) {
             List<Product> products = new ArrayList<>();
             try {
-                // Fetch JSON from server
                 URL url = new URL(urls[0]);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.connect();
 
-                // Read response
                 InputStream inputStream = conn.getInputStream();
                 Scanner scanner = new Scanner(inputStream);
                 StringBuilder json = new StringBuilder();
@@ -92,20 +90,18 @@ public class UserHomePageActivity extends AppCompatActivity {
                     json.append(scanner.nextLine());
                 }
                 scanner.close();
-// Parse JSON
-                // Parse JSON
+
                 JSONArray jsonArray = new JSONArray(json.toString());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject obj = jsonArray.getJSONObject(i);
-                    int productId = obj.getInt("product_id"); // Ensure key matches PHP, use lowercase if needed
+                    int productId = obj.getInt("product_id");
                     String name = obj.getString("prod_name");
                     double price = obj.getDouble("prod_price");
 
                     Bitmap bitmap = null;
-                    // Check if the prod_image exists; if not, set a default bitmap or leave null.
-                    if(obj.has("prod_image")){
+                    if (obj.has("prod_image")) {
                         String base64Image = obj.getString("prod_image");
-                        if(!base64Image.isEmpty()){
+                        if (!base64Image.isEmpty()) {
                             byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
                             bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                         }
@@ -123,15 +119,55 @@ public class UserHomePageActivity extends AppCompatActivity {
             if (products.isEmpty()) {
                 Toast.makeText(UserHomePageActivity.this, "No products found", Toast.LENGTH_SHORT).show();
             } else {
-                productList.clear();  // ✅ Clear old data
-                productList.addAll(products);  // ✅ Add new data
-                if (adapter == null) {
-                    adapter = new UserHomePageAdapter(UserHomePageActivity.this, productList);
-                    recyclerView.setAdapter(adapter);
-                } else {
-                    adapter.notifyDataSetChanged();  // ✅ Refresh UI
-                }
+                productList.clear();
+                productList.addAll(products);
+                originalProductList.clear();  // ✅ Store the full list for searching
+                originalProductList.addAll(products);
+                adapter.notifyDataSetChanged();
             }
         }
+    }
+
+    private void setupSearchFunctionality() {
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false; // Not needed, filtering happens in real-time
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
+        searchBar.setOnCloseListener(() -> {
+            resetList();
+            return false;
+        });
+    }
+
+    private void filterList(String query) {
+        List<Product> filteredList = new ArrayList<>();
+
+        if (query.isEmpty()) {
+            resetList();
+        } else {
+            for (Product product : originalProductList) {  // ✅ Use the original list
+                if (product.getName().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(product);
+                }
+            }
+            productList.clear();
+            productList.addAll(filteredList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void resetList() {
+        productList.clear();
+        productList.addAll(originalProductList);  // ✅ Restore from original list
+        adapter.notifyDataSetChanged();
     }
 }
