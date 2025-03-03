@@ -170,4 +170,6 @@ public class UserHomePageActivity extends AppCompatActivity {
         productList.addAll(originalProductList);  // ✅ Restore from original list
         adapter.notifyDataSetChanged();
     }
+
+
 }
