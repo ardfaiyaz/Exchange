@@ -71,7 +71,7 @@
                         android:paddingEnd="16dp">
 
                         <EditText
-                            android:id="@+id/usernameinput"
+                            android:id="@+id/emailinput"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginBottom="10dp"
@@ -79,7 +79,7 @@
                             android:drawableLeft="@drawable/usernameicon1"
                             android:drawablePadding="10dp"
                             android:fontFamily="@font/montserrat_bold"
-                            android:hint="Username"
+                            android:hint="Email"
                             android:paddingLeft="27dp"
                             android:textSize="19sp" />
 

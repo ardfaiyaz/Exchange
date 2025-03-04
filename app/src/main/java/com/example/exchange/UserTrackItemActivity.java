@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -28,7 +30,7 @@ public class UserTrackItemActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TrackOrderItemAdapter adapter;
     private List<TrackOrderItemModel> orderItemList;
-    private View one;
+    private View one; // Ensure this matches the actual layout
 
     private static final String FETCH_URL = "http://10.0.2.2/exchange/fetch_order_items.php?order_id=";
 
@@ -38,7 +40,11 @@ public class UserTrackItemActivity extends AppCompatActivity {
         setContentView(R.layout.user_track_item);
 
         recyclerView = findViewById(R.id.usertrackitemrview);
-        one = findViewById(R.id.one); // Replace with actual view ID
+        one = findViewById(R.id.one); // Ensure this ID exists in user_track_item.xml
+
+        if (one == null) {
+            Log.e("UserTrackItemActivity", "Error: View 'one' not found in layout!");
+        }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         orderItemList = new ArrayList<>();
@@ -61,6 +67,8 @@ public class UserTrackItemActivity extends AppCompatActivity {
                 URL url = new URL(urls[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
+                connection.setConnectTimeout(5000); // Timeout to avoid app freezing
+                connection.setReadTimeout(5000);
 
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -106,10 +114,16 @@ public class UserTrackItemActivity extends AppCompatActivity {
 
                 adapter.notifyDataSetChanged();
 
-                if ("COMP".equals(statusId)) {
-                    one.setBackgroundColor(Color.parseColor("#FF914D"));
+                Log.d("FetchOrderItemsTask", "Status ID: " + statusId);
+
+                if (one != null) {
+                    if ("COMP".equals(statusId)) {
+                        one.setBackgroundColor(Color.parseColor("#FF914D"));
+                    } else {
+                        one.setBackgroundColor(Color.WHITE);
+                    }
                 } else {
-                    one.setBackgroundColor(Color.WHITE);
+                    Log.e("FetchOrderItemsTask", "Error: 'one' view is null.");
                 }
 
             } catch (JSONException e) {

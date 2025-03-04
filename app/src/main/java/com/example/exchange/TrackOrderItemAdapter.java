@@ -30,7 +30,7 @@ public class TrackOrderItemAdapter extends RecyclerView.Adapter<TrackOrderItemAd
         holder.productName.setText(orderItem.getProductName());
         holder.variantName.setText(orderItem.getVariantName());
         holder.quantity.setText("Qty: " + orderItem.getQuantity());
-        holder.price.setText("₱" + orderItem.getPrice());
+        holder.price.setText("₱ " + orderItem.getPrice());
     }
 
     @Override
