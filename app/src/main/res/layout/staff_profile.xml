@@ -276,22 +276,6 @@
 
         <LinearLayout
             android:layout_weight="1"
-            android:id="@+id/staffnotifbtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bottomnavbg"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/announcementbtn_unactive" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
             android:id="@+id/staffhomebtn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

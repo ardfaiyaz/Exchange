@@ -64,7 +64,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             }
 
             if (!isValidEmail(Email, userRole)) {
-                StyleableToast.makeText(CreateAccountActivity.this, "Invalid email! Must be \n@students.nu-dasma.edu.ph", R.style.accinputerror).show();
+                StyleableToast.makeText(CreateAccountActivity.this, "Invalid email! Must be \n@students.nu-dasma.edu.ph or \n@admin.nu-dasma.edu.ph", R.style.accinputerror).show();
                 return;
             }
 
@@ -128,6 +128,9 @@ public class CreateAccountActivity extends AppCompatActivity {
     private boolean isValidEmail(String email, String userRole) {
         if (userRole.equals("Student")) {
             return email.toLowerCase().endsWith("@students.nu-dasma.edu.ph");
+        }
+        if (userRole.equals("Developer")){
+            return email.toLowerCase().endsWith("@admin.nu-dasma.edu.ph");
         }
         return true;
     }

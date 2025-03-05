@@ -49,10 +49,6 @@ public class StaffProfileActivity extends AppCompatActivity {
         logoutBtn.setOnClickListener(view -> logoutUser());
 
         // Navigation buttons
-        findViewById(R.id.staffnotifbtn).setOnClickListener(view ->
-                startActivity(new Intent(StaffProfileActivity.this, StaffNotificationsActivity.class))
-        );
-
         findViewById(R.id.staffinventorybtn).setOnClickListener(view ->
                 startActivity(new Intent(StaffProfileActivity.this, StaffInventoryActivity.class))
         );

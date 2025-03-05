@@ -41,11 +41,6 @@ public class StaffHomePageActivity extends AppCompatActivity {
         // Load products from API
         new FetchProductsTask().execute("http://10.0.2.2/Exchange/homepage_rview_data.php");
 
-        findViewById(R.id.staffnotifbtn).setOnClickListener(view -> {
-            Intent intent = new Intent(StaffHomePageActivity.this, StaffNotificationsActivity.class);
-            startActivity(intent);
-        });
-
         findViewById(R.id.staffprofilebtn).setOnClickListener(view -> {
             Intent intent = new Intent(StaffHomePageActivity.this, StaffProfileActivity.class);
             startActivity(intent);

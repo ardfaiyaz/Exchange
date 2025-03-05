@@ -48,7 +48,6 @@ public class StaffTrackOrdersActivity extends AppCompatActivity {
 
         // Navigation Listeners
         findViewById(R.id.staffprofilebtn).setOnClickListener(view -> startActivity(new Intent(this, StaffProfileActivity.class)));
-        findViewById(R.id.staffnotifbtn).setOnClickListener(view -> startActivity(new Intent(this, StaffNotificationsActivity.class)));
         findViewById(R.id.staffhomebtn).setOnClickListener(view -> startActivity(new Intent(this, StaffHomePageActivity.class)));
     }
 

@@ -18,7 +18,7 @@ import java.util.Scanner;
 import io.github.muddz.styleabletoast.StyleableToast;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText usernameinput, passwordinput;
+    EditText emailinput, passwordinput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +27,18 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_page);
 
         // Initialize UI elements
-        usernameinput = findViewById(R.id.usernameinput);
+        emailinput = findViewById(R.id.emailinput);
         passwordinput = findViewById(R.id.passwordinput);
 
         // Handle login button click
         findViewById(R.id.loginbtn).setOnClickListener(view -> {
-            String username = usernameinput.getText().toString().trim();
+            String email = emailinput.getText().toString().trim();
             String password = passwordinput.getText().toString().trim();
 
-            if (username.isEmpty() || password.isEmpty()) {
-                StyleableToast.makeText(LoginActivity.this, "Please enter username and password", R.style.accinputerror).show();
+            if (email.isEmpty() || password.isEmpty()) {
+                StyleableToast.makeText(LoginActivity.this, "Please enter email and password", R.style.accinputerror).show();
             } else {
-                new LoginTask().execute(username, password);
+                new LoginTask().execute(email, password);
             }
         });
 
@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
             String password = params[1];
             String apiUrl = "http://10.0.2.2/Exchange/login.php"; // Update with actual API URL
 
-            Log.d("LoginTask", "Username sent: " + username);
+            Log.d("LoginTask", "Email sent: " + username);
             Log.d("LoginTask", "Password sent: " + password);
 
             try {
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 conn.setDoOutput(true);
 
                 // Send POST data using username and password
-                String postData = "username=" + username + "&password=" + password;
+                String postData = "email=" + username + "&password=" + password;
                 OutputStream os = conn.getOutputStream();
                 os.write(postData.getBytes());
                 os.flush();
@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     finish();
                 } else {
-                    StyleableToast.makeText(LoginActivity.this, "Invalid username or password", R.style.accinputerror).show();
+                    StyleableToast.makeText(LoginActivity.this, "Invalid email or password", R.style.accinputerror).show();
                 }
             } catch (Exception e) {
                 Log.e("LoginTask", "JSON Error: " + e.getMessage());

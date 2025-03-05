@@ -26,11 +26,11 @@ public class TrackOrderItemAdapter extends RecyclerView.Adapter<TrackOrderItemAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TrackOrderItemModel orderItem = orderItems.get(position);
-
         holder.productName.setText(orderItem.getProductName());
         holder.variantName.setText(orderItem.getVariantName());
         holder.quantity.setText("Qty: " + orderItem.getQuantity());
-        holder.price.setText("₱" + orderItem.getPrice());
+        holder.price.setText("₱ " + orderItem.getPrice());
+        holder.orderId.setText("Order Id: " + orderItem.getOrderId());
     }
 
     @Override
@@ -39,14 +39,15 @@ public class TrackOrderItemAdapter extends RecyclerView.Adapter<TrackOrderItemAd
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView productName, variantName, quantity, price;
+        TextView productName, variantName, quantity, price, orderId;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.item_name);
             variantName = itemView.findViewById(R.id.item_version);
             quantity = itemView.findViewById(R.id.item_quantity);
-            price = itemView.findViewById(R.id.price);
+            price = itemView.findViewById(R.id.item_price);
+            orderId = itemView.findViewById(R.id.order_id);
         }
     }
 }

@@ -53,13 +53,15 @@
                 tools:listitem="@layout/staff_home_rview_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingEnd="30dp"
+                android:paddingEnd="10dp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
-                android:paddingHorizontal="55dp"
-                android:paddingVertical="10dp"
+                android:paddingHorizontal="38dp"
+                android:paddingBottom="16dp"
+                android:clipToPadding="false"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"  />
+                app:spanCount="2" />
+
 
         </LinearLayout>
     </ScrollView>
