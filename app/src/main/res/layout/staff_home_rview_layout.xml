@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="150dp"
+    android:layout_width="120dp"
     android:layout_height="wrap_content"
     android:layout_marginBottom="40dp"
     android:layout_gravity="center|top"
@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/productimg"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             app:srcCompat="@drawable/pldefaultpic" />
 
         <TextView
@@ -29,11 +29,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:textSize="16dp"
+            android:textSize="10dp"
             android:text="ITEM #1" />
 
         <TextView
-            android:textSize="14dp"
+            android:textSize="9dp"
             android:textColor="#ff7301"
             android:fontFamily="@font/montserrat_bold"
             android:padding="3dp"

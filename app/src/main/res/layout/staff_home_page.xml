@@ -44,7 +44,7 @@
                 android:paddingEnd="30dp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
-                android:paddingHorizontal="55dp"
+                android:paddingHorizontal="68dp"
                 android:paddingVertical="10dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2" />
