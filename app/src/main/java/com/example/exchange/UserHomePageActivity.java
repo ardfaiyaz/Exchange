@@ -45,9 +45,9 @@ public class UserHomePageActivity extends AppCompatActivity {
 
         ArrayList<SlideModel> imageList = new ArrayList<>();
 
-        imageList.add(new SlideModel(R.drawable.lbj1, ScaleTypes.CENTER_CROP));
-        imageList.add(new SlideModel(R.drawable.lbj2, ScaleTypes.CENTER_CROP));
-        imageList.add(new SlideModel(R.drawable.lbj3, ScaleTypes.CENTER_CROP));
+        imageList.add(new SlideModel(R.drawable.defpicc, ScaleTypes.CENTER_CROP));
+        imageList.add(new SlideModel(R.drawable.maleunif, ScaleTypes.CENTER_CROP));
+        imageList.add(new SlideModel(R.drawable.femaleunif, ScaleTypes.CENTER_CROP));
 
         ImageSlider imageSlider = findViewById(R.id.image_slider);
         imageSlider.setImageList(imageList);

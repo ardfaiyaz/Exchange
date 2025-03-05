@@ -21,7 +21,7 @@
             android:orientation="vertical"
             android:background="#1c256c">
 
-            <SearchView
+            <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
