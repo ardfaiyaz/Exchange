@@ -61,6 +61,8 @@ public class UserHomePageActivity extends AppCompatActivity {
 
         new FetchProductsTask().execute("http://10.0.2.2/Exchange/homepage_rview_data.php");
 
+        setupSearchFunctionality();
+
         findViewById(R.id.usercartbtn).setOnClickListener(view ->
                 startActivity(new Intent(UserHomePageActivity.this, UserYourCartActivity.class)));
 
@@ -70,7 +72,8 @@ public class UserHomePageActivity extends AppCompatActivity {
         findViewById(R.id.userprofilebtn).setOnClickListener(view ->
                 startActivity(new Intent(UserHomePageActivity.this, UserProfileActivity.class)));
 
-        setupSearchFunctionality();
+        findViewById(R.id.userhomebtn).setOnClickListener(view ->
+                startActivity(new Intent(UserHomePageActivity.this, UserHomePageActivity.class)));
     }
 
     private class FetchProductsTask extends AsyncTask<String, Void, List<Product>> {

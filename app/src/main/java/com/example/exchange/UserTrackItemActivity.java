@@ -1,5 +1,6 @@
 package com.example.exchange;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,6 +53,12 @@ public class UserTrackItemActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Invalid Order ID", Toast.LENGTH_SHORT).show();
         }
+
+        findViewById(R.id.userprofilebtn).setOnClickListener(view -> startActivity(new Intent(this, UserProfileActivity.class)));
+        findViewById(R.id.userhomebtn).setOnClickListener(view -> startActivity(new Intent(this, UserHomePageActivity.class)));
+        findViewById(R.id.usernotifbtn).setOnClickListener(view -> startActivity(new Intent(this, UserNotificationActivity.class)));
+        findViewById(R.id.usercartbtn).setOnClickListener(view -> startActivity(new Intent(this, UserYourCartActivity.class)));
+        findViewById(R.id.backbtn).setOnClickListener(view -> startActivity(new Intent(this, UserTrackOrdersActivity.class)));
     }
 
     private class FetchOrderItemsTask extends AsyncTask<String, Void, String> {

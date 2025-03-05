@@ -63,6 +63,8 @@ public class UserNotificationActivity extends AppCompatActivity {
 
         findViewById(R.id.userprofilebtn).setOnClickListener(view -> startActivity(new Intent(this, UserProfileActivity.class)));
         findViewById(R.id.userhomebtn).setOnClickListener(view -> startActivity(new Intent(this, UserHomePageActivity.class)));
+        findViewById(R.id.usernotifbtn).setOnClickListener(view -> startActivity(new Intent(this, UserNotificationActivity.class)));
+        findViewById(R.id.usercartbtn).setOnClickListener(view -> startActivity(new Intent(this, UserYourCartActivity.class)));
     }
 
     private void fetchNotifications(int userId) {

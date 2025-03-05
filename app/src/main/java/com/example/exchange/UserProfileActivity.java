@@ -52,6 +52,10 @@ public class UserProfileActivity extends AppCompatActivity {
             startActivity(new Intent(UserProfileActivity.this, UserYourCartActivity.class));
         });
 
+        findViewById(R.id.usernotifbtn).setOnClickListener(view -> {
+            startActivity(new Intent(UserProfileActivity.this, UserNotificationActivity.class));
+        });
+
         findViewById(R.id.userhomebtn).setOnClickListener(view -> {
             startActivity(new Intent(UserProfileActivity.this, UserHomePageActivity.class));
         });

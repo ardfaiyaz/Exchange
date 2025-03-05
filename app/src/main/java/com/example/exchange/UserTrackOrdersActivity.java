@@ -64,6 +64,10 @@ public class UserTrackOrdersActivity extends AppCompatActivity {
             startActivity(new Intent(UserTrackOrdersActivity.this, UserProfileActivity.class));
         });
 
+        findViewById(R.id.usernotifbtn).setOnClickListener(view -> {
+            startActivity(new Intent(UserTrackOrdersActivity.this, UserNotificationActivity.class));
+        });
+
         // Navigation buttons
         findViewById(R.id.userhomebtn).setOnClickListener(view -> {
             startActivity(new Intent(UserTrackOrdersActivity.this, UserHomePageActivity.class));
