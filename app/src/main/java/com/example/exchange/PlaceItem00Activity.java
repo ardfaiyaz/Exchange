@@ -81,7 +81,6 @@ public class PlaceItem00Activity extends AppCompatActivity {
         TextView nameView = findViewById(R.id.itemnamedes);
         TextView priceView = findViewById(R.id.itempricedesc);
         EditText quantityEdit = findViewById(R.id.quantityedit);
-        LinearLayout placeOrderBtn = findViewById(R.id.placeorderbtn);
 
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
@@ -175,8 +174,6 @@ public class PlaceItem00Activity extends AppCompatActivity {
 
         });
 
-        placeOrderBtn.setOnClickListener(view -> placeOrder(quantityEdit));
-
         setupCheckboxListeners();
     }
 
@@ -203,64 +200,64 @@ public class PlaceItem00Activity extends AppCompatActivity {
         return "";
     }
 
-    private void placeOrder(EditText quantityEdit) {
-        String selectedSize = getSelectedSize();
-        String quantity = quantityEdit.getText().toString().trim();
-
-        if (selectedSize.isEmpty()) {
-            StyleableToast.makeText(getApplicationContext(), "Please select a size", R.style.accinputerror).show();
-            return;
-        }
-
-        if (quantity.isEmpty()) {
-            StyleableToast.makeText(getApplicationContext(), "Please enter quantity", R.style.accinputerror).show();
-            return;
-        }
-
-        int quantityInt = Integer.parseInt(quantity);
-        if (quantityInt <= 0) {
-            StyleableToast.makeText(getApplicationContext(), "Quantity must be at least 1", R.style.accinputerror).show();
-            return;
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        String currentDate = sdf.format(new Date());
-
-        new Thread(() -> {
-            try {
-                URL url = new URL("http://10.0.2.2/Exchange/place_order.php");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setDoOutput(true);
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-                String postData = "user_id=" + userId +
-                        "&productID=" + productID +
-                        "&productPrice=" + productPrice +
-                        "&selectedSize=" + URLEncoder.encode(selectedSize, "UTF-8") +
-                        "&quantity=" + quantityInt +
-                        "&date_ordered=" + URLEncoder.encode(currentDate, "UTF-8") +
-                        "&date_updated=" + URLEncoder.encode(currentDate, "UTF-8");
-
-                OutputStream outputStream = conn.getOutputStream();
-                outputStream.write(postData.getBytes());
-                outputStream.flush();
-                outputStream.close();
-
-                int responseCode = conn.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    runOnUiThread(() -> {
-                        StyleableToast.makeText(getApplicationContext(), "Order Placed Successfully", R.style.placedordertoast).show();
-                        Intent intent = new Intent(PlaceItem00Activity.this, UserHomePageActivity.class);
-                        startActivity(intent);
-                    });
-                } else {
-                    runOnUiThread(() -> StyleableToast.makeText(getApplicationContext(), "Failed to place order", R.style.accinputerror).show());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                runOnUiThread(() -> StyleableToast.makeText(getApplicationContext(), "Error: " + e.getMessage(), R.style.accinputerror).show());
-            }
-        }).start();
-    }
+//    private void placeOrder(EditText quantityEdit) {
+//        String selectedSize = getSelectedSize();
+//        String quantity = quantityEdit.getText().toString().trim();
+//
+//        if (selectedSize.isEmpty()) {
+//            StyleableToast.makeText(getApplicationContext(), "Please select a size", R.style.accinputerror).show();
+//            return;
+//        }
+//
+//        if (quantity.isEmpty()) {
+//            StyleableToast.makeText(getApplicationContext(), "Please enter quantity", R.style.accinputerror).show();
+//            return;
+//        }
+//
+//        int quantityInt = Integer.parseInt(quantity);
+//        if (quantityInt <= 0) {
+//            StyleableToast.makeText(getApplicationContext(), "Quantity must be at least 1", R.style.accinputerror).show();
+//            return;
+//        }
+//
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+//        String currentDate = sdf.format(new Date());
+//
+//        new Thread(() -> {
+//            try {
+//                URL url = new URL("http://10.0.2.2/Exchange/place_order.php");
+//                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//                conn.setRequestMethod("POST");
+//                conn.setDoOutput(true);
+//                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+//
+//                String postData = "user_id=" + userId +
+//                        "&productID=" + productID +
+//                        "&productPrice=" + productPrice +
+//                        "&selectedSize=" + URLEncoder.encode(selectedSize, "UTF-8") +
+//                        "&quantity=" + quantityInt +
+//                        "&date_ordered=" + URLEncoder.encode(currentDate, "UTF-8") +
+//                        "&date_updated=" + URLEncoder.encode(currentDate, "UTF-8");
+//
+//                OutputStream outputStream = conn.getOutputStream();
+//                outputStream.write(postData.getBytes());
+//                outputStream.flush();
+//                outputStream.close();
+//
+//                int responseCode = conn.getResponseCode();
+//                if (responseCode == HttpURLConnection.HTTP_OK) {
+//                    runOnUiThread(() -> {
+//                        StyleableToast.makeText(getApplicationContext(), "Order Placed Successfully", R.style.placedordertoast).show();
+//                        Intent intent = new Intent(PlaceItem00Activity.this, UserHomePageActivity.class);
+//                        startActivity(intent);
+//                    });
+//                } else {
+//                    runOnUiThread(() -> StyleableToast.makeText(getApplicationContext(), "Failed to place order", R.style.accinputerror).show());
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                runOnUiThread(() -> StyleableToast.makeText(getApplicationContext(), "Error: " + e.getMessage(), R.style.accinputerror).show());
+//            }
+//        }).start();
+//    }
 }
