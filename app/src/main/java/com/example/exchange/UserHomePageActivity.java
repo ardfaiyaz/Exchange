@@ -3,14 +3,10 @@ package com.example.exchange;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -66,7 +62,6 @@ public class UserHomePageActivity extends AppCompatActivity {
         new FetchProductsTask().execute("http://10.0.2.2/Exchange/homepage_rview_data.php");
 
         setupSearchFunctionality();
-        customizeSearchView();
 
         findViewById(R.id.usercartbtn).setOnClickListener(view ->
                 startActivity(new Intent(UserHomePageActivity.this, UserYourCartActivity.class)));
@@ -80,7 +75,6 @@ public class UserHomePageActivity extends AppCompatActivity {
         findViewById(R.id.userhomebtn).setOnClickListener(view ->
                 startActivity(new Intent(UserHomePageActivity.this, UserHomePageActivity.class)));
     }
-
 
     private class FetchProductsTask extends AsyncTask<String, Void, List<Product>> {
         @Override
@@ -180,15 +174,5 @@ public class UserHomePageActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private void customizeSearchView() {
-        EditText searchEditText = searchBar.findViewById(androidx.appcompat.R.id.search_src_text);
-        searchEditText.setTextColor(Color.BLACK);
-        searchEditText.setHintTextColor(Color.DKGRAY);
-        searchEditText.setTextSize(16);
-
-        // Change search icon color
-        ImageView searchIcon = searchBar.findViewById(androidx.appcompat.R.id.search_mag_icon);
-        searchIcon.setColorFilter(Color.parseColor("#1c256c"), PorterDuff.Mode.SRC_IN);
-    }
 
 }
