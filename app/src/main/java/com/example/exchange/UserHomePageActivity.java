@@ -81,16 +81,6 @@ public class UserHomePageActivity extends AppCompatActivity {
                 startActivity(new Intent(UserHomePageActivity.this, UserHomePageActivity.class)));
     }
 
-    private void customizeSearchView() {
-        EditText searchEditText = searchBar.findViewById(androidx.appcompat.R.id.search_src_text);
-        searchEditText.setTextColor(Color.BLACK);
-        searchEditText.setHintTextColor(Color.DKGRAY);
-        searchEditText.setTextSize(16);
-
-        // Change search icon color
-        ImageView searchIcon = searchBar.findViewById(androidx.appcompat.R.id.search_mag_icon);
-        searchIcon.setColorFilter(Color.parseColor("#1c256c"), PorterDuff.Mode.SRC_IN);
-    }
 
     private class FetchProductsTask extends AsyncTask<String, Void, List<Product>> {
         @Override
@@ -190,5 +180,15 @@ public class UserHomePageActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    private void customizeSearchView() {
+        EditText searchEditText = searchBar.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(Color.BLACK);
+        searchEditText.setHintTextColor(Color.DKGRAY);
+        searchEditText.setTextSize(16);
+
+        // Change search icon color
+        ImageView searchIcon = searchBar.findViewById(androidx.appcompat.R.id.search_mag_icon);
+        searchIcon.setColorFilter(Color.parseColor("#1c256c"), PorterDuff.Mode.SRC_IN);
+    }
 
 }
