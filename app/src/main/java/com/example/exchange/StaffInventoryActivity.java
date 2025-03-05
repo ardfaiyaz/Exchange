@@ -1,5 +1,6 @@
 package com.example.exchange;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -47,7 +48,9 @@ public class StaffInventoryActivity extends AppCompatActivity {
 
 
         loadProducts();
-        setupSearchFunctionality(); // Call search setup method
+        setupSearchFunctionality();
+
+        findViewById(R.id.backbtn).setOnClickListener(view -> startActivity(new Intent(this, StaffProfileActivity.class)));// Call search setup method
     }
 
     // 🔽 Add these methods BELOW onCreate 🔽
