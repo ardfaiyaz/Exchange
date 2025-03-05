@@ -1,6 +1,6 @@
+
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,60 +8,168 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="4dp">
 
-        <ImageView
-            android:id="@+id/imageView3"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1c256c"
+        android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:adjustViewBounds="true"
-            android:paddingTop="40dp"
-            app:srcCompat="@drawable/inventory_header" />
+            android:layout_height="120dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="vertical"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center"
+                    android:text="INVENTORY"
+                    android:textColor="@color/black"
+                    android:textSize="29dp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <SearchView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
+            android:layout_marginHorizontal="13dp"
+            android:layout_marginVertical="8dp"
             android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
             android:background="@drawable/search_bar_custome_design"
             android:iconifiedByDefault="false"
-            android:padding="8dp"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="2dp"
             android:queryHint="Search by name" />
-    </LinearLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="204dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <LinearLayout
+            android:paddingVertical="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            tools:listitem="@layout/inventory_rview_layout" />
-    </androidx.core.widget.NestedScrollView>
+            android:orientation="horizontal">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add"
-        android:layout_width="wrap_content"
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/imgtab"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Image"
+                android:textSize="10sp" />
+
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/txt_name"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Item Name"
+                android:textSize="10sp" />
+
+
+            <TextView
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:id="@+id/txt_size"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Size"
+                android:textSize="10sp" />
+
+
+            <TextView
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:id="@+id/txt_price"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Price"
+                android:textSize="10sp" />
+
+
+            <TextView
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:id="@+id/txt_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Quantity"
+                android:textSize="10sp" />
+
+
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/inventory_rview_layout" />
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/inventory_addbtn_bg"
-        android:tint="@android:color/white"
-        app:backgroundTint="#1c256c"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/backbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:text="BACK"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

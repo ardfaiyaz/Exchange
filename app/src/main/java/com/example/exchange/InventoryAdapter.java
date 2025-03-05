@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -219,9 +220,8 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView itemName, itemVarId;
         EditText itemPrice, itemStock;
-        ImageView itemImage, editIcon;
-        CheckBox checkBox;
-        View deletebtn;
+        ImageView itemImage;
+        Button deletebtn, editIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -230,7 +230,6 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
             itemStock = itemView.findViewById(R.id.itemStock);
             itemImage = itemView.findViewById(R.id.itemImage);
             editIcon = itemView.findViewById(R.id.editIcon);
-            checkBox = itemView.findViewById(R.id.checkBox);
             itemVarId = itemView.findViewById(R.id.itemVarId);
             deletebtn = itemView.findViewById(R.id.deletebtn);
         }

@@ -153,13 +153,13 @@ public class UserTrackItemActivity extends AppCompatActivity {
                     rescl.setBackgroundResource(R.drawable.circle_shape);
                     statushead.setText("Order Reserved!");
                     statusfoot.setText("Great news! Your order has been reserved!");
-                } else if ("PROC".equals(statusId)) {
+                } else if ("PEND".equals(statusId)) {
                     statushead.setText("Order Processing");
                     statusfoot.setText("Hooray! Your order is officially in the works!");
                     rescl.setBackgroundResource(R.drawable.circle_shape);
                     proccl.setBackgroundResource(R.drawable.circle_shape);
                     one.setBackgroundColor(Color.parseColor("#ff914d"));
-                } else if ("PICK".equals(statusId)) {
+                } else if ("PROC".equals(statusId)) {
                     statushead.setText("Order Ready for Pickup");
                     statusfoot.setText("Awesome! Your order is ready for pickup!");
                     rescl.setBackgroundResource(R.drawable.circle_shape);
@@ -167,7 +167,7 @@ public class UserTrackItemActivity extends AppCompatActivity {
                     pickcl.setBackgroundResource(R.drawable.circle_shape);
                     one.setBackgroundColor(Color.parseColor("#ff914d"));
                     two.setBackgroundColor(Color.parseColor("#ff914d"));
-                } else if ("PEND".equals(statusId)) {
+                } else if ("PICK".equals(statusId)) {
                     statushead.setText("Order Pending");
                     statusfoot.setText("Hang tight! Your order is pending.");
                     rescl.setBackgroundResource(R.drawable.circle_shape);

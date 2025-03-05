@@ -4,5 +4,5 @@
 
     <solid android:color="#F0F0F0"/> <!-- Light Gray Background -->
     <corners android:radius="25dp"/> <!-- Rounded Corners -->
-    <stroke android:width="2dp" android:color="#1c256c"/> <!-- Blue Border -->
+    <!-- Blue Border -->
 </shape>
