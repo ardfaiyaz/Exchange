@@ -15,20 +15,21 @@
 
         <LinearLayout
             android:gravity="center|bottom"
-            android:padding="15dp"
+            android:paddingHorizontal="15dp"
+            android:paddingBottom="8dp"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:orientation="vertical"
-            android:background="@color/white">
+            android:background="#1c256c">
 
-            <SearchView
+            <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/search_bar_custome_design"
                 android:iconifiedByDefault="false"
-                android:padding="8dp"
-                android:queryHint="Search by name" />
+                android:queryHint="Search by name"
+                android:layout_margin="10dp"/>
         </LinearLayout>
 
         <!-- NestedScrollView instead of ScrollView -->
