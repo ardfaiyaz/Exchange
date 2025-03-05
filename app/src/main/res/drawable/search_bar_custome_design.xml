@@ -2,15 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <!-- Rounded Corners -->
-    <corners android:radius="24dp" />
-
-    <!-- Background Color -->
-    <solid android:color="@color/white" />
-
-    <!-- Border Outline -->
-    <stroke android:width="2dp" android:color="#002D62" />
-
-    <!-- Padding (Optional) -->
-    <padding android:left="8dp" android:right="8dp" />
+    <solid android:color="#F0F0F0"/> <!-- Light Gray Background -->
+    <corners android:radius="25dp"/> <!-- Rounded Corners -->
+    <stroke android:width="2dp" android:color="#1c256c"/> <!-- Blue Border -->
 </shape>
