@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.muddz.styleabletoast.StyleableToast;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -255,7 +256,7 @@ public class UserYourCartActivity extends AppCompatActivity {
 
                 runOnUiThread(() -> {
                     if ("success".equals(jsonResponse.optString("status", ""))) {
-                        showToast("Order placed successfully!");
+                        StyleableToast.makeText(this, "Order placed successfully", R.style.placedordertoast).show();
 
                         // ✅ **Force clear UI immediately**
                         ItemList.clear(); // Empty cart list
