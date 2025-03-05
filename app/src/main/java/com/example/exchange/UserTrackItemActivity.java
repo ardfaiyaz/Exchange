@@ -76,7 +76,16 @@ public class UserTrackItemActivity extends AppCompatActivity {
         }
 
         findViewById(R.id.backbtn).setOnClickListener(view -> {
-            startActivity(new Intent(UserTrackItemActivity.this, UserProfileActivity.class));
+            startActivity(new Intent(UserTrackItemActivity.this, UserTrackOrdersActivity.class));
+        });
+        findViewById(R.id.userhomebtn).setOnClickListener(view -> {
+            startActivity(new Intent(UserTrackItemActivity.this, UserHomePageActivity.class));
+        });
+        findViewById(R.id.usercartbtn).setOnClickListener(view -> {
+                startActivity(new Intent(UserTrackItemActivity.this, UserYourCartActivity.class));
+        });
+        findViewById(R.id.userprofilebtn).setOnClickListener(view ->{
+            startActivity((new Intent(UserTrackItemActivity.this, UserProfileActivity.class)));
         });
     }
 
