@@ -1,5 +1,6 @@
 package com.example.exchange;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -37,6 +38,10 @@ public class StaffOrderHistoryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         fetchCompletedOrders();
+
+        findViewById(R.id.staffprofilebtn).setOnClickListener(view -> startActivity(new Intent(this, StaffProfileActivity.class)));
+        findViewById(R.id.staffhomebtn).setOnClickListener(view -> startActivity(new Intent(this, StaffHomePageActivity.class)));
+        findViewById(R.id.backbtn).setOnClickListener(view -> startActivity(new Intent(this, StaffProfileActivity.class)));
     }
 
     private void fetchCompletedOrders() {
