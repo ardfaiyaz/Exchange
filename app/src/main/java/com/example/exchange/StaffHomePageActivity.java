@@ -74,17 +74,21 @@ public class StaffHomePageActivity extends AppCompatActivity {
 
                 // Parse JSON
                 JSONArray jsonArray = new JSONArray(json.toString());
+                Log.d("API Response: ", json.toString());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject obj = jsonArray.getJSONObject(i);
-                    int productId = obj.getInt("productId");
+                    int productId = obj.getInt("product_id");
                     String name = obj.getString("prod_name");
                     double price = obj.getDouble("prod_price");
-                    String base64Image = obj.getString("prod_image");
 
-                    // Convert Base64 to Bitmap
-                    byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
+                    Bitmap bitmap = null;
+                    if (obj.has("prod_image")) {
+                        String base64Image = obj.getString("prod_image");
+                        if (!base64Image.isEmpty()) {
+                            byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                            bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        }
+                    }
                     products.add(new Product(productId, name, price, bitmap));
                 }
             } catch (Exception e) {
