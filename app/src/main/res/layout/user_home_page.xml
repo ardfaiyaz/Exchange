@@ -31,10 +31,12 @@
                 android:queryHint="Search by name" />
         </LinearLayout>
 
-        <ScrollView
+        <!-- NestedScrollView instead of ScrollView -->
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#1c256c">
+            android:background="#1c256c"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:nestedScrollingEnabled="false"
+                    android:nestedScrollingEnabled="true"
                     android:overScrollMode="never"
                     android:paddingHorizontal="68dp"
                     android:paddingEnd="10dp"
@@ -77,10 +79,8 @@
                     android:id="@+id/view5"
                     android:layout_width="match_parent"
                     android:layout_height="20dp" />
-
-
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -151,6 +151,5 @@
                 app:srcCompat="@drawable/profilebtn_unactive" />
         </LinearLayout>
     </LinearLayout>
-
 
 </RelativeLayout>
