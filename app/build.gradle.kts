@@ -48,7 +48,6 @@ dependencies {
     implementation(libs.image.slideshow)
     implementation ("io.github.muddz:styleabletoast:2.4.0")
 
-    implementation ("androidx.appcompat:appcompat:1.6.1")
 
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
