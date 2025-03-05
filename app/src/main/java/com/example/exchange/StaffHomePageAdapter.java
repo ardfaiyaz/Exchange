@@ -42,22 +42,22 @@ public class StaffHomePageAdapter extends RecyclerView.Adapter<StaffHomePageAdap
         holder.productImg.setImageBitmap(product.getImage()); // Set image
 
         // Click Listener to send data to PlaceItem00Activity
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, PlaceItem00Activity.class);
-
-            // Convert Bitmap to ByteArray
-            Bitmap bitmap = product.getImage();
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-
-            intent.putExtra("productID", product.getProductId());
-            intent.putExtra("productImage", byteArray); // Send image as byte array
-            intent.putExtra("productName", product.getName());
-            intent.putExtra("productPrice", product.getPrice());
-
-            context.startActivity(intent);
-        });
+//        holder.itemView.setOnClickListener(v -> {
+//            Intent intent = new Intent(context, PlaceItem00Activity.class);
+//
+//            // Convert Bitmap to ByteArray
+//            Bitmap bitmap = product.getImage();
+//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//            byte[] byteArray = stream.toByteArray();
+//
+//            intent.putExtra("productID", product.getProductId());
+//            intent.putExtra("productImage", byteArray); // Send image as byte array
+//            intent.putExtra("productName", product.getName());
+//            intent.putExtra("productPrice", product.getPrice());
+//
+//            context.startActivity(intent);
+//        });
     }
 
     @Override
