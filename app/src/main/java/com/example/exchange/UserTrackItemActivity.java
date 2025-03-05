@@ -87,6 +87,9 @@ public class UserTrackItemActivity extends AppCompatActivity {
         findViewById(R.id.userprofilebtn).setOnClickListener(view ->{
             startActivity((new Intent(UserTrackItemActivity.this, UserProfileActivity.class)));
         });
+        findViewById(R.id.usernotifbtn).setOnClickListener(view ->{
+            startActivity((new Intent(UserTrackItemActivity.this, UserNotificationActivity.class)));
+        });
     }
 
     private class FetchOrderItemsTask extends AsyncTask<String, Void, String> {
