@@ -14,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.InputStream;
@@ -34,6 +38,15 @@ public class StaffHomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.staff_home_page);
+
+        ArrayList<SlideModel> imageList = new ArrayList<>();
+
+        imageList.add(new SlideModel(R.drawable.defpicc, ScaleTypes.CENTER_CROP));
+        imageList.add(new SlideModel(R.drawable.imageslider2, ScaleTypes.CENTER_CROP));
+        imageList.add(new SlideModel(R.drawable.imageslider3, ScaleTypes.CENTER_CROP));
+
+        ImageSlider imageSlider = findViewById(R.id.image_slider);
+        imageSlider.setImageList(imageList);
 
         recyclerView = findViewById(R.id.staffhomepagerview);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
