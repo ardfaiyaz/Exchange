@@ -1,9 +1,8 @@
 package com.example.exchange;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+
 import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,7 +14,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +28,6 @@ public class StaffInventoryActivity extends AppCompatActivity {
     private List<InventoryProduct> productList;
     private List<InventoryProduct> originalProductList; // Stores original data
     private SearchView searchBar;
-    private FloatingActionButton fabAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +45,6 @@ public class StaffInventoryActivity extends AppCompatActivity {
         adapter = new InventoryAdapter(this, productList);
         recyclerView.setAdapter(adapter);
 
-        fabAdd = findViewById(R.id.fab_add);
-        fabAdd.setOnClickListener(v -> {
-            Intent intent = new Intent(StaffInventoryActivity.this, StaffProductListingActivity.class);
-            startActivity(intent);
-        });
 
         loadProducts();
         setupSearchFunctionality(); // Call search setup method

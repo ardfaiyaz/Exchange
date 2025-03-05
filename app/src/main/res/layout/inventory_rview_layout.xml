@@ -1,102 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
 
+    android:layout_marginHorizontal="10dp"
+    android:paddingHorizontal="8dp"
+    android:paddingVertical="12dp"
+    android:layout_marginBottom="15dp"
+    android:background="@drawable/orderswhitebg"
+    android:gravity="center_vertical">
+
+
+    <!-- Item Image -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-
-        <ImageView
-            android:id="@+id/itemImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/item_id_lace"
-            android:layout_marginEnd="8dp" />
-
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/itemName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:inputType="text"
-                android:text="COMSOC ID LACE"
-                android:textSize="12sp" />
-
-            <TextView
-                android:paddingStart="4dp"
-                android:fontFamily="@font/montserrat"
-                android:id="@+id/itemVarId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="XL"
-                android:textSize="12sp"
-                android:textColor="@android:color/darker_gray" />
-        </LinearLayout>
-
-        <EditText
-            android:fontFamily="@font/montserrat"
-            android:id="@+id/itemPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center"
-            android:text="₱100.00"
-            android:textSize="12sp"
-            android:inputType="numberDecimal" />
-
-        <EditText
-            android:fontFamily="@font/montserrat"
-            android:id="@+id/itemStock"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="100"
-            android:textSize="12sp"
-            android:inputType="number" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_weight="1"
-                android:id="@+id/editIcon"
+                android:id="@+id/itemImage"
                 android:layout_width="50dp"
-                android:layout_height="20dp"
-                android:src="@drawable/edit_img" />
+                android:layout_height="50dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/item_id_lace" />
+        </LinearLayout>
 
-            <View
-                android:layout_marginTop="10dp"
-                android:background="#EE4B2B"
-                android:layout_weight="1"
-                android:id="@+id/deletebtn"
-                android:layout_width="50dp"
-                android:layout_height="20dp" />
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/itemName"
+                android:fontFamily="@font/montserrat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ITEM #1 LACE BSIT"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:id="@+id/itemVarId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="M"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:id="@+id/itemPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="5dp"
+                android:text="₱80.00"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:id="@+id/itemStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="5dp"
+                android:text="100/100"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <View
+
+    <!-- Item Name -->
+
+
+    <!-- Item Size -->
+
+
+    <!-- Item Price -->
+
+
+    <!-- Item Stock -->
+
+
+    <!-- Buttons -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/darker_gray" />
+        android:layout_height="35dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:id="@+id/editIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:text="UPDATE"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:backgroundTint="#d7bf28"/>
+
+
+        <Button
+            android:fontFamily="@font/montserrat_bold"
+            android:layout_marginStart="5dp"
+            android:id="@+id/deletebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:text="DELETE"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:backgroundTint="#d91a1a" />
+    </LinearLayout>
 </LinearLayout>
