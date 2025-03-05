@@ -38,6 +38,10 @@ public class StaffInventoryActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         searchBar = findViewById(R.id.search_bar);
+        searchBar.setIconified(false);
+        searchBar.setFocusable(true);
+        searchBar.setFocusableInTouchMode(true);
+        searchBar.requestFocus();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         productList = new ArrayList<>();
