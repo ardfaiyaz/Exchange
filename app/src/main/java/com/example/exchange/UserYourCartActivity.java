@@ -99,7 +99,7 @@ public class UserYourCartActivity extends AppCompatActivity {
                 }
 
                 runOnUiThread(() -> {
-                    adapter = new MyAdapter(this, ItemList, this::updateTotalPrice, userId);
+                    adapter = new MyAdapter(this, ItemList, this::updateTotalPrice, this::removeCartItem,userId);
                     recyclerView.setAdapter(adapter);
                     updateTotalPrice();
                 });
@@ -290,4 +290,49 @@ public class UserYourCartActivity extends AppCompatActivity {
     private void showToast(String message) {
         runOnUiThread(() -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show());
     }
+    public void removeCartItem(int cartId) {
+        new Thread(() -> {
+            try {
+                String url = "http://10.0.2.2/Exchange/remove_cart_items.php"; // Endpoint for removing cart item
+
+                JSONObject requestData = new JSONObject();
+                requestData.put("cart_id", cartId);
+
+                Log.d("CartRemove", "Sending Data: " + requestData.toString());
+
+                RequestBody body = RequestBody.create(MediaType.parse("application/json"), requestData.toString());
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(body)
+                        .addHeader("Content-Type", "application/json") // Ensure JSON is sent properly
+                        .build();
+                Response response = client.newCall(request).execute();
+
+                if (!response.isSuccessful() || response.body() == null) {
+                    Log.e("CartRemoveError", "Failed to remove item from cart. Response: " + response);
+                    showToast("Failed to remove item from cart");
+                    return;
+                }
+
+                String responseBody = response.body().string();
+                Log.d("CartRemove", "Server Response: " + responseBody);
+                JSONObject jsonResponse = new JSONObject(responseBody);
+
+                runOnUiThread(() -> {
+                    if ("success".equals(jsonResponse.optString("status", ""))) {
+                        showToast("Item removed from cart");
+                        fetchCartItems();  // Refresh cart after removal
+                    } else {
+                        showToast("Remove failed: " + jsonResponse.optString("message", "Unknown error"));
+                    }
+                });
+
+            } catch (Exception e) {
+                Log.e("CartRemoveError", "Exception while removing item from cart", e);
+                showToast("Error removing item from cart");
+            }
+        }).start();
+    }
+
+
 }

@@ -133,7 +133,7 @@
             android:layout_width="120dp"
             android:layout_height="40dp"
             android:backgroundTint="#FFC107"
-            android:text="Undo"
+            android:text="Remove"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -19,16 +19,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private Context context;
     private OnItemCheckedChangeListener listener;
     private int userId; // ✅ Corrected order
+    private OnRemoveButtonClickListener removeListener;
 
     public interface OnItemCheckedChangeListener {
         void onItemCheckedChanged();
     }
 
+    public interface OnRemoveButtonClickListener {
+        void onRemoveButtonClick(int cartId);
+    }
+
     // ✅ FIXED: Corrected argument order
-    public MyAdapter(Context context, List<Item> productList, OnItemCheckedChangeListener listener, int userId) {
+    public MyAdapter(Context context, List<Item> productList, OnItemCheckedChangeListener listener, OnRemoveButtonClickListener removeListener, int userId) {
         this.context = context;
         this.productList = productList;
         this.listener = listener;
+        this.removeListener = removeListener;
         this.userId = userId;
     }
 
@@ -81,6 +87,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 if (item.isSelected()) listener.onItemCheckedChanged();
             }
         });
+
+        holder.removeButton.setOnClickListener(v ->{
+            if (removeListener != null) {
+                removeListener.onRemoveButtonClick(item.getCartId());
+            }
+        });
     }
 
 
@@ -92,7 +104,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
         TextView productName, productVariation, productPrice, quantityText;
-        Button increaseQuantity, decreaseQuantity;
+        Button increaseQuantity, decreaseQuantity, removeButton;
         CheckBox selectCheckbox;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -105,6 +117,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             increaseQuantity = itemView.findViewById(R.id.increaseQuantity);
             decreaseQuantity = itemView.findViewById(R.id.decreaseQuantity);
             selectCheckbox = itemView.findViewById(R.id.selectCheckbox);
+            removeButton = itemView.findViewById(R.id.removeButton);
         }
     }
 }
