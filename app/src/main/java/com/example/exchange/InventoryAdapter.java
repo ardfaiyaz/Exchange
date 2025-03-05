@@ -34,6 +34,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.github.muddz.styleabletoast.StyleableToast;
+
 public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.ViewHolder> {
     private Context context;
     private List<InventoryProduct> productList;
@@ -98,7 +100,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
 
                 updateProduct(product);
             } catch (NumberFormatException e) {
-                Toast.makeText(context, "Invalid input for price or stock", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(context, "Invalid input for price or stock", R.style.accinputerror).show();
             }
         });
         holder.deletebtn.setOnClickListener(view -> {
@@ -141,18 +143,18 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
                         String message = jsonResponse.getString("message");
 
                         if (success) {
-                            Toast.makeText(context, message, R.style.placedordertoast).show();
+                            StyleableToast.makeText(context, message, R.style.placedordertoast).show();
                         } else {
-                            Toast.makeText(context, "Update failed: " + message, R.style.accinputerror).show();
+                            StyleableToast.makeText(context, "Update failed: " + message, R.style.accinputerror).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(context, "Invalid server response", R.style.accinputerror).show();
+                        StyleableToast.makeText(context, "Invalid server response", R.style.accinputerror).show();
                     }
                 },
                 error -> {
                     Log.e("UPDATE_ERROR", "Error: " + error.toString());
-                    Toast.makeText(context, "Failed to connect to server", R.style.accinputerror).show();
+                    StyleableToast.makeText(context, "Failed to connect to server", R.style.accinputerror).show();
                 }) {
             @Override
             protected Map<String, String> getParams() {
@@ -181,23 +183,23 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
 
                         if (status.equals("success")) {
                             String message = jsonResponse.getString("message");
-                            Toast.makeText(context, message, R.style.placedordertoast).show();
+                            StyleableToast.makeText(context, message, R.style.placedordertoast).show();
 
                             // Handle UI updates or list removal as needed
                             productList.remove(product); // Remove the product from the list
                             notifyDataSetChanged();
                         } else {
                             String message = jsonResponse.getString("message");
-                            Toast.makeText(context, "Error: " + message, R.style.accinputerror).show();
+                            StyleableToast.makeText(context, "Error: " + message, R.style.accinputerror).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(context, "Failed to parse server response", R.style.accinputerror).show();
+                        StyleableToast.makeText(context, "Failed to parse server response", R.style.accinputerror).show();
                     }
                 },
                 error -> {
                     Log.e("DELETE_ERROR", "Error: " + error.toString());
-                    Toast.makeText(context, "Failed to connect to server", R.style.accinputerror).show();
+                    StyleableToast.makeText(context, "Failed to connect to server", R.style.accinputerror).show();
                 }) {
             @Override
             protected Map<String, String> getParams() {
