@@ -30,7 +30,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
@@ -69,9 +70,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_bold"
-                        android:text="Flight Reacts"
+                        android:text="John Melthon Donaire"
                         android:textColor="#000000"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
