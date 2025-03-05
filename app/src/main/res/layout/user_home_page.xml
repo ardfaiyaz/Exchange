@@ -6,65 +6,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/userhomepagebg1">
+    android:background="#1c256c">
 
-    <SearchView
-        android:id="@+id/search_bar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="35dp"
-        android:background="@drawable/search_bar_custome_design"
-        android:iconifiedByDefault="false"
-        android:padding="8dp"
-        android:queryHint="Search by name" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="98dp"
-        android:background="#1c256c">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:gravity="center|bottom"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <SearchView
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/search_bar_custome_design"
+                android:iconifiedByDefault="false"
+                android:padding="8dp"
+                android:queryHint="Search by name" />
+        </LinearLayout>
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="#1c256c">
 
-            <com.denzcoskun.imageslider.ImageSlider
-                android:id="@+id/image_slider"
-                android:layout_width="match_parent"
-                android:layout_height="415dp"
-                app:iss_auto_cycle="true"
-                app:iss_delay="1000"
-                app:iss_period="1000"
-                app:iss_text_align="CENTER"
-                tools:ignore="MissingClass" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="10dp"
-                android:padding="5dp"
-                app:srcCompat="@drawable/homepagapplogo" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/staffhomepagerview"
-                tools:listitem="@layout/staff_home_rview_layout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingEnd="10dp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
-                android:paddingHorizontal="68dp"
-                android:paddingBottom="16dp"
-                android:clipToPadding="false"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2" />
+                android:orientation="vertical">
+
+                <com.denzcoskun.imageslider.ImageSlider
+                    android:id="@+id/image_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="415dp"
+                    app:iss_auto_cycle="true"
+                    app:iss_delay="1000"
+                    app:iss_period="1000"
+                    app:iss_text_align="CENTER"
+                    tools:ignore="MissingClass" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/homepagapplogo" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/staffhomepagerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="68dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    tools:listitem="@layout/staff_home_rview_layout" />
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
 
 
-        </LinearLayout>
-    </ScrollView>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bottomnav"

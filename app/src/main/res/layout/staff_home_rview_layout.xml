@@ -33,10 +33,9 @@
             android:text="ITEM #1" />
 
         <TextView
-            android:textSize="9dp"
+            android:textSize="12dp"
             android:textColor="#ff7301"
             android:fontFamily="@font/montserrat_bold"
-            android:padding="3dp"
             android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
