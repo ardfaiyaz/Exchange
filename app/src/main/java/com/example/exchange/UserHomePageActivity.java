@@ -148,7 +148,6 @@ public class UserHomePageActivity extends AppCompatActivity {
                 return true;
             }
         });
-
         searchBar.setOnCloseListener(() -> {
             resetList();
             return false;
